@@ -1,0 +1,50 @@
+.progress {
+  background-color: #5e5e5e;
+  width: 100px;
+  height: 4px;
+  border-radius: 4px;
+  position: relative;
+  transition-duration: .2s;
+
+  &__bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 0px;
+    border-radius: 4px;
+    background-color: #fff;
+    z-index: 1;
+  }
+
+  &__input {
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    border-radius: 4px;
+    background-color: transparent;
+    z-index: 2;
+
+    &[type='range'],
+    &[type='range']::-webkit-slider-runnable-track,
+    &[type='range']::-webkit-slider-thumb {
+      -webkit-appearance: none;
+    }
+
+    &[type='range']::-webkit-slider-thumb {
+      height: 10px;
+      width: 10px;
+      background: white;
+      border-radius: 50%;
+      transform: scale(0);
+      transition-duration: .1s;
+    }
+  }
+
+  &:hover {
+    .progress__input[type='range']::-webkit-slider-thumb{
+      
+      transform: scale(1.1);
+    }
+  }
+}

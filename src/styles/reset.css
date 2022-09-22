@@ -1,0 +1,64 @@
+@font-face {
+  font-family: "GothamNarrow";
+  src: url("../fonts/GothamNarrow.otf");
+}
+@font-face {
+  font-family: "GothamBook";
+  src: url("../fonts/GothamThin.otf");
+  font-weight: 100;
+}
+@font-face {
+  font-family: "GothamBook";
+  src: url("../fonts/GothamExtraLight.otf");
+  font-weight: 200;
+}
+@font-face {
+  font-family: "GothamBook";
+  src: url("../fonts/GothamLight.otf");
+  font-weight: 300;
+}
+@font-face {
+  font-family: "GothamBook";
+  src: url("../fonts/GothamBook.otf");
+  font-weight: 400;
+}
+@font-face {
+  font-family: "GothamBook";
+  src: url("../fonts/GothamBold.otf");
+  font-weight: 700;
+}
+@font-face {
+  font-family: "GothamBook";
+  src: url("../fonts/GothamBlack.otf");
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: "DroidMono";
+  src: url("../fonts/DroidSansMono.ttf");
+  font-weight: 400;
+}
+
+*, *::after, *::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "GothamBook", sans-serif;
+  color: #fff;
+  font-weight: 400;
+  background-color: #000;
+}
+
+#root {
+  width: 100vw;
+  max-width: 100vw;
+  min-height: 500px;
+  height: 100vh;
+}
+
+ul, ol {
+  list-style: none;
+}

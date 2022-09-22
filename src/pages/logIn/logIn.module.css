@@ -1,0 +1,67 @@
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.form {
+  text-align: center;
+  padding: 30px 40px 15px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 30px;
+}
+
+.input {
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 25px;
+  border: 2px solid transparent
+}
+
+.input:last-child {
+  margin-bottom: 0;
+}
+
+.error {
+  margin-bottom: 0;
+  border-color: #df2c4f;
+  margin-bottom: 3px;
+}
+
+.inputBlock {
+  margin-bottom: 30px;
+}
+
+.inputBlock:last-child {
+  margin-bottom: 20px;
+}
+
+.title {
+  display: block;
+  margin-bottom: 15px;
+}
+
+.errMsg {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 13px;
+}
+
+.errMsg:last-child {
+  margin-bottom: 0;
+}
+
+.errMsg:last-child {
+  margin-bottom: 20px;
+}
+
+.btn {
+  font-family: 'GothamBook', sanserif;
+  font-weight: 900;
+  padding: 15px 15px;
+  text-transform: uppercase;
+  border-radius: 30px;
+  transition-duration: .1s;
+}

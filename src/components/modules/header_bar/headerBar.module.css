@@ -1,0 +1,36 @@
+
+.header {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 40px;
+  color: #a0a0a0;
+}
+
+.container {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.arrow {
+  margin-right: 20px;
+}
+.arrow:last-child {margin-right: 0;}
+
+.auth {
+  margin: 0;
+}
+
+.user {}
+
+.btn {
+  margin-right: 30px;
+}
+.btn:last-child {margin-right: 0;}

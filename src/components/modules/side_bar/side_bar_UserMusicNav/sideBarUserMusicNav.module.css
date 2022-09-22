@@ -1,0 +1,54 @@
+.userMusic ul li {
+  margin-bottom: 18px;
+}
+
+.userMusic ul li:last-child {
+  margin-bottom: 0;
+}
+
+.userMusic .link {
+  display: flex;
+  align-items: center;
+  transition-duration: .2s;
+  width: 100%;
+}
+
+.userMusic .link:hover {
+  filter: brightness(130%);
+}
+
+.userMusic .link .text {
+  display: inline-block;
+  padding-left: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.userMusic .popup {
+  position: relative;
+  max-width: 100%;
+  width: fit-content;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 28px;
+  border-radius: 4px;
+}
+
+.likedSongs {
+  background: linear-gradient(120deg, rgba(73, 17, 255, 0.753) 30%, rgb(209, 209, 209) 100%);
+  font-size: 14px;
+}
+
+.playlist {
+  background-color: #aaaaaa;
+  color: rgb(19, 19, 19);
+  font-size: 26px;
+  line-height: 0;
+  font-weight: 400;
+}

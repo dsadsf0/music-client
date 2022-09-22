@@ -1,0 +1,54 @@
+.dialog {
+  background-color: #2072ec;
+  color: #fff;
+  min-width: 350px;
+  border-radius: 10px;
+  transition-duration: .2s;
+  top: -17px;
+  left: calc(100% + 45px);
+}
+
+.dialog::before {
+  display: block;
+  position: absolute;
+  content: '';
+  height: 0;
+  width: 0;
+  left: -15px;
+  top: 20px;
+  border: 8px solid transparent;
+  border-right: 8px solid #2072ec;
+}
+
+.dialog._active {
+  left: calc(100% + 55px);
+}
+
+.container {
+  padding: 20px;
+}
+
+.main {
+  margin-bottom: 30px;
+}
+
+.title {
+  color: #fff;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.text {
+  font-size: 13px;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.link {
+  margin-right: 25px;
+}
+.link:last-child{margin-right: 0;}

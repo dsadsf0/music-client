@@ -1,0 +1,50 @@
+:root {
+  --header-height: 75px;
+}
+
+.container {
+  display: grid;
+  grid-template-areas: "nav-bar main-view" "now-playing-bar now-playing-bar";
+  grid-template-columns: auto 1fr;
+  grid-template-rows: 1fr auto;
+  height: 100%;
+  min-height: 100%;
+  position: relative;
+  width: 100%;
+}
+
+.aside {
+  grid-area: nav-bar;
+  background-color: #000;
+  min-width: 170px;
+  width: auto;
+  max-width: 250px;
+  z-index: 3;
+}
+
+.header {
+  grid-area: main-view;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  height: var(--header-height);
+}
+
+.main {
+  grid-area: main-view;
+  min-width: 400px;
+  background-color: #0e0e0e;
+  background: linear-gradient(#1f1f1f 0%, #0e0e0e 100%); 
+  background-attachment: fixed;
+  z-index: 1;
+  padding-top: var(--header-height);
+}
+
+.footer {
+  grid-area: now-playing-bar;
+  background-color: #292929;
+  border-top: 1px solid #292929;
+  height: 84px;
+  /* max-height: 72px;
+  min-height: 72px; */
+  z-index: 4;
+}

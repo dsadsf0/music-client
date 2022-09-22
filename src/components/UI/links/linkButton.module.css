@@ -1,0 +1,37 @@
+.link {
+  cursor: pointer;
+  display: inline-block;
+  padding: 15px 30px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 30px;
+  transform: scale(1);
+  transition-duration: .1s;
+  text-align: center;
+}
+
+.base {
+  font-family: "GothamBook", sans-serif;
+  border: 0;
+  cursor: pointer;
+  color: #c1c1c1;
+  font-weight: 700;
+  font-size: 16px;
+  padding: 0;
+}
+
+.link:not(.base):hover {
+  transform: scale(1.1);
+}
+
+.white {
+  color: #000;
+  background-color: #fff;
+}
+
+.transparent {
+  color: inherit;
+  background-color: transparent;
+  padding: 10px;
+}

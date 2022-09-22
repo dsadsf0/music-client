@@ -1,0 +1,18 @@
+.link {
+  display: inline-block;
+  cursor: pointer;
+  color: #c1c1c1;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 16px;
+  text-align: center;
+}
+
+.link:hover {
+  color: #fff;
+  filter: brightness(150%);
+}
+
+.link._active {
+  color: #fff;
+}

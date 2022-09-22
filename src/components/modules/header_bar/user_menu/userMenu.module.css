@@ -1,0 +1,56 @@
+.user {
+  position: relative;
+  cursor: pointer;
+  transition-duration: .2s;
+}
+
+.user:hover {
+  color: #fff;
+}
+
+.username {
+  max-width: 200px;
+  min-width: 20px;
+  height: 25px;
+  line-height: 25px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.username._active {
+  color: #fff;
+}
+
+.userPopup {
+  cursor: default;
+  right: -15px;
+  top: 25px;
+  width: 150px;
+  border-radius: 6px;
+  background-color: #252525;
+  color: #a0a0a0;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  transition-duration: .2s;
+}
+
+.userPopup._active {
+  top: 35px;
+}
+
+.userbtn {
+  padding: 2px 4px;
+  transition-duration: .2s;
+  margin-bottom: 5px;
+  max-width: 130px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.userbtn:last-child {margin-bottom: 0;}
+
+.userbtn:hover {
+  filter: brightness(150%);
+  color: #fff;
+}

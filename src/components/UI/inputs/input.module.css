@@ -1,0 +1,36 @@
+.wrapper {
+  width: 300px;
+  height: 40px;
+  position: relative;
+  background-color: #fff;
+  border-radius: 30px;
+}
+
+.wrapper svg {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.wrapper input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  outline: 0;
+  border: 0;
+  background-color: transparent;
+  border-radius: 30px;
+  font-size: 14px;
+}
+
+.search input {
+  padding: 12px 15px 12px 45px;
+}
+
+.input input {
+  font-size: 16px;
+  padding: 12px 20px;
+}

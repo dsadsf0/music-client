@@ -1,0 +1,32 @@
+.nav ul li {
+  margin-bottom: 18px;
+}
+
+.nav ul li:last-child {
+  margin-bottom: 0;
+}
+
+.nav .link {
+  display: flex;
+  align-items: center;
+  transition-duration: .2s;
+  width: 100%;
+}
+
+.nav .link svg{
+  min-width: 28px;
+}
+
+.nav .link span {
+  display: inline-block;
+  padding-left: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nav .popup {
+  position: relative;
+  max-width: 100%;
+  width: fit-content;
+}

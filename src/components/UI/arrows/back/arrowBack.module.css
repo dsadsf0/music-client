@@ -1,0 +1,23 @@
+.arrow {
+  cursor: not-allowed;
+  padding-top: 4px;
+  padding-left: 4px;
+  width: 32px;
+  height: 32px;
+  color: #a0a0a0;
+  background: rgba(5, 5, 5, 1);
+  border-radius: 50%;
+  transition-duration: .2s;
+}
+
+.arrow._active {
+  cursor: pointer;
+  color: #eeeeee;
+  background: rgba(0, 0, 0, 1);
+}
+
+.arrow._active:hover {
+  color: #fff;
+  background: rgba(0, 0, 0, 1);
+  filter: brightness(130%);
+}
