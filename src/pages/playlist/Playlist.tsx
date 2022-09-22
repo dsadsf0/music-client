@@ -127,18 +127,25 @@ const Playlist = memo(() => {
             </svg>
         }
       </button>
-      {
-        songs.map((song) =>
-          <div
-            key={song._id}
-          >
-            {song.name}
-          </div>
-        )
-      }
-      {
-        isSongsLoading ? <Loader/> : null
-      }
+      <div className={cl.songList}>
+        <div className={`${cl.songList__songBlock} ${cl.songList__block_intro}`}>
+
+        </div>
+        {
+          songs.map((song) =>
+            <div
+              className={cl.songList__songBlock}
+              key={song._id}
+            >
+              {song.name}
+            </div>
+          )
+        }
+        {
+          isSongsLoading ? <Loader /> : null
+        }
+      </div>
+      
       <div className={cl.test}></div>
     </div>
   )
