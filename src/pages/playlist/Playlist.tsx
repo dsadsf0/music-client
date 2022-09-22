@@ -110,7 +110,7 @@ const Playlist = memo(() => {
         onClick={setPlayer}
       >
         {
-          isPause 
+          isPause || playerSongs[0]?._id !== songs[0]?._id
           ?
             <svg 
             className={cl.play}
