@@ -1,10 +1,12 @@
-
 .header {
   display: flex;
   flex-direction: column;
   padding: 10px 40px;
-  color: #a0a0a0;
+  color: #cacaca;
+  margin-right: 13px;
+  transition-duration: .2s;
 }
+@media only screen and (hover: none) and (pointer: coarse) {.header {margin-right: 0;}}
 
 .container {
   flex: 1 1 auto;
@@ -33,4 +35,11 @@
 .btn {
   margin-right: 30px;
 }
+
 .btn:last-child {margin-right: 0;}
+
+@media (max-width: 650px) {
+  .btn {
+    margin-right: 10px;
+  }
+}
