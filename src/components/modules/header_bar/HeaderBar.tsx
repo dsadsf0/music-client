@@ -26,7 +26,10 @@ const HeaderBar = memo(({ className }: BaseProps) => {
             <Route 
               path='/search' 
               element={
-                <form role={'serach'}>
+                <form 
+                  role={'serach'}
+                  className={cl.form}
+                >
                   <Input
                     value={searchQuery}
                     onChange={e => setSearchQuery(e.currentTarget.value)}

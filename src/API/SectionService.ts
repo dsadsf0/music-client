@@ -28,7 +28,7 @@ export default class SectionService {
     }
   }
 
-  static async getSectionById(id: number) {
+  static async getSectionById(id: string) {
     try {
       const response = await api.get<ISection>(`${API_URL}/api/section/${id}`);
       return response.data;

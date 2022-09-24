@@ -8,6 +8,12 @@
 }
 @media only screen and (hover: none) and (pointer: coarse) {.header {margin-right: 0;}}
 
+@media (max-width: 630px) {
+  .header {
+    padding: 10px 20px;
+  }
+}
+
 .container {
   flex: 1 1 auto;
   display: flex;
@@ -26,19 +32,46 @@
 }
 .arrow:last-child {margin-right: 0;}
 
+@media only screen and (hover: none) and (pointer: coarse) {.arrow {display: none;}}
+
 .auth {
   margin: 0;
+}
+
+.form {
+  width: 300px;
+}
+
+@media (max-width: 850px) {
+  .form {
+    width: 200px;
+  }
+}
+
+@media (max-width: 750px) {
+  .form {
+    width: 150px;
+  }
+}
+
+@media (max-width: 660px) {
+  .form {
+    width: 120px;
+  }
 }
 
 .user {}
 
 .btn {
   margin-right: 30px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .btn:last-child {margin-right: 0;}
 
-@media (max-width: 650px) {
+@media (max-width: 735px) {
   .btn {
     margin-right: 10px;
   }
