@@ -115,7 +115,7 @@
   }
 
   .songList {
-    padding-bottom: 20px;
+    padding-bottom: 10px;
 
     &__intro {
       padding: 10px 30px;
@@ -126,16 +126,14 @@
       align-items: center;
       justify-content: start;
       color: #c0c0c0;
-      margin-bottom: 25px;
+      margin-bottom: 10px;
       background-color: transparent;
-      transition-duration: .1s;
     }
 
     .songBlock {
-      margin-bottom: 10px;
-      &:last-child{margin-bottom: 0;}
-      
+            
       &__index {
+        flex: 0 0 50px;
         width: 50px;
         text-align: center;
         font-size: 16px;
@@ -151,10 +149,5 @@
         line-height: 14px;
       }
     }
-  }
-
-
-  .test { 
-    height: 900px;
   }
 }

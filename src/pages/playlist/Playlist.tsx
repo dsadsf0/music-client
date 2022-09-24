@@ -1,4 +1,4 @@
-import React, { createRef, memo, useCallback, useEffect, useState } from 'react'
+import React, { createRef, memo, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import PlaylistService from '../../API/PlaylistService';
 import { useFetching } from '../../hooks/fetching';
@@ -15,7 +15,6 @@ import SongBlock from './song_block/SongBlock';
 
 const Playlist = memo(() => {
   const playlisId = useParams().id || ''
-  const imgRef = createRef<HTMLImageElement>()
   const songListIntroRef = createRef<HTMLDivElement>()
   const [avgColor, setAvgColor] = useState({r: 31, g:31, b: 31})
   const dispatch = useAppDispatch()
@@ -37,23 +36,34 @@ const Playlist = memo(() => {
   })
   
   const setPlayer = () => {
-    if (playerSongs[0]?._id !== songs[0]?._id) {
-      dispatch(playerSlice.actions.setSongs(songs))
-      dispatch(playerSlice.actions.setCurrentSong(songs[0]))
-      dispatch(playerSlice.actions.setPlaylistCover(playlist.cover))
-      dispatch(playerSlice.actions.setAutoplay(false))
-      dispatch(playerSlice.actions.setIsPause(false))
-    } else {
-      if (isPause)  
+    if (!isSongsLoading) {
+      if (playerSongs[0]?._id !== songs[0]?._id) {
+        dispatch(playerSlice.actions.setSongs(songs))
+        dispatch(playerSlice.actions.setCurrentSong(songs[0]))
+        dispatch(playerSlice.actions.setPlaylistCover(playlist.cover))
+        dispatch(playerSlice.actions.setAutoplay(false))
         dispatch(playerSlice.actions.setIsPause(false))
-      else  
-        dispatch(playerSlice.actions.setIsPause(true))
+      } else {
+        if (isPause)
+          dispatch(playerSlice.actions.setIsPause(false))
+        else
+          dispatch(playerSlice.actions.setIsPause(true))
+      }
     }
   }  
 
+  const setSong = (song: ISong) => {
+    if (playerSongs.findIndex(item => item._id === song._id) === songs.findIndex(item => item._id === song._id)) {
+      dispatch(playerSlice.actions.setCurrentSong(song))
+      dispatch(playerSlice.actions.setIsPause(false))
+    } else {
+      setPlayer()
+      dispatch(playerSlice.actions.setCurrentSong(song))
+    }
+  }
+
   useEffect(() => {
     fetchPlaylist()
-    fetchSongs()
   }, []);
 
   useEffect(() => {
@@ -61,7 +71,7 @@ const Playlist = memo(() => {
       fetchSongs()
   }, [isPlaylistLoading]);
 
-  const coloring = useCallback(() => {
+  useEffect((()=> {
     const coloring = () => {
       if (main?.scrollTop && main?.scrollTop >= 310) {
         if (header) header.style.backgroundColor = `rgb(${avgColor.r * .8},${avgColor.g * .8},${avgColor.b * .8})`
@@ -69,11 +79,15 @@ const Playlist = memo(() => {
       else {
         if (header) header.style.backgroundColor = 'rgba(0, 0, 0, 0.5)'
       }
+    }
 
-      if (songListIntroRef.current?.getBoundingClientRect().top === 75) {
-        songListIntroRef.current.style.backgroundColor = '#202020'
-      } else {
-        if (songListIntroRef.current) songListIntroRef.current.style.backgroundColor = 'transparent'
+    if (playlist.cover) {
+      const imgEl = document.createElement('img')
+      imgEl.crossOrigin = 'Anonymous'
+      imgEl.src = `${API_URL}/covers/${playlist?.cover}`
+      imgEl.onload = () => {
+        const color = getAverageRGB(imgEl)
+        setAvgColor({ r: color.r, g: color.g, b: color.b })
       }
     }
 
@@ -83,13 +97,25 @@ const Playlist = memo(() => {
 
     return () => {
       main?.removeEventListener('scroll', coloring)
-      header ? header.style.backgroundColor = 'rgba(0, 0, 0, 0.5)' : console.log();
+      if (header) header.style.backgroundColor = 'rgba(0, 0, 0, 0.5)'
+    }
+  }), [playlist.cover, avgColor.r, avgColor.g, avgColor.b])
+  
+  useEffect(() => {
+    const coloring = () => {
+      if (songListIntroRef.current?.getBoundingClientRect().top === 75) {
+        songListIntroRef.current.style.backgroundColor = '#202020'
+      } else if (songListIntroRef.current) 
+        songListIntroRef.current.style.backgroundColor = 'transparent'
+    }
+
+    const main = document.querySelector('main')
+    main?.addEventListener('scroll', coloring)
+
+    return () => {
+      main?.removeEventListener('scroll', coloring)
     }
   }, [songListIntroRef])
-
-  useEffect((()=> {
-    coloring()
-  }), [songListIntroRef])
 
   useEffect(() => {
     if (isAuth && !isSongsLoading && !playerSongs.length) dispatch(playerSlice.actions.setSongs(songs))
@@ -125,13 +151,6 @@ const Playlist = memo(() => {
             <img
               src={`${API_URL}/covers/${playlist?.cover || 'nf.png'}`}
               alt={`playlist cover: ${playlist.title}`}
-              ref={imgRef}
-              onLoad={() => {
-                if (imgRef?.current) {
-                  const color = getAverageRGB(imgRef?.current)
-                  setAvgColor({ r: color.r, g: color.g, b: color.b })
-                }
-              }}
             />
           </div>
           <div className={cl.info}>
@@ -181,15 +200,15 @@ const Playlist = memo(() => {
               className={cl.songBlock}
               key={song._id}
               song={song}
-              index={i}
+              index={i+1}
               playlistCover={playlist.cover}
+              playTrack={setSong}
             />
           )
         }
         {
           isSongsLoading ? <Loader /> : null
         }
-        {/* <div className={cl.test}></div> */}
       </div>
     </div>
   )

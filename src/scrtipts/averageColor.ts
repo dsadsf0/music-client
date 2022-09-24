@@ -16,8 +16,6 @@ const getAverageRGB = (imgEl: HTMLImageElement) => {
     return defaultRGB;
   }
 
-  imgEl.crossOrigin = 'Anonymous'
-
   height = canvas.height = imgEl.naturalHeight || imgEl.offsetHeight || imgEl.height;
   width = canvas.width = imgEl.naturalWidth || imgEl.offsetWidth || imgEl.width;
 
