@@ -31,6 +31,7 @@ const PlaylistBlock = memo(({ className, playlistId }: Props) => {
       dispatch(playerSlice.actions.setAutoplay(true))
     else {
       e.preventDefault()
+      
       if (isPause)
         dispatch(playerSlice.actions.setIsPause(false))
       else
