@@ -5,8 +5,7 @@ import BaseProps from '../../../types/BaseProps'
 import ISong from './../../../types/ISong';
 import { API_URL } from '../../../API';
 import { useAppSeletor } from '../../../hooks/redux';
-import { Link } from 'react-router-dom';
-import { useSyncLinkToArrowNav } from '../../../hooks/syncLinkToArrowNav';
+import LinkStd from './../../../components/UI/links/LinkStd';
 
 interface Props extends BaseProps {
   song: ISong,
@@ -18,14 +17,12 @@ interface Props extends BaseProps {
 
 const SongBlock = memo(({ className, index, song, playlistCover, playTrack, isActive }: Props) => {
 
-  const sync = useSyncLinkToArrowNav();
   const { isAuth } = useAppSeletor(state => state.auth)
 
   if (!isAuth) return (
-    <Link
+    <LinkStd
       to='/login'
       className={`${cl.container} ${classNameCheck(className)}`}
-      onClick={sync}
     >
       <div className={cl.index}>{index}</div>
       <div className={cl.info}>
@@ -39,7 +36,7 @@ const SongBlock = memo(({ className, index, song, playlistCover, playTrack, isAc
           <div className={cl.info__author}>{song.author}</div>
         </div>
       </div>
-    </Link>
+    </LinkStd>
   )
 
   return (

@@ -19,6 +19,7 @@ const PlaylistBlock = memo(({ className, playlistId }: Props) => {
 
   const sync = useSyncLinkToArrowNav();
   const dispatch = useAppDispatch();
+  const { isAuth } = useAppSeletor(state => state.auth)
   const { currentPlaylistId, isPause } = useAppSeletor(state => state.player)
   const [playlist, setPlaylist] = useState<IPlaylist>()
   const [fetchPlaylist, isPlaylistLoading, fetchPlaylistError] = useFetching(async () => {
@@ -27,14 +28,16 @@ const PlaylistBlock = memo(({ className, playlistId }: Props) => {
   })
 
   const play = (e: React.MouseEvent) => {
-    if (currentPlaylistId !== playlistId)
-      dispatch(playerSlice.actions.setAutoplay(true))
-    else {
-      e.preventDefault()
-      if (isPause)
-        dispatch(playerSlice.actions.setIsPause(false))
-      else
-        dispatch(playerSlice.actions.setIsPause(true))
+    if (isAuth) {
+      if (currentPlaylistId !== playlistId)
+        dispatch(playerSlice.actions.setAutoplay(true))
+      else {
+        e.preventDefault()
+        if (isPause)
+          dispatch(playerSlice.actions.setIsPause(false))
+        else
+          dispatch(playerSlice.actions.setIsPause(true))
+      }
     }
   }
 
