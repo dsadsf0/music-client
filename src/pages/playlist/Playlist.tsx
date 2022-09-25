@@ -12,8 +12,10 @@ import { playerSlice } from './../../store/reducers/PlayerSlice';
 import { API_URL } from '../../API';
 import getAverageRGB from './../../scrtipts/averageColor';
 import SongBlock from './song_block/SongBlock';
+import LinkStd from './../../components/UI/links/LinkStd';
 
 const Playlist = memo(() => {
+  
   const playlistId = useParams().id || ''
   const songListIntroRef = createRef<HTMLDivElement>()
   const [avgColor, setAvgColor] = useState({r: 31, g:31, b: 31})
@@ -157,30 +159,46 @@ const Playlist = memo(() => {
             <p className={cl.description}>{playlist.description}</p>
           </div>
         </div>
-        <button
-          className={cl.btn}
-          onClick={setPlayer}
-        >
-          {
-            isPause || currentPlaylistId !== playlistId
-              ?
-              <svg
-                className={cl.play}
-                x="0px" y="0px" viewBox="0 0 494.148 494.148"
+        {
+          isAuth 
+            ?
+              <button
+                className={cl.btn}
+                onClick={setPlayer}
               >
-                <path d="M405.284,201.188L130.804,13.28C118.128,4.596,105.356,0,94.74,0C74.216,0,61.52,16.472,61.52,44.044v406.124c0,27.54,12.68,43.98,33.156,43.98c10.632,0,23.2-4.6,35.904-13.308l274.608-187.904c17.66-12.104,27.44-28.392,27.44-45.884C432.632,229.572,422.964,213.288,405.284,201.188z" />
-              </svg>
-              :
-                <div>
-                  <svg
-                    className={cl.pause}
-                    x="0px" y="0px" viewBox="0 0 47.607 47.607">
-                    <path d="M17.991,40.976c0,3.662-2.969,6.631-6.631,6.631l0,0c-3.662,0-6.631-2.969-6.631-6.631V6.631C4.729,2.969,7.698,0,11.36,0l0,0c3.662,0,6.631,2.969,6.631,6.631V40.976z" fill="currentColor" />
-                    <path d="M42.877,40.976c0,3.662-2.969,6.631-6.631,6.631l0,0c-3.662,0-6.631-2.969-6.631-6.631V6.631C29.616,2.969,32.585,0,36.246,0l0,0c3.662,0,6.631,2.969,6.631,6.631V40.976z" fill="currentColor" />
-                  </svg>
-                </div>
-          }
-        </button>
+                {
+                  isPause || currentPlaylistId !== playlistId
+                    ?
+                    <svg
+                      className={cl.play}
+                      x="0px" y="0px" viewBox="0 0 494.148 494.148"
+                    >
+                      <path d="M405.284,201.188L130.804,13.28C118.128,4.596,105.356,0,94.74,0C74.216,0,61.52,16.472,61.52,44.044v406.124c0,27.54,12.68,43.98,33.156,43.98c10.632,0,23.2-4.6,35.904-13.308l274.608-187.904c17.66-12.104,27.44-28.392,27.44-45.884C432.632,229.572,422.964,213.288,405.284,201.188z" />
+                    </svg>
+                    :
+                    <div>
+                      <svg
+                        className={cl.pause}
+                        x="0px" y="0px" viewBox="0 0 47.607 47.607">
+                        <path d="M17.991,40.976c0,3.662-2.969,6.631-6.631,6.631l0,0c-3.662,0-6.631-2.969-6.631-6.631V6.631C4.729,2.969,7.698,0,11.36,0l0,0c3.662,0,6.631,2.969,6.631,6.631V40.976z" fill="currentColor" />
+                        <path d="M42.877,40.976c0,3.662-2.969,6.631-6.631,6.631l0,0c-3.662,0-6.631-2.969-6.631-6.631V6.631C29.616,2.969,32.585,0,36.246,0l0,0c3.662,0,6.631,2.969,6.631,6.631V40.976z" fill="currentColor" />
+                      </svg>
+                    </div>
+                }
+              </button>
+            :
+              <LinkStd
+                to='/login'
+                className={cl.btn}
+              >
+                <svg
+                  className={cl.play}
+                  x="0px" y="0px" viewBox="0 0 494.148 494.148"
+                >
+                  <path d="M405.284,201.188L130.804,13.28C118.128,4.596,105.356,0,94.74,0C74.216,0,61.52,16.472,61.52,44.044v406.124c0,27.54,12.68,43.98,33.156,43.98c10.632,0,23.2-4.6,35.904-13.308l274.608-187.904c17.66-12.104,27.44-28.392,27.44-45.884C432.632,229.572,422.964,213.288,405.284,201.188z" />
+                </svg>
+              </LinkStd>
+        }
       </div>
       <div className={cl.songList}>
         <div 
