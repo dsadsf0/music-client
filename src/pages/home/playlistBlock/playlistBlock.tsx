@@ -8,7 +8,7 @@ import classNameCheck from '../../../scrtipts/classNameCheck';
 import BaseProps from '../../../types/BaseProps';
 import IPlaylist from '../../../types/IPlaylist';
 import cl from './playlistBlock.module.css'
-import { useAppDispatch } from './../../../hooks/redux';
+import { useAppDispatch, useAppSeletor } from './../../../hooks/redux';
 import { playerSlice } from './../../../store/reducers/PlayerSlice';
 
 interface Props extends BaseProps {
@@ -19,11 +19,24 @@ const PlaylistBlock = memo(({ className, playlistId }: Props) => {
 
   const sync = useSyncLinkToArrowNav();
   const dispatch = useAppDispatch();
+  const { currentPlaylistId, isPause } = useAppSeletor(state => state.player)
   const [playlist, setPlaylist] = useState<IPlaylist>()
   const [fetchPlaylist, isPlaylistLoading, fetchPlaylistError] = useFetching(async () => {
     const fetchedPlaylist: IPlaylist = await PlaylistService.getPlaylistById(playlistId);
     setPlaylist(fetchedPlaylist)
   })
+
+  const play = (e: React.MouseEvent) => {
+    if (currentPlaylistId !== playlistId)
+      dispatch(playerSlice.actions.setAutoplay(true))
+    else {
+      e.preventDefault()
+      if (isPause)
+        dispatch(playerSlice.actions.setIsPause(false))
+      else
+        dispatch(playerSlice.actions.setIsPause(true))
+    }
+  }
 
   useEffect(() => {
     fetchPlaylist();
@@ -60,14 +73,30 @@ const PlaylistBlock = memo(({ className, playlistId }: Props) => {
         style={{ backgroundImage: `url(${API_URL}/covers/${playlist?.cover || 'nf.png'})` }}
       >
         <button
-          onClick={(e: React.MouseEvent) => dispatch(playerSlice.actions.setAutoplay(true))}
+          onClick={play}
           className={cl.btn}
         >
-          <div>
-            <svg x="0px" y="0px" viewBox="0 0 494.148 494.148">
-              <path d="M405.284,201.188L130.804,13.28C118.128,4.596,105.356,0,94.74,0C74.216,0,61.52,16.472,61.52,44.044v406.124c0,27.54,12.68,43.98,33.156,43.98c10.632,0,23.2-4.6,35.904-13.308l274.608-187.904c17.66-12.104,27.44-28.392,27.44-45.884C432.632,229.572,422.964,213.288,405.284,201.188z" />
-            </svg>
-          </div>
+          {
+            isPause || currentPlaylistId !== playlistId
+              ?
+              <div>
+                <svg
+                  className={cl.play}
+                  x="0px" y="0px" viewBox="0 0 494.148 494.148"
+                >
+                  <path d="M405.284,201.188L130.804,13.28C118.128,4.596,105.356,0,94.74,0C74.216,0,61.52,16.472,61.52,44.044v406.124c0,27.54,12.68,43.98,33.156,43.98c10.632,0,23.2-4.6,35.904-13.308l274.608-187.904c17.66-12.104,27.44-28.392,27.44-45.884C432.632,229.572,422.964,213.288,405.284,201.188z" />
+                </svg>
+              </div>
+              :
+              <div>
+                <svg
+                  className={cl.pause}
+                  x="0px" y="0px" viewBox="0 0 47.607 47.607">
+                  <path d="M17.991,40.976c0,3.662-2.969,6.631-6.631,6.631l0,0c-3.662,0-6.631-2.969-6.631-6.631V6.631C4.729,2.969,7.698,0,11.36,0l0,0c3.662,0,6.631,2.969,6.631,6.631V40.976z" fill="currentColor" />
+                  <path d="M42.877,40.976c0,3.662-2.969,6.631-6.631,6.631l0,0c-3.662,0-6.631-2.969-6.631-6.631V6.631C29.616,2.969,32.585,0,36.246,0l0,0c3.662,0,6.631,2.969,6.631,6.631V40.976z" fill="currentColor" />
+                </svg>
+              </div>
+          }
         </button>
       </div>
       <div className={cl.title}>
