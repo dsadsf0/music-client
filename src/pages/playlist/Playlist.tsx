@@ -12,7 +12,6 @@ import { playerSlice } from './../../store/reducers/PlayerSlice';
 import { API_URL } from '../../API';
 import getAverageRGB from './../../scrtipts/averageColor';
 import SongBlock from './song_block/SongBlock';
-import comparePlaylistsSongs from './../../scrtipts/comparePlaylists';
 
 const Playlist = memo(() => {
   const playlisId = useParams().id || ''
@@ -21,7 +20,7 @@ const Playlist = memo(() => {
   const dispatch = useAppDispatch()
   const { isAuth } = useAppSeletor(state => state.auth)
   const playerSongs = useAppSeletor(state => state.player.songs)
-  const { autoplay, isPause, currentSong } = useAppSeletor(state => state.player)
+  const { autoplay, isPause, currentSong, currentPlaylistId } = useAppSeletor(state => state.player)
   const [playlist, setPlaylist] = useState<IPlaylist>({} as IPlaylist)
   const [songs, setSongs] = useState<ISong[]>([])
   const [fetchPlaylist, isPlaylistLoading, fetchPlaylistError] = useFetching(async () => {
@@ -38,9 +37,10 @@ const Playlist = memo(() => {
   
   const setPlayer = () => {
     if (!isSongsLoading) {
-      if (!comparePlaylistsSongs(playerSongs, songs)) {
+      if (currentPlaylistId !== playlisId) {
         dispatch(playerSlice.actions.setSongs(songs))
         dispatch(playerSlice.actions.setCurrentSong(songs[0]))
+        dispatch(playerSlice.actions.setCurrentPlaylistId(playlisId))
         dispatch(playerSlice.actions.setPlaylistCover(playlist.cover))
         dispatch(playerSlice.actions.setAutoplay(false))
         dispatch(playerSlice.actions.setIsPause(false))
@@ -54,7 +54,7 @@ const Playlist = memo(() => {
   }  
 
   const setSong = (song: ISong) => {
-    if (playerSongs.findIndex(item => item._id === song._id) === songs.findIndex(item => item._id === song._id)) {
+    if (currentPlaylistId === playlisId) {
       dispatch(playerSlice.actions.setCurrentSong(song))
       dispatch(playerSlice.actions.setIsPause(false))
     } else {
@@ -162,7 +162,7 @@ const Playlist = memo(() => {
           onClick={setPlayer}
         >
           {
-            isPause || !comparePlaylistsSongs(playerSongs, songs)
+            isPause || currentPlaylistId !== playlisId
               ?
               <svg
                 className={cl.play}
@@ -201,7 +201,7 @@ const Playlist = memo(() => {
               index={i+1}
               playlistCover={playlist.cover}
               playTrack={setSong}
-              isActive={comparePlaylistsSongs(playerSongs, songs) && currentSong?._id === song._id}
+              isActive={currentPlaylistId === playlisId && currentSong?._id === song._id}
             />
           )
         }

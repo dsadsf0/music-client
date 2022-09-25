@@ -4,6 +4,7 @@ import ISong from '../../types/ISong';
 interface PlayerState {
   songs: ISong[];
   currentSong: ISong | null;
+  currentPlaylistId: string,
   playlistCover: string; 
   isPause: boolean;
   volume: number;
@@ -17,6 +18,7 @@ interface PlayerState {
 const initState: PlayerState = {
   songs: [],
   currentSong: null,
+  currentPlaylistId: '',
   autoplay: false,
   isPause: true,
   volume: 0.1,
@@ -52,6 +54,9 @@ export const playerSlice = createSlice({
     },
     setDuration(state, action: PayloadAction<number>) {
       state.duration = action.payload
+    },
+    setCurrentPlaylistId(state, action: PayloadAction<string>) {
+      state.currentPlaylistId = action.payload
     },
     changeLoop(state) {
       state.loop = state.loop === 2 ? 0 : ++state.loop
