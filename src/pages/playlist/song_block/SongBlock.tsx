@@ -13,9 +13,10 @@ interface Props extends BaseProps {
   index?: number,
   playlistCover: string,
   playTrack: (song: ISong) => void
+  isActive: boolean
 }
 
-const SongBlock = memo(({className, index, song, playlistCover, playTrack}: Props) => {
+const SongBlock = memo(({ className, index, song, playlistCover, playTrack, isActive }: Props) => {
 
   const sync = useSyncLinkToArrowNav();
   const { isAuth } = useAppSeletor(state => state.auth)
@@ -43,7 +44,7 @@ const SongBlock = memo(({className, index, song, playlistCover, playTrack}: Prop
 
   return (
     <div 
-      className={`${cl.container} ${classNameCheck(className)}`}
+      className={`${cl.container} ${classNameCheck(className)} ${isActive ? cl._active : ''}`}
       onClick={() => playTrack(song)}
     >
       <div className={cl.index}>{index}</div>

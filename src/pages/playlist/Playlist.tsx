@@ -12,6 +12,7 @@ import { playerSlice } from './../../store/reducers/PlayerSlice';
 import { API_URL } from '../../API';
 import getAverageRGB from './../../scrtipts/averageColor';
 import SongBlock from './song_block/SongBlock';
+import comparePlaylistsSongs from './../../scrtipts/comparePlaylists';
 
 const Playlist = memo(() => {
   const playlisId = useParams().id || ''
@@ -20,7 +21,7 @@ const Playlist = memo(() => {
   const dispatch = useAppDispatch()
   const { isAuth } = useAppSeletor(state => state.auth)
   const playerSongs = useAppSeletor(state => state.player.songs)
-  const { autoplay, isPause } = useAppSeletor(state => state.player)
+  const { autoplay, isPause, currentSong } = useAppSeletor(state => state.player)
   const [playlist, setPlaylist] = useState<IPlaylist>({} as IPlaylist)
   const [songs, setSongs] = useState<ISong[]>([])
   const [fetchPlaylist, isPlaylistLoading, fetchPlaylistError] = useFetching(async () => {
@@ -37,7 +38,7 @@ const Playlist = memo(() => {
   
   const setPlayer = () => {
     if (!isSongsLoading) {
-      if (playerSongs[0]?._id !== songs[0]?._id) {
+      if (!comparePlaylistsSongs(playerSongs, songs)) {
         dispatch(playerSlice.actions.setSongs(songs))
         dispatch(playerSlice.actions.setCurrentSong(songs[0]))
         dispatch(playerSlice.actions.setPlaylistCover(playlist.cover))
@@ -139,10 +140,7 @@ const Playlist = memo(() => {
   }
 
   return (
-    <div 
-      className={cl.playlist}
-      
-    >
+    <div className={cl.playlist}>
       <div className={cl.playlist__header}
         style={{ backgroundImage: `linear-gradient(rgb(${avgColor.r * 1.2},${avgColor.g * 1.2},${avgColor.b*1.2}) 0%, rgb(${avgColor.r * 0.65},${avgColor.g * 0.65},${avgColor.b * 0.65}) 100%)` }}
       >
@@ -164,7 +162,7 @@ const Playlist = memo(() => {
           onClick={setPlayer}
         >
           {
-            isPause || playerSongs[0]?._id !== songs[0]?._id
+            isPause || !comparePlaylistsSongs(playerSongs, songs)
               ?
               <svg
                 className={cl.play}
@@ -203,6 +201,7 @@ const Playlist = memo(() => {
               index={i+1}
               playlistCover={playlist.cover}
               playTrack={setSong}
+              isActive={comparePlaylistsSongs(playerSongs, songs) && currentSong?._id === song._id}
             />
           )
         }
