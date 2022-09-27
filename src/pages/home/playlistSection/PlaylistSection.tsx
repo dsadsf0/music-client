@@ -1,11 +1,10 @@
 import React, { createRef, memo, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
-import { useSyncLinkToArrowNav } from '../../../hooks/syncLinkToArrowNav';
 import classNameCheck from '../../../scrtipts/classNameCheck';
 import BaseProps from '../../../types/BaseProps';
 import ISection from '../../../types/ISection';
 import PlaylistBlock from '../playlistBlock/playlistBlock';
 import cl from './playlistSection.module.css'
+import LinkStd from './../../../components/UI/links/LinkStd';
 
 interface Props extends BaseProps {
   section: ISection,
@@ -13,7 +12,6 @@ interface Props extends BaseProps {
 }
 
 const PlaylistSection = memo(({ className, section, playlistsId }: Props) => {
-  const sync = useSyncLinkToArrowNav()
   const sectionRef = createRef<HTMLDivElement>()
   const [playlistsCount, setPlaylistsCount] = useState<number>(1)
 
@@ -28,20 +26,18 @@ const PlaylistSection = memo(({ className, section, playlistsId }: Props) => {
   return (
     <div className={`${cl.section} ${classNameCheck(className)}`} ref={sectionRef}>
       <div className={cl.header}>
-        <Link
+        <LinkStd
           className={cl.title}
           to={`section/${section._id}`}
-          onClick={sync}
         >
           <h2>{section.title}</h2>
-        </Link>
-        <Link
+        </LinkStd>
+        <LinkStd
           className={cl.link}
           to={`section/${section._id}`}
-          onClick={sync}
         >
           See All
-        </Link>
+        </LinkStd>
       </div>
       <div 
         className={cl.content} 

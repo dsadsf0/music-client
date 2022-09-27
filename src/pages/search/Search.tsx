@@ -1,8 +1,9 @@
 import React, { memo } from 'react'
+import cl from './search.module.scss'
 
 const Search = memo(() => {
   return (
-    <div>Search</div>
+    <div className={cl.container}>Search</div>
   )
 })
 
