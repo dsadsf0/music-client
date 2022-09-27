@@ -1,23 +1,20 @@
 import React, { memo, useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
 import { API_URL } from '../../../API';
 import PlaylistService from '../../../API/PlaylistService';
 import { useFetching } from '../../../hooks/fetching';
-import { useSyncLinkToArrowNav } from '../../../hooks/syncLinkToArrowNav';
 import classNameCheck from '../../../scrtipts/classNameCheck';
 import BaseProps from '../../../types/BaseProps';
 import IPlaylist from '../../../types/IPlaylist';
 import cl from './playlistBlock.module.css'
 import { useAppDispatch, useAppSeletor } from './../../../hooks/redux';
 import { playerSlice } from './../../../store/reducers/PlayerSlice';
+import LinkStd from './../../../components/UI/links/LinkStd';
 
 interface Props extends BaseProps {
   playlistId: string
 }
 
 const PlaylistBlock = memo(({ className, playlistId }: Props) => {
-
-  const sync = useSyncLinkToArrowNav();
   const dispatch = useAppDispatch();
   const { isAuth } = useAppSeletor(state => state.auth)
   const { currentPlaylistId, isPause } = useAppSeletor(state => state.player)
@@ -67,10 +64,9 @@ const PlaylistBlock = memo(({ className, playlistId }: Props) => {
   }
 
   return (
-    <Link
+    <LinkStd
       className={`${cl.container} ${classNameCheck(className)}`}
       to={`/playlist/${playlist?._id}`}
-      onClick={sync}
     >
       <div className={cl.cover}
         style={{ backgroundImage: `url(${API_URL}/covers/${playlist?.cover || 'nf.png'})` }}
@@ -108,7 +104,7 @@ const PlaylistBlock = memo(({ className, playlistId }: Props) => {
       <div className={cl.text}>
         {playlist?.description}
       </div>
-    </Link>
+    </LinkStd>
   )
 })
 
