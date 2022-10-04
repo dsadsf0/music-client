@@ -1,40 +1,75 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import BaseProps from '../../../types/BaseProps';
 import ArrowForward from '../../UI/arrows/forward/ArrowForward';
 import cl from './headerBar.module.css';
 import ArrowBack from './../../UI/arrows/back/ArrowBack';
 import classNameCheck from './../../../scrtipts/classNameCheck';
 import LinkButton from './../../UI/links/LinkButton';
-import { Route, Routes } from 'react-router-dom';
-import Input from './../../UI/inputs/Input';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import AuthLayout from './../auth_layout/AuthLayout';
 import UserMenu from './user_menu/UserMenu';
-import { useAppSeletor } from '../../../hooks/redux';
+import SearchInput from './../../UI/inputs/SearchInput';
+
+let timerId: NodeJS.Timeout;
 
 const HeaderBar = memo(({ className }: BaseProps) => {
-
-  const {prevPath, nextPath} = useAppSeletor(state => state.path)
+  const location = useLocation().pathname;
   const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate()
+
+  const search = (e: React.FormEvent<HTMLInputElement>) => {
+    clearTimeout(timerId)
+    setSearchQuery(e.currentTarget.value)
+    const query = e.currentTarget.value
+    timerId = setTimeout(() => {
+      navigate(`/search/${query}`, { replace: true })
+    }, 500)
+  }
+
+  const clearQuery = () => {
+    setSearchQuery('')
+    navigate(`/search`, { replace: true })
+  }
+
+  useEffect(() => {
+    if ((location.split('/')[location.split('/').length - 1] === 'search')) clearQuery()
+  }, [location])
 
   return (
     <header className={`${cl.header} ${classNameCheck(className)}`}>
       <div className={cl.container}>
         <div className={cl.nav}>
-          <ArrowBack isActive={prevPath.length ? true : false} className={cl.arrow} />
-          <ArrowForward isActive={nextPath.length ? true : false} className={cl.arrow}/>
+          <ArrowBack className={cl.arrow} />
+          <ArrowForward className={cl.arrow}/>
           <Routes>
+            <Route
+              path='/search'
+              element={
+                <form
+                  role={'serach'}
+                  className={cl.form}
+                >
+                  <SearchInput
+                    value={searchQuery}
+                    setValue={setSearchQuery}
+                    onChange={search}
+                    placeholder='Artists, songs or podcasts'
+                  />
+                </form>
+              }
+            />
             <Route 
-              path='/search' 
+              path='/search/:query' 
               element={
                 <form 
                   role={'serach'}
                   className={cl.form}
                 >
-                  <Input
+                  <SearchInput
                     value={searchQuery}
-                    onChange={e => setSearchQuery(e.currentTarget.value)}
+                    setValue={setSearchQuery}
+                    onChange={search}
                     placeholder='Artists, songs or podcasts'
-                    style='search'
                   />
                 </form>
               }

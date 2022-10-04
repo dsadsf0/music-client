@@ -22,18 +22,11 @@
   outline: 0;
   border: 0;
   background-color: transparent;
+  padding: 12px 20px;
   border-radius: 30px;
-  font-size: 14px;
+  font-size: 16px;
+    
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.search input {
-  padding: 12px 15px 12px 45px;
-}
-
-.input input {
-  font-size: 16px;
-  padding: 12px 20px;
 }

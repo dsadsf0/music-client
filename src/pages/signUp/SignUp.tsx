@@ -20,7 +20,7 @@ const SignUp = memo(() => {
     dispatch(AuthCreators.clearErrors())
   }, [])
   
-  if (isAuth) return <Navigate to={'/'} />
+  if (isAuth) return <Navigate to={'/'} replace={true}/>
 
   return (
     <div className={cl.container}>
@@ -33,7 +33,6 @@ const SignUp = memo(() => {
               value={email}
               onChange={e => setEmail(e.currentTarget.value)}
               placeholder='email'
-              style='input'
               type='email'
             />
             {
@@ -54,7 +53,6 @@ const SignUp = memo(() => {
               value={password}
               onChange={e => setPassword(e.currentTarget.value)}
               placeholder='password'
-              style='input'
               type='password'
             />
             {
@@ -75,7 +73,6 @@ const SignUp = memo(() => {
               value={username}
               onChange={e => setUsername(e.currentTarget.value)}
               placeholder='username'
-              style='input'
             />
             {
               Error.username?.map(msg =>
