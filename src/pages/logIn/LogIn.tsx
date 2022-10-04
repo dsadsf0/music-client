@@ -21,7 +21,7 @@ const LogIn = memo(() => {
     dispatch(AuthCreators.clearErrors())
   }, [])
 
-  if (isAuth) return <Navigate to={'/'} /> 
+  if (isAuth) return <Navigate to={'/'} replace = {true}/> 
  
   return (
     <div className={cl.container}>
@@ -34,7 +34,6 @@ const LogIn = memo(() => {
               value={username}
               onChange={e => setUsername(e.currentTarget.value)}
               placeholder='username'
-              style='input'
             />
             {
               Error.username?.map(msg =>
@@ -54,7 +53,6 @@ const LogIn = memo(() => {
               value={password}
               onChange={e => setPassword(e.currentTarget.value)}
               placeholder='password'
-              style='input'
               type='password'
             />
             {

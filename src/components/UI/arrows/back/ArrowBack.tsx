@@ -3,16 +3,15 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import classNameCheck from '../../../../scrtipts/classNameCheck';
 import BaseProps from '../../../../types/BaseProps';
 import cl from './arrowBack.module.css';
-import { useAppDispatch } from './../../../../hooks/redux';
+import { useAppDispatch, useAppSeletor } from './../../../../hooks/redux';
 import { pathSlice } from './../../../../store/reducers/PathSlice';
 
 interface Props extends BaseProps {
-  isActive: boolean;
 }
 
-const ArrowBack = memo(({ className, isActive }: Props) => {
-  
-  const active = isActive ? '_active' : '';
+const ArrowBack = memo(({ className }: Props) => {
+  const { prevPath } = useAppSeletor(state => state.path)
+  const active = prevPath.length ? '_active' : '';
   const navigator = useNavigate();
   const location = useLocation().pathname;
   const { pushNext, popPrev } = pathSlice.actions;

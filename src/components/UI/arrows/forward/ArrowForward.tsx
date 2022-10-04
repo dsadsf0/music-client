@@ -3,16 +3,14 @@ import BaseProps from '../../../../types/BaseProps';
 import cl from './arrowForward.module.css';
 import classNameCheck from './../../../../scrtipts/classNameCheck';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../../../../hooks/redux';
+import { useAppDispatch, useAppSeletor } from '../../../../hooks/redux';
 import { pathSlice } from '../../../../store/reducers/PathSlice';
 
-interface Props extends BaseProps {
-  isActive: boolean;
-}
+interface Props extends BaseProps {}
 
-const ArrowForward = memo(({ className, isActive }: Props) => {
-
-  const active = isActive ? '_active' : '';
+const ArrowForward = memo(({ className }: Props) => {
+  const { nextPath } = useAppSeletor(state => state.path)
+  const active = nextPath.length ? '_active' : '';
   const navigator = useNavigate();
   const location = useLocation().pathname;
   const { pushPrev, popNext } = pathSlice.actions;
