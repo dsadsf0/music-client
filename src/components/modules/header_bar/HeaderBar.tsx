@@ -48,6 +48,7 @@ const HeaderBar = memo(({ className }: BaseProps) => {
                 <form
                   role={'serach'}
                   className={cl.form}
+                  onSubmit={e => {e.preventDefault()}}
                 >
                   <SearchInput
                     value={searchQuery}
@@ -64,6 +65,7 @@ const HeaderBar = memo(({ className }: BaseProps) => {
                 <form 
                   role={'serach'}
                   className={cl.form}
+                  onSubmit={e => { e.preventDefault() }}
                 >
                   <SearchInput
                     value={searchQuery}

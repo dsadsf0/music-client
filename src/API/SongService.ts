@@ -38,4 +38,14 @@ export default class SongService {
     }
   }
 
+  static async getSongsByQuery(query: string) {
+    try {
+      const response = await api.get<ISong[]>(`${API_URL}/api/songs/${query}`);
+      return response.data;
+    }
+    catch (error) {
+      throw error
+    }
+  }
+
 }
