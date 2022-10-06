@@ -38,4 +38,14 @@ export default class PlaylistService {
     }
   }
 
+  static async getPlaylistsByQuery(query: string) {
+    try {
+      const response = await api.get<IPlaylist[]>(`${API_URL}/api/playlists/${query}`);
+      return response.data;
+    }
+    catch (error) {
+      throw error
+    }
+  }
+
 }
