@@ -40,32 +40,32 @@ const Search = memo(() => {
               (!isPlaylistsLoading && !isSongsLoading && !playlists.length && !songs.length)
                 ? <h2 className={cl.nothing}>nothig was found</h2>
                 :
-                <div className={cl.container}>
-                  <SearchedSection
-                    title='Playlists'
-                    isFound={playlists.length !== 0}
-                  >
-                    {
-                      playlists.map(item =>
-                        <div key={item._id}>
-                          {item.title}
-                        </div>
-                      )
-                    }
-                  </SearchedSection>
-                  <SearchedSection
-                    title='songs'
-                    isFound={songs.length !== 0}
-                  >
-                    {
-                      songs.map(item =>
-                        <div key={item._id}>
-                          {item.name}
-                        </div>
-                      )
-                    }
-                  </SearchedSection>
-                </div>
+                  <div className={cl.container}>
+                    <SearchedSection
+                      title='Playlists'
+                      isFound={playlists.length !== 0}
+                    >
+                      {
+                        playlists.map(item =>
+                          <div key={item._id}>
+                            {item.title}
+                          </div>
+                        )
+                      }
+                    </SearchedSection>
+                    <SearchedSection
+                      title='songs'
+                      isFound={songs.length !== 0}
+                    >
+                      {
+                        songs.map(item =>
+                          <div key={item._id}>
+                            {item.name}
+                          </div>
+                        )
+                      }
+                    </SearchedSection>
+                  </div>
             }
           </>
       }
