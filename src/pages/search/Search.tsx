@@ -33,7 +33,8 @@ const Search = memo(() => {
   return (
     <>
       {
-        (isPlaylistsLoading || isSongsLoading) ? <Loader/> 
+        (isPlaylistsLoading || isSongsLoading) 
+        ? <Loader/> 
         : 
           <>
             {
@@ -43,7 +44,7 @@ const Search = memo(() => {
                   <div className={cl.container}>
                     <SearchedSection
                       title='Playlists'
-                      isFound={playlists.length !== 0}
+                      isFound={!!playlists.length}
                     >
                       {
                         playlists.map(item =>
@@ -55,7 +56,7 @@ const Search = memo(() => {
                     </SearchedSection>
                     <SearchedSection
                       title='songs'
-                      isFound={songs.length !== 0}
+                      isFound={!!songs.length}
                     >
                       {
                         songs.map(item =>
