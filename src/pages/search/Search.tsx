@@ -6,6 +6,8 @@ import cl from './search.module.scss'
 import IPlaylist from './../../types/IPlaylist';
 import ISong from './../../types/ISong';
 import SongService from '../../API/SongService'
+import SearchedSection from './searched_section/SearchedSection';
+import Loader from '../../components/UI/loader/Loader'
 
 const Search = memo(() => {
   const query = useParams().query || ''
@@ -27,29 +29,47 @@ const Search = memo(() => {
     fetchPlaylists()
     fetchSongs()
   }, [query])
+
   return (
-    <div className={cl.container}>
-      <div>
-        PLAYLISTS
-      </div>
+    <>
       {
-        playlists.map(item =>
-          <div key={item._id}>
-            {item.title}
-          </div>
-        )
+        (isPlaylistsLoading || isSongsLoading) ? <Loader/> 
+        : 
+          <>
+            {
+              (!isPlaylistsLoading && !isSongsLoading && !playlists.length && !songs.length)
+                ? <h2 className={cl.nothing}>nothig was found</h2>
+                :
+                <div className={cl.container}>
+                  <SearchedSection
+                    title='Playlists'
+                    isFound={playlists.length !== 0}
+                  >
+                    {
+                      playlists.map(item =>
+                        <div key={item._id}>
+                          {item.title}
+                        </div>
+                      )
+                    }
+                  </SearchedSection>
+                  <SearchedSection
+                    title='songs'
+                    isFound={songs.length !== 0}
+                  >
+                    {
+                      songs.map(item =>
+                        <div key={item._id}>
+                          {item.name}
+                        </div>
+                      )
+                    }
+                  </SearchedSection>
+                </div>
+            }
+          </>
       }
-      <div>
-        SONGS
-      </div>
-      {
-        songs.map(item =>
-          <div key={item._id}>
-            {item.name}
-          </div>
-        )
-      }
-    </div>
+    </>
   )
 })
 

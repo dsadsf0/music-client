@@ -4,7 +4,7 @@ import cl from './genres.module.scss'
 const Genres = memo(() => {
   return (
     <div className={cl.container}>
-      <h1 className={cl.title}>Genres</h1>
+      <h2 className={cl.title}>Genres</h2>
     </div>
   )
 })
