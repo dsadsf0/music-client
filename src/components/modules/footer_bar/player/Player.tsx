@@ -112,6 +112,7 @@ const Player = memo(({ className }: BaseProps) => {
             dispatch(playerSlice.actions.setCurrentSong(shuffledSongs[currentIndex + 1]))
           }
           audio.currentTime = 0.0;
+          audio.play()
         }  
         break;
       case 2:

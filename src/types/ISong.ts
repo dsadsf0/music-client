@@ -3,7 +3,7 @@ interface ISong {
   author: string, 
   name: string,
   src: string,
-  cover?: string,
+  cover: string,
 }
 
 export default ISong

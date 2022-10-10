@@ -28,7 +28,6 @@ const HeaderBar = memo(({ className }: BaseProps) => {
 
   const clearQuery = () => {
     setSearchQuery('')
-    navigate(`/search`, { replace: true })
   }
 
   useEffect(() => {
