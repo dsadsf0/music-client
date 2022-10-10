@@ -10,20 +10,15 @@ interface Props extends BaseProps {
 }
 
 const SearchedSection = memo(({ className, children, title, isFound }: Props) => {
+
+  if (!isFound) return null
   return (
-    <>
-      {
-        isFound 
-          ?
-            <section className={`${cl.section} ${classNameCheck(className)}`}>
-              <h2>{title}</h2>
-              <div className={cl.content}>
-                {children}
-              </div>
-            </section >
-          : null
-      }
-    </>
+    <section className={`${cl.section} ${classNameCheck(className)}`}>
+      <h2 className={cl.title}>{title}</h2>
+      <div className={cl.content}>
+        {children}
+      </div>
+    </section >
   )
 })
 

@@ -43,7 +43,6 @@ const PlaylistSection = memo(({ className, section, playlistsId }: Props) => {
         className={cl.content} 
       >
         {
-          
           playlistsId.slice(0, Math.min(playlistsCount, playlistsId.length)).map((id) =>
             <PlaylistBlock
               key={id}

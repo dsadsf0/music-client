@@ -19,11 +19,10 @@ const Section = memo(() => {
     fetchSection()
   }, []);
 
-  if (isSectionLoading) {
+  if (isSectionLoading) 
     return (
       <Loader />
     )
-  }
   
   return (
     <div className={cl.container}>

@@ -1,16 +1,8 @@
 .container {
   padding: 30px;
-  width: 100%;
-  height: 100%;
   display: flex;
   flex-wrap: wrap;
+  gap: 20px 30px;
 
-  .playlist {
-    margin-right: 20px;
-    margin-bottom: 20px;
-
-    &:last-child {
-      margin: 0;
-    }
-  }
+  .playlist {}
 }

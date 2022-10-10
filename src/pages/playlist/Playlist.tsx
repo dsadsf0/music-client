@@ -71,7 +71,7 @@ const Playlist = memo(() => {
 
   useEffect(() => {
     if (!isPlaylistLoading)
-      fetchSongs()
+      fetchSongs()    
   }, [isPlaylistLoading]);
 
   useEffect((()=> {
