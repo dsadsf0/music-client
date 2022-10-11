@@ -30,7 +30,6 @@ const UserMenu = memo(({ className }:BaseProps) => {
     document.body.addEventListener('click', listener);
     return function cleanup() { document.body.removeEventListener('click', listener) };
   }, [userDialogRef]);
-
   
   return (
     <div

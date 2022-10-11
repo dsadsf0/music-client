@@ -1,7 +1,7 @@
-import Iuser from './IUser';
+import IUser from './IUser';
 
 export default interface IAuthResponse {
   accessToken: string,
   refreshToken: string,
-  user: Iuser
+  user: IUser
 }
