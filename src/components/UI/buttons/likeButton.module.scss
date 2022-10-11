@@ -1,0 +1,44 @@
+.btn {
+  position: relative;
+  border: 0;
+  outline: 0;
+  display: inline-block;
+  background-color: transparent;
+  color: #b1b1b1;
+  padding: 8px;
+  line-height: 0;
+
+  &:hover {color: #fff;}
+
+  .heart {
+    height: 22px;
+    width: 22px;
+    transform: scale(1);
+    fill: transparent;
+    stroke: #b1b1b1;
+    stroke-width: 45px;
+    transition: transform .2s;
+  }
+
+  .inner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 22px;
+    height: 22px;
+    fill: #26d159;
+    stroke: #26d159;
+    stroke-width: 45px;
+    transition: transform .2s;
+  }
+
+  &._active {
+    .heart {
+      transform: scale(0);
+    }
+    .inner {
+      transform: translate(-50%, -50%) scale(1);
+    }    
+  }
+}

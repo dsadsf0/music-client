@@ -1,8 +1,11 @@
 import React, { memo } from 'react'
 import { API_URL } from '../../../API'
+import UserService from '../../../API/UserService'
+import LikeButton from '../../../components/UI/buttons/LikeButton'
 import LinkStd from '../../../components/UI/links/LinkStd'
-import { useAppSeletor } from '../../../hooks/redux'
+import { useAppDispatch, useAppSeletor } from '../../../hooks/redux'
 import classNameCheck from '../../../scrtipts/classNameCheck'
+import { authSlice } from '../../../store/reducers/AuthSlice'
 import BaseProps from '../../../types/BaseProps'
 import ISong from '../../../types/ISong'
 import cl from './searchedSong.module.scss'
@@ -15,8 +18,18 @@ interface Props extends BaseProps {
 
 const SearchedSong = memo(({ song, className, playTrack, isActive }: Props) => {
 
-  const { isAuth } = useAppSeletor(state => state.auth)
-  const { currentSong } = useAppSeletor(state => state.player)
+  const { isAuth, user } = useAppSeletor(state => state.auth)
+  const dispatch = useAppDispatch()
+
+  const like = async (e: React.MouseEvent) => {
+    e.stopPropagation()
+    if (!user.likedSongs.includes(song._id)) {
+      dispatch(authSlice.actions.addLikedSong(song._id))
+    } else {
+      dispatch(authSlice.actions.removeLikedSong(song._id))
+    }
+    UserService.likeSong(user.id, song._id)
+  }
 
   if (!isAuth) return (
     <LinkStd
@@ -53,6 +66,11 @@ const SearchedSong = memo(({ song, className, playTrack, isActive }: Props) => {
           <div className={cl.info__author}>{song.author}</div>
         </div>
       </div>
+      <LikeButton
+        className={cl.likeBtn}
+        isActive={user.likedSongs.includes(song._id)}
+        like={like}
+      />
     </div>
   )
 })

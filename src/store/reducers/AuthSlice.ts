@@ -31,7 +31,16 @@ export const authSlice = createSlice({
     },
     setError(state, action: PayloadAction<IAuthError>) {
       state.Error = action.payload
-    }
+    },
+    setLikedSongs(state, action: PayloadAction<string[]>) {
+      state.user.likedSongs = action.payload
+    }, 
+    addLikedSong(state, action: PayloadAction<string>) {
+      state.user.likedSongs = [...state.user.likedSongs, action.payload]
+    },
+    removeLikedSong(state, action: PayloadAction<string>) {
+      state.user.likedSongs = state.user.likedSongs.filter(song => song !== action.payload)
+    },
   }
 })
 

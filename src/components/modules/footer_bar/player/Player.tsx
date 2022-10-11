@@ -9,6 +9,9 @@ import { playerSlice } from './../../../../store/reducers/PlayerSlice';
 import { curSongTime, durSong } from './../../../../scrtipts/songTime';
 import RangeInput from '../../../UI/inputs/RangeInput';
 import mobileChek from '../../../../scrtipts/mobileCheck';
+import LikeButton from '../../../UI/buttons/LikeButton';
+import { authSlice } from '../../../../store/reducers/AuthSlice';
+import UserService from '../../../../API/UserService';
 
 let audio: HTMLAudioElement;
 
@@ -24,6 +27,19 @@ const Player = memo(({ className }: BaseProps) => {
     }
     return [...songs]
   }, [shuffle, songs])
+
+  const { user } = useAppSeletor(state => state.auth)
+
+  const like = async (e: React.MouseEvent) => {
+    if (currentSong) {
+      if (!user.likedSongs.includes(currentSong._id)) {
+        dispatch(authSlice.actions.addLikedSong(currentSong._id))
+      } else {
+        dispatch(authSlice.actions.removeLikedSong(currentSong._id))
+      }
+      UserService.likeSong(user.id, currentSong._id)
+    }
+  }
 
   useEffect(() => {
     if (!audio) { 
@@ -236,6 +252,11 @@ const Player = memo(({ className }: BaseProps) => {
           </div>
         </div>
         <div className={cl.side}>
+          <LikeButton
+            className={cl.likeBtn}
+            isActive={currentSong ? user.likedSongs.includes(currentSong._id) : false}
+            like={like}
+          />
           <div className={cl.volume} style={{ display: mobileChek(navigator,window) ? 'none' : 'flex' }}>
             <span 
               className={`icon-volume-up ${cl.volume__icon} ${volumeDisabled ? cl._disabled : ''}`}

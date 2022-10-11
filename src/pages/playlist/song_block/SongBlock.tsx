@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from 'react'
+import React, { memo } from 'react'
 import cl from './songBlock.module.scss'
 import classNameCheck from '../../../scrtipts/classNameCheck'
 import BaseProps from '../../../types/BaseProps'
@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSeletor } from '../../../hooks/redux';
 import LinkStd from './../../../components/UI/links/LinkStd';
 import UserService from './../../../API/UserService';
 import { authSlice } from '../../../store/reducers/AuthSlice';
+import LikeButton from '../../../components/UI/buttons/LikeButton';
 
 interface Props extends BaseProps {
   song: ISong,
@@ -23,13 +24,13 @@ const SongBlock = memo(({ className, index, song, playlistCover, playTrack, isAc
   const dispatch = useAppDispatch()
 
   const like = async (e: React.MouseEvent) => {
-    e.stopPropagation()    
-    const res = await UserService.likeSong(user.id, song._id)
-    if (user.likedSongs.indexOf(song._id) === -1) {
-      dispatch(authSlice.actions.setUser({...user, likedSongs: [...user.likedSongs, song._id] }))
+    e.stopPropagation()
+    if (!user.likedSongs.includes(song._id)) {
+      dispatch(authSlice.actions.addLikedSong(song._id))
     } else {
-      dispatch(authSlice.actions.setUser({ ...user, likedSongs: user.likedSongs.filter(item => item !== song._id) }))
+      dispatch(authSlice.actions.removeLikedSong(song._id))
     }
+    UserService.likeSong(user.id, song._id)
   }
 
   if (!isAuth) return (
@@ -70,12 +71,11 @@ const SongBlock = memo(({ className, index, song, playlistCover, playTrack, isAc
         </div>
       </div>
       <div>
-        {
-          user.likedSongs.indexOf(song._id) !== -1 ? <p>liked</p> : null
-        }
-        <button onClick={(e: React.MouseEvent) => {like(e)}}>
-          like
-        </button>
+        <LikeButton
+          className={cl.likeBtn}
+          isActive={user.likedSongs.includes(song._id)}
+          like={like}
+        />
       </div>
     </div>
   )
