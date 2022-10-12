@@ -11,6 +11,7 @@ import Section from './../../../pages/section/Section';
 import LogIn from './../../../pages/logIn/LogIn';
 import SignUp from './../../../pages/signUp/SignUp';
 import Search from './../../../pages/search/Search';
+import LikedSongs from '../../../pages/liked_songs/LikedSongs'
 
 const Main = ({ className }: BaseProps) => {
   return (
@@ -24,6 +25,7 @@ const Main = ({ className }: BaseProps) => {
         <Route path='/search/:query' element={<Search />} />
         <Route path='/section/:id' element={<Section/>} />
         <Route path='/playlist/:id' element={<Playlist />} />
+        <Route path='/liked' element={<LikedSongs/> } />
         <Route path='*' element={<NotFound />} />
       </Routes>   
     </main>
