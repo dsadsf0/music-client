@@ -25,7 +25,7 @@ const Main = ({ className }: BaseProps) => {
         <Route path='/search/:query' element={<Search />} />
         <Route path='/section/:id' element={<Section/>} />
         <Route path='/playlist/:id' element={<Playlist />} />
-        <Route path='/liked' element={<LikedSongs/> } />
+        <Route path='/songs' element={<LikedSongs/> } />
         <Route path='*' element={<NotFound />} />
       </Routes>   
     </main>

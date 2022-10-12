@@ -54,8 +54,8 @@ const SideBarNav = memo(({ className, }: Props) => {
           authed={
             <li>
               <LinkPage
-                to='/library'
-                isActive={curPath === '/library'}
+                to='/playlists'
+                isActive={curPath === '/playlists'}
                 className={`${cl.link}`}
               >
                 {library}

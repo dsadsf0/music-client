@@ -45,8 +45,8 @@ const SideBarUserMusicNav = memo(({ className, }: Props) => {
           authed={
             <li>
               <LinkPage
-                to='/playlists'
-                isActive={curPath === '/playlists'}
+                to='/playlists/create'
+                isActive={curPath === '/playlists/create'}
                 className={`${cl.link}`}
               >
                 {CreatePlaylist}
@@ -73,8 +73,8 @@ const SideBarUserMusicNav = memo(({ className, }: Props) => {
           authed={
             <li>
               <LinkPage
-                to='/liked'
-                isActive={curPath === '/liked'}
+                to='/songs'
+                isActive={curPath === '/songs'}
                 className={`${cl.link}`}
               >
                 {LikedSongs}
