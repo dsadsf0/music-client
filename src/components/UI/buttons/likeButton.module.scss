@@ -8,7 +8,11 @@
   padding: 8px;
   line-height: 0;
 
-  &:hover {color: #fff;}
+  &:hover {
+    .heart {
+      filter: brightness(130%);
+    }
+  }
 
   .heart {
     height: 22px;
@@ -17,7 +21,7 @@
     fill: transparent;
     stroke: #b1b1b1;
     stroke-width: 45px;
-    transition: transform .2s;
+    transition: transform .2s, filter .1s;
   }
 
   .inner {

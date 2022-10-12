@@ -4,40 +4,6 @@
 
   &__header {
     padding: 105px 30px 30px 30px;
-
-    .btn {
-      display: block;
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      background-color: #13ca55;
-      transition-duration: .15s;
-      transform: scale(1);
-      border: 0;
-      outline: 0;
-      position: relative;
-  
-      &:hover {
-        transform: scale(1.05);
-      }
-  
-      .play,
-      .pause {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        width: 25px;
-        height: 25px;
-        max-width: 25px;
-        max-height: 25px;
-        transform: translate(-50%, -50%);
-      }
-  
-      .play {
-        transform: translate(-44%, -48%);
-      }
-  
-    }
   }
 
   &__intro {
@@ -121,6 +87,7 @@
     &__intro {
       padding: 10px 30px;
       position: sticky;
+      z-index: 4;
       top: 0px;
       border-bottom: 1px solid #808080;
       display: flex;
@@ -148,6 +115,53 @@
         font-size: 14px;
         font-weight: 400;
         line-height: 14px;
+      }
+    }
+  }
+
+  .playlistBtns {
+    display: flex;
+    align-items: center;
+
+    .btn {
+      display: block;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background-color: #13ca55;
+      transition-duration: .15s;
+      transform: scale(1);
+      border: 0;
+      outline: 0;
+      position: relative;
+      margin-right: 20px;
+  
+      &:hover {
+        transform: scale(1.05);
+      }
+  
+      .play,
+      .pause {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 25px;
+        height: 25px;
+        max-width: 25px;
+        max-height: 25px;
+        transform: translate(-50%, -50%);
+      }
+  
+      .play {
+        transform: translate(-44%, -48%);
+      }
+    }
+
+    .likeBtn {
+      cursor: pointer;
+      svg {
+        height: 40px;
+        width: 40px;
       }
     }
   }
