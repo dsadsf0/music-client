@@ -1,6 +1,7 @@
 import api, { API_URL } from ".";
 import IUser from "../types/IUser";
 import ISong from './../types/ISong';
+import IPlaylist from './../types/IPlaylist';
 
 export default class UserService {
   
@@ -27,6 +28,16 @@ export default class UserService {
   static async getLikedSongs(userId: string) {
     try {
       const res = await api.get<ISong[]>(`${API_URL}/api/user/like/song/${userId}`)
+      return res.data
+    }
+    catch (error) {
+      throw error
+    }
+  }
+
+  static async getLikedPlaylists(userId: string) {
+    try {
+      const res = await api.get<IPlaylist[]>(`${API_URL}/api/user/like/playlist/${userId}`)
       return res.data
     }
     catch (error) {
