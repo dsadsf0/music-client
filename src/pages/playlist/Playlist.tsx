@@ -13,6 +13,9 @@ import { API_URL } from '../../API';
 import getAverageRGB from './../../scrtipts/averageColor';
 import SongBlock from './song_block/SongBlock';
 import LinkStd from './../../components/UI/links/LinkStd';
+import LikeButton from '../../components/UI/buttons/LikeButton';
+import { authSlice } from '../../store/reducers/AuthSlice';
+import UserService from '../../API/UserService';
 
 const Playlist = memo(() => {
   
@@ -20,7 +23,7 @@ const Playlist = memo(() => {
   const songListIntroRef = createRef<HTMLDivElement>()
   const [avgColor, setAvgColor] = useState({r: 31, g:31, b: 31})
   const dispatch = useAppDispatch()
-  const { isAuth } = useAppSeletor(state => state.auth)
+  const { isAuth, user } = useAppSeletor(state => state.auth)
   const playerSongs = useAppSeletor(state => state.player.songs)
   const { autoplay, isPause, currentSong, currentPlaylistId } = useAppSeletor(state => state.player)
   const [playlist, setPlaylist] = useState<IPlaylist>({} as IPlaylist)
@@ -62,6 +65,17 @@ const Playlist = memo(() => {
     } else {
       setPlayer()
       dispatch(playerSlice.actions.setCurrentSong(song))
+    }
+  }
+
+  const likePlaylist = async (e: React.MouseEvent) => {
+    if (playlistId) {
+      if (!user.likedPlaylists.includes(playlistId)) {
+        dispatch(authSlice.actions.addLikedPlaylist(playlistId))
+      } else {
+        dispatch(authSlice.actions.removeLikedlaylist(playlistId))
+      }
+      UserService.likePlaylist(user.id, playlistId)
     }
   }
 
@@ -159,9 +173,10 @@ const Playlist = memo(() => {
             <p className={cl.description}>{playlist.description}</p>
           </div>
         </div>
-        {
-          isAuth 
-            ?
+        <div className={cl.playlistBtns}>
+          {
+            isAuth
+              ?
               <button
                 className={cl.btn}
                 onClick={setPlayer}
@@ -186,7 +201,7 @@ const Playlist = memo(() => {
                     </div>
                 }
               </button>
-            :
+              :
               <LinkStd
                 to='/login'
                 className={cl.btn}
@@ -198,7 +213,13 @@ const Playlist = memo(() => {
                   <path d="M405.284,201.188L130.804,13.28C118.128,4.596,105.356,0,94.74,0C74.216,0,61.52,16.472,61.52,44.044v406.124c0,27.54,12.68,43.98,33.156,43.98c10.632,0,23.2-4.6,35.904-13.308l274.608-187.904c17.66-12.104,27.44-28.392,27.44-45.884C432.632,229.572,422.964,213.288,405.284,201.188z" />
                 </svg>
               </LinkStd>
-        }
+          }
+          <LikeButton
+            className={cl.likeBtn}
+            isActive={user.likedPlaylists.includes(playlistId)}
+            like={likePlaylist}
+          />
+        </div>
       </div>
       <div className={cl.songList}>
         <div 

@@ -41,6 +41,15 @@ export const authSlice = createSlice({
     removeLikedSong(state, action: PayloadAction<string>) {
       state.user.likedSongs = state.user.likedSongs.filter(song => song !== action.payload)
     },
+    setLikedPlaylists(state, action: PayloadAction<string[]>) {
+      state.user.likedPlaylists = action.payload
+    },
+    addLikedPlaylist(state, action: PayloadAction<string>) {
+      state.user.likedPlaylists = [...state.user.likedSongs, action.payload]
+    },
+    removeLikedlaylist(state, action: PayloadAction<string>) {
+      state.user.likedPlaylists = state.user.likedPlaylists.filter(playlist => playlist !== action.payload)
+    },
   }
 })
 
