@@ -13,8 +13,7 @@ interface Props extends BaseProps {
 
 const SideBarUserMusicNav = memo(({ className, }: Props) => {
 
-  const location = useLocation();
-  const curPath = location.pathname;
+  const curPath = useLocation().pathname;
   const [isPlaylistActive, setIsPlaylistActive] = useState(false);
   const playlistDialogRef = createRef<HTMLLIElement>();
   const [isLikedSongsDialogActive, setIsLikedSongsDialogActive] = useState(false);
