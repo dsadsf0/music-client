@@ -46,7 +46,7 @@ const UserMenu = memo(({ className }:BaseProps) => {
       >
         <LinkButton
           style='base'
-          to='/library'
+          to='/playlists'
           className={cl.userbtn}
           onClick={btnClick}
         >
@@ -54,15 +54,15 @@ const UserMenu = memo(({ className }:BaseProps) => {
         </LinkButton>
         <LinkButton
           style='base'
-          to='/playlists'
+          to='/playlists/create'
           className={cl.userbtn}
           onClick={btnClick}
         >
-          Your Playlists
+          Create Playlist
         </LinkButton>
         <LinkButton
           style='base'
-          to='/liked'
+          to='/songs'
           className={cl.userbtn}
           onClick={btnClick}
         >
