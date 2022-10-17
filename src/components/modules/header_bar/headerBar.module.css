@@ -3,8 +3,7 @@
   flex-direction: column;
   padding: 10px 40px;
   color: #cacaca;
-  margin-right: 13px;
-  transition-duration: .2s;
+  transition: background-color .2s;
 }
 @media only screen and (hover: none) and (pointer: coarse) {.header {margin-right: 0;}}
 

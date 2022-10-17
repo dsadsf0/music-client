@@ -20,19 +20,18 @@ function App() {
   useEffect( () => {
     dispatch(checkAuth());
   }, [])
-  
+
+  if (isLoading) 
+    return <Loader />
+
   return (
     <BrowserRouter>
-      {
-        isLoading ? <Loader />
-        :
-          <div className={cl.container}>
-            <SideBar className={cl.aside} />
-            <HeaderBar className={cl.header} />
-            <Main className={cl.main} />
-            <FooterBar className={cl.footer} />
-          </div>
-      }
+      <div className={cl.container}>
+        <SideBar className={cl.aside} />
+        <HeaderBar className={cl.header} />
+        <Main className={cl.main}/>
+        <FooterBar className={cl.footer} />
+      </div>
     </BrowserRouter>
   );
 }

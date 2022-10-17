@@ -1,7 +1,6 @@
 .container {
   cursor: pointer;
   padding: 10px 10px;
-  padding-right: 2px;
   display: flex;
   align-items: center;
   background-color: transparent;
@@ -18,15 +17,6 @@
 
   &._active {
     background-color: rgba(255, 255, 255, 0.2);
-  }
-
-  .index {
-    flex: 0 0 50px;
-    width: 50px;
-    text-align: center;
-    font-size: 16px;
-    font-weight: 300;
-    color: #c0c0c0;
   }
 
   .info {
@@ -60,4 +50,5 @@
 
 .likeBtn {
   margin-left: 25px;
+  margin-right: -8px;
 }

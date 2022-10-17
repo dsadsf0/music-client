@@ -16,6 +16,7 @@ import LikedPlaylists from './../../../pages/liked_playlists/LikedPlaylists';
 import CreatePlaylist from '../../../pages/create_song_playlist/CreatePlaylist'
 
 const Main = ({ className }: BaseProps) => {
+  
   return (
     <main className={`${cl.main} ${classNameCheck(className)}`}>
       <Routes>
@@ -33,7 +34,6 @@ const Main = ({ className }: BaseProps) => {
         <Route path='*' element={<NotFound />} />
       </Routes>   
     </main>
-    
   )
 }
 

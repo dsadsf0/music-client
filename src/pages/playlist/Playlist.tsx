@@ -214,11 +214,16 @@ const Playlist = memo(() => {
                 </svg>
               </LinkStd>
           }
-          <LikeButton
-            className={cl.likeBtn}
-            isActive={user.likedPlaylists.includes(playlistId)}
-            like={likePlaylist}
-          />
+          {
+            isAuth 
+              ? 
+                <LikeButton
+                  className={cl.likeBtn}
+                  isActive={user.likedPlaylists.includes(playlistId)}
+                  like={likePlaylist}
+                /> 
+              : null
+          }
         </div>
       </div>
       <div className={cl.songList}>
