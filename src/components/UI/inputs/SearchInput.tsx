@@ -7,7 +7,7 @@ import cl from './searchInput.module.scss'
 
 interface Props extends BaseProps {
   value: string;
-  onChange: (e: React.FormEvent<HTMLInputElement>) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
   type?: 'text' | 'email' | 'password';
   setValue: (query: string) => void
@@ -35,6 +35,7 @@ const SearchInput = memo(({ className, value, onChange, placeholder, type, setVa
         onChange={e => onChange(e)}
         placeholder={placeholder}
         type={type? type : 'text'}
+        autoFocus={true}
       />
       <div className={cl.btn}
         onClick={e => clearQuery(e)}

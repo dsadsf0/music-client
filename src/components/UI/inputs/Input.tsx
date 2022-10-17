@@ -5,7 +5,7 @@ import cl from './input.module.css'
 
 interface Props extends BaseProps {
   value: string;
-  onChange: (e: React.FormEvent<HTMLInputElement>) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder?: string;
   type?: 'text' | 'email' | 'password';
 }
@@ -13,7 +13,6 @@ interface Props extends BaseProps {
 const Input = memo(({ className, value, onChange, placeholder, type }: Props ) => {
   return (
     <div className={`${cl.wrapper} ${classNameCheck(className)}`}>
-
       <input
         value={value}
         onChange={e => onChange(e)}

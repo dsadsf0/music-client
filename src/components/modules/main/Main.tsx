@@ -13,6 +13,7 @@ import SignUp from './../../../pages/signUp/SignUp';
 import Search from './../../../pages/search/Search';
 import LikedSongs from '../../../pages/liked_songs/LikedSongs'
 import LikedPlaylists from './../../../pages/liked_playlists/LikedPlaylists';
+import CreatePlaylist from '../../../pages/create_song_playlist/CreatePlaylist'
 
 const Main = ({ className }: BaseProps) => {
   return (
@@ -27,6 +28,7 @@ const Main = ({ className }: BaseProps) => {
         <Route path='/section/:id' element={<Section/>} />
         <Route path='/playlist/:id' element={<Playlist />} />
         <Route path='/playlists' element={<LikedPlaylists />} />
+        <Route path='/playlists/create' element={<CreatePlaylist />} />
         <Route path='/songs' element={<LikedSongs/> } />
         <Route path='*' element={<NotFound />} />
       </Routes>   

@@ -30,7 +30,7 @@ const SongBlock = memo(({ className, index, song, playlistCover, playTrack, isAc
     } else {
       dispatch(authSlice.actions.removeLikedSong(song._id))
     }
-    UserService.likeSong(user.id, song._id)
+    UserService.likeSong(song._id)
   }
 
   if (!isAuth) return (

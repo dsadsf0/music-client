@@ -37,7 +37,7 @@ const Player = memo(({ className }: BaseProps) => {
       } else {
         dispatch(authSlice.actions.removeLikedSong(currentSong._id))
       }
-      UserService.likeSong(user.id, currentSong._id)
+      UserService.likeSong(currentSong._id)
     }
   }
 
