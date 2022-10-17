@@ -12,14 +12,13 @@ interface Props extends BaseProps {
 
 const Input = memo(({ className, value, onChange, placeholder, type }: Props ) => {
   return (
-    <div className={`${cl.wrapper} ${classNameCheck(className)}`}>
-      <input
-        value={value}
-        onChange={e => onChange(e)}
-        placeholder={placeholder}
-        type={type? type : 'text'}
+    <input
+      className={`${cl.input} ${classNameCheck(className)}`}
+      value={value}
+      onChange={e => onChange(e)}
+      placeholder={placeholder}
+      type={type? type : 'text'}
       />
-    </div>
   )
 })
 

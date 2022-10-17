@@ -16,6 +16,11 @@ const HeaderBar = memo(({ className }: BaseProps) => {
   const location = useLocation().pathname;
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate()
+  const [marginRight, setMarginRight] = useState('0px')
+  let observer = new MutationObserver(mutationRecords => {
+    const main = mutationRecords[mutationRecords.length - 1].target as HTMLElement
+    setMarginRight(main.scrollHeight > main.clientHeight? '13px' : '0px')    
+  });
 
   const search = (e: React.FormEvent<HTMLInputElement>) => {
     clearTimeout(timerId)
@@ -34,8 +39,15 @@ const HeaderBar = memo(({ className }: BaseProps) => {
     if ((location.split('/')[location.split('/').length - 1] === 'search')) clearQuery()
   }, [location])
 
+  useEffect(() => {
+    const main = document.querySelector('main')
+    if (main) observer.observe(main, { childList: true })
+
+    return () => observer.disconnect()
+  }, [])
+
   return (
-    <header className={`${cl.header} ${classNameCheck(className)}`}>
+    <header className={`${cl.header} ${classNameCheck(className)}`} style={{ marginRight: marginRight }}>
       <div className={cl.container}>
         <div className={cl.nav}>
           <ArrowBack className={cl.arrow} />
