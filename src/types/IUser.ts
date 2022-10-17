@@ -4,4 +4,6 @@ export default interface Iuser {
   username: string,
   likedSongs: string[],
   likedPlaylists: string[],
+  uploadedSongs: string[],
+  createdPlaylists: string[]
 }

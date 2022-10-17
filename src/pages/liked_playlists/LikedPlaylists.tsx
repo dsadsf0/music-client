@@ -6,10 +6,7 @@ import PlaylistBlock from './../home/playlistBlock/playlistBlock';
 
 const LikedPlaylists = memo(() => {
 
-  const { isAuth, user } = useAppSeletor(state => state.auth)
-  
-  console.log(user.likedPlaylists);
-  
+  const { isAuth, user } = useAppSeletor(state => state.auth)  
 
   if (!isAuth)
     return <Navigate to={'/login'} replace={true} />

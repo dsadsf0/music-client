@@ -75,7 +75,7 @@ const Playlist = memo(() => {
       } else {
         dispatch(authSlice.actions.removeLikedlaylist(playlistId))
       }
-      UserService.likePlaylist(user.id, playlistId)
+      UserService.likePlaylist(playlistId)
     }
   }
 

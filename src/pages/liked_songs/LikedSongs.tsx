@@ -20,7 +20,7 @@ const LikedSongs = memo(() => {
   const [playlistId, setPlaylistId] = useState('')
 
   const [fetchSongs, isSongsLoading, fetchSongsError] = useFetching(async () => {
-    const fetchedSongs = await UserService.getLikedSongs(user.id)
+    const fetchedSongs = await UserService.getLikedSongs()
     setSongs(fetchedSongs)
   })
 
