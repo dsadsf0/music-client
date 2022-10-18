@@ -2,8 +2,13 @@ import React, { createRef, memo, useState } from 'react'
 import FileInput from '../../components/UI/inputs/FileInput'
 import cl from './createPlaylist.module.scss'
 import Input from './../../components/UI/inputs/Input';
+import { useAppDispatch } from '../../hooks/redux';
+import SongService from '../../API/SongService';
+import { authSlice } from '../../store/reducers/AuthSlice';
 
 const CreatePlaylist = memo(() => {
+
+  const dispatch = useAppDispatch()
 
   const [coverImage, setCoverImage] = useState<File>()
   const [coverErrors, setCoverErrors] = useState<string>('')
@@ -16,12 +21,7 @@ const CreatePlaylist = memo(() => {
   const [songName, setSongName] = useState<string>('')
   const [songNameErrors, setSongNameErrors] = useState<string>('')
 
-  const [songAuthor, setSongAuthor] = useState<string>('')
-  const [songAuthorErrors, setSongAuthorErrors] = useState<string>('')
-
-  const validateInputFile = (fileTypes: string[], file: File, setFile: (f: File | undefined) => void, setError: (s: string) => void ) => {    
-    console.log(file.type);
-    
+  const validateInputFile = (fileTypes: string[], file: File, setFile: (f: File | undefined) => void, setError: (s: string) => void ) => {        
     if (fileTypes.includes(file.type)) {
       setFile(file)
       setError('')
@@ -55,8 +55,7 @@ const CreatePlaylist = memo(() => {
     songInputRef.current?.click()
   }
 
-  const uploadSong = (e: React.MouseEvent) => {
-    e.preventDefault()
+  const uploadSong = async (e: React.MouseEvent) => {
     if (!songFile) setSongFileErrors('There is no song')
     else setSongFileErrors('')
 
@@ -66,17 +65,23 @@ const CreatePlaylist = memo(() => {
     if (!songName) setSongNameErrors('There is no song name')
     else setSongNameErrors('')
 
-    if (!songAuthor) setSongAuthorErrors('There is no song author')
-    else setSongAuthorErrors('')
 
-    if (!songFileErrors && !coverErrors && !songNameErrors && !songAuthorErrors) {
-
-      // отпрака на сервер
-
-      setCoverImage(undefined)
-      setSongFile(undefined)
-      setSongAuthor('')
-      setSongName('')
+    if (!songFileErrors && !coverErrors && !songNameErrors) {
+      if (songFile && coverImage) {
+        let data = new FormData()
+        data.append('name', songName)
+        data.append('songFile', new Blob([songFile], { type: songFile.type }), 'songFile')
+        data.append('coverFile', new Blob([coverImage], { type: coverImage.type }), 'coverImage')
+        try {
+          const res = await SongService.uploadSong(data)
+          dispatch(authSlice.actions.setUser(res))
+          setCoverImage(undefined)
+          setSongFile(undefined)
+          setSongName('')
+        } catch (error) {
+          console.log(error);
+        }   
+      }     
     }
   }
 
@@ -119,13 +124,7 @@ const CreatePlaylist = memo(() => {
             className={`${cl.input} ${songNameErrors ? cl._error : ''}`}
             value={songName}
             onChange={e => setSongName(e.target.value)}
-            placeholder={songNameErrors || 'Enter song name'}
-          />
-          <Input
-            className={`${cl.input} ${songAuthorErrors? cl._error : ''}`}
-            value={songAuthor}
-            onChange={e => setSongAuthor(e.target.value)}
-            placeholder={ songAuthorErrors || 'Enter song author'}
+            placeholder={songNameErrors || 'Enter song name 2-60 characters long'}
           />
         </div>
         <button 
