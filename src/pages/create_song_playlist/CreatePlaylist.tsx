@@ -2,12 +2,14 @@ import React, { createRef, memo, useState } from 'react'
 import FileInput from '../../components/UI/inputs/FileInput'
 import cl from './createPlaylist.module.scss'
 import Input from './../../components/UI/inputs/Input';
-import { useAppDispatch } from '../../hooks/redux';
+import { useAppDispatch, useAppSeletor } from '../../hooks/redux';
 import SongService from '../../API/SongService';
 import { authSlice } from '../../store/reducers/AuthSlice';
+import { Navigate } from 'react-router-dom';
 
 const CreatePlaylist = memo(() => {
 
+  const { isAuth } = useAppSeletor(state => state.auth)
   const dispatch = useAppDispatch()
 
   const [coverImage, setCoverImage] = useState<File>()
@@ -84,6 +86,9 @@ const CreatePlaylist = memo(() => {
       }     
     }
   }
+
+  if (!isAuth)
+    return <Navigate to={'/login'} replace={true} /> 
 
   return (
     <div className={cl.container}>
