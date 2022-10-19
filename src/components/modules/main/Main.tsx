@@ -12,26 +12,41 @@ import LogIn from './../../../pages/logIn/LogIn';
 import SignUp from './../../../pages/signUp/SignUp';
 import Search from './../../../pages/search/Search';
 import LikedSongs from '../../../pages/liked_songs/LikedSongs'
-import LikedPlaylists from './../../../pages/liked_playlists/LikedPlaylists';
 import CreatePlaylist from '../../../pages/create_song_playlist/CreatePlaylist'
-import MainRoutes from '../../../routes/MainRoutes'
+import mainRoutes from '../../../routes/mainRoutes'
+import uploadRoutes from './../../../routes/uploadRoutes';
+import Library from '../../../pages/library/Library'
+import libraryRoutes from '../../../routes/libraryRoutes'
+import LikedPlaylists from '../../../pages/liked_playlists/LikedPlaylists'
 
 const Main = ({ className }: BaseProps) => {
   
   return (
     <main className={`${cl.main} ${classNameCheck(className)}`}>
       <Routes>
-        <Route path={MainRoutes.home} element={<Home />} />
-        <Route path='home' element={<Navigate to={MainRoutes.home} replace={true} />} />
-        <Route path={MainRoutes.login} element={<LogIn />} />
-        <Route path={MainRoutes.signup} element={<SignUp />} />
-        <Route path={MainRoutes.search} element={<Genres />} />
-        <Route path={MainRoutes.searchQuery} element={<Search />} />
-        <Route path={MainRoutes.sectionId} element={<Section/>} />
-        <Route path={MainRoutes.playlistId} element={<Playlist />} />
-        <Route path='collection/playlists/liked' element={<LikedPlaylists />} />
-        <Route path={MainRoutes.createPlaylist} element={<CreatePlaylist />} />
-        <Route path='collection/songs/liked' element={<LikedSongs/> } />
+        <Route path={mainRoutes.home} element={<Home />} />
+        <Route path='home' element={<Navigate to={mainRoutes.home} replace={true} />} />
+        <Route path={mainRoutes.login} element={<LogIn />} />
+        <Route path={mainRoutes.signup} element={<SignUp />} />
+        <Route path={mainRoutes.search} element={<Genres />} />
+        <Route path={`${mainRoutes.search}/:query`} element={<Search />} />
+        <Route path={`${mainRoutes.section}/:id`} element={<Section/>} />
+        <Route path={`${mainRoutes.playlist}/:id`} element={<Playlist />} />
+        <Route path={mainRoutes.library} element={<Library />} >
+          <Route path={libraryRoutes.likedPlaylists}  />
+          <Route path={libraryRoutes.createdPlaylists} />
+          <Route path={libraryRoutes.uploadedSongs}  />
+        </Route>
+
+        {
+          // to upload page
+          // upload your own
+          // Playlist or Song
+          // all users will be able to listen to it
+        }
+        <Route path={`${mainRoutes.upload}/${uploadRoutes.playlist}`} element={<CreatePlaylist />} />
+
+        <Route path={mainRoutes.likedSongs} element={<LikedSongs/> } />
         <Route path='*' element={<NotFound />} />
       </Routes>   
     </main>

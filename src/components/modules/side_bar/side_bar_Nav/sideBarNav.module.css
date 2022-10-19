@@ -1,5 +1,5 @@
 .nav ul li {
-  margin-bottom: 18px;
+  margin-bottom: 20px;
 }
 
 .nav ul li:last-child {
@@ -15,6 +15,7 @@
 
 .nav .link svg{
   min-width: 28px;
+  margin-top: -4px;
 }
 
 .nav .link span {

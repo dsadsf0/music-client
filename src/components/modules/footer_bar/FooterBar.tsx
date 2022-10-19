@@ -5,6 +5,7 @@ import LinkButton from './../../UI/links/LinkButton';
 import classNameCheck from './../../../scrtipts/classNameCheck';
 import AuthLayout from './../auth_layout/AuthLayout';
 import Player from './player/Player';
+import mainRoutes from './../../../routes/mainRoutes';
 
 
 const FooterBar = memo(({ className }: BaseProps) => {
@@ -23,7 +24,7 @@ const FooterBar = memo(({ className }: BaseProps) => {
                 Sign up to get unlimited songs and podcasts with occasional ads. No credit needed.
               </p>
             </div>
-            <LinkButton to='/signup' style='white' className={cl.link}>
+            <LinkButton to={mainRoutes.signup} style='white' className={cl.link}>
               Sign up free
             </LinkButton>
           </div>

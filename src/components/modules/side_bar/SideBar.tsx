@@ -6,6 +6,7 @@ import classNameCheck from './../../../scrtipts/classNameCheck';
 import LinkPage from './../../UI/links/LinkPage';
 import SideBarNav from './side_bar_Nav/SideBarNav';
 import SideBarUserMusicNav from './side_bar_UserMusicNav/SideBarUserMusicNav';
+import mainRoutes from './../../../routes/mainRoutes';
 
 
 const SideBar: FC<BaseProps> = memo(({ className }) => {
@@ -13,7 +14,7 @@ const SideBar: FC<BaseProps> = memo(({ className }) => {
   return (
     <aside className={`${cl.aside} ${classNameCheck(className)}`}>
       <div className={cl.header}>
-        <LinkPage to='/' className={cl.link} href="" isActive={false}>
+        <LinkPage to={mainRoutes.home} className={cl.link} href="" isActive={false}>
           <img className={cl.logo} src={logo} />
         </LinkPage>
       </div>

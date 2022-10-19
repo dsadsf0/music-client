@@ -1,12 +1,13 @@
-export default {
+ const mainRoutes = {
   home: '/',
-  login: 'login',
-  signup:  'signup',
-  search: 'search',
-  searchQuery: 'search/:query',
-  library: 'collection',
-  sectionId: 'section/:id',
-  playlistId: 'playlist/:id',
-  create: 'create',
-  createPlaylist: 'create/playlist',
+  login: '/login',
+  signup:  '/signup',
+  search: '/search',
+  library: '/collection',
+  section: '/section',
+  playlist: '/playlist',
+  upload: '/upload',
+  likedSongs: '/liked-songs',
 }
+
+export default mainRoutes

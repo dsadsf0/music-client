@@ -9,6 +9,7 @@ import { useAppDispatch } from './../../hooks/redux';
 import { playerSlice } from '../../store/reducers/PlayerSlice';
 import Loader from '../../components/UI/loader/Loader';
 import UserService from './../../API/UserService';
+import mainRoutes from './../../routes/mainRoutes';
 
 const LikedSongs = memo(() => {
 
@@ -61,7 +62,7 @@ const LikedSongs = memo(() => {
   }, [isSongsLoading])
 
   if (!isAuth) 
-    return <Navigate to={'/login'} replace={true} />
+    return <Navigate to={mainRoutes.login} replace={true} />
 
   if (isSongsLoading) 
     return <Loader />

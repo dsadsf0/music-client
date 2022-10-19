@@ -8,6 +8,7 @@ import { authSlice } from '../../store/reducers/AuthSlice';
 import { Navigate } from 'react-router-dom';
 import { useFetching } from '../../hooks/fetching';
 import Loader from '../../components/UI/loader/Loader';
+import mainRoutes from './../../routes/mainRoutes';
 
 const CreatePlaylist = memo(() => {
 
@@ -104,7 +105,7 @@ const CreatePlaylist = memo(() => {
   }
 
   if (!isAuth)
-    return <Navigate to={'/login'} replace={true} /> 
+    return <Navigate to={mainRoutes.login} replace={true} /> 
 
   return (
     <div className={cl.container}>

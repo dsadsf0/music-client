@@ -9,6 +9,7 @@ import LinkStd from './../../../components/UI/links/LinkStd';
 import UserService from './../../../API/UserService';
 import { authSlice } from '../../../store/reducers/AuthSlice';
 import LikeButton from '../../../components/UI/buttons/LikeButton';
+import mainRoutes from './../../../routes/mainRoutes';
 
 interface Props extends BaseProps {
   song: ISong,
@@ -35,7 +36,7 @@ const SongBlock = memo(({ className, index, song, playlistCover, playTrack, isAc
 
   if (!isAuth) return (
     <LinkStd
-      to='/login'
+      to={mainRoutes.login}
       className={`${cl.container} ${classNameCheck(className)}`}
     >
       <div className={cl.index}>{index}</div>
