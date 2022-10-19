@@ -5,6 +5,7 @@ import cl from './logIn.module.css'
 import Input from '../../components/UI/inputs/Input'
 import ButtonSTD from '../../components/UI/buttons/ButtonSTD'
 import { Navigate } from 'react-router-dom'
+import mainRoutes from './../../routes/mainRoutes';
 
 const LogIn = memo(() => {
 
@@ -21,7 +22,7 @@ const LogIn = memo(() => {
     dispatch(AuthCreators.clearErrors())
   }, [])
 
-  if (isAuth) return <Navigate to={'/'} replace = {true}/> 
+  if (isAuth) return <Navigate to={mainRoutes.home} replace = {true}/> 
  
   return (
     <div className={cl.container}>

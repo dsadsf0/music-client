@@ -1,9 +1,11 @@
+import ISong from './ISong';
+
 interface IPlaylist {
   _id: string,
   title: string,
   author: string,
   cover: string,
-  songs: string[],
+  songs: ISong[],
   description: string,
 }
 

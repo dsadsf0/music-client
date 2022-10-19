@@ -16,6 +16,7 @@ import LinkStd from './../../components/UI/links/LinkStd';
 import LikeButton from '../../components/UI/buttons/LikeButton';
 import { authSlice } from '../../store/reducers/AuthSlice';
 import UserService from '../../API/UserService';
+import mainRoutes from './../../routes/mainRoutes';
 
 const Playlist = memo(() => {
   
@@ -30,19 +31,13 @@ const Playlist = memo(() => {
   const [songs, setSongs] = useState<ISong[]>([])
   const [fetchPlaylist, isPlaylistLoading, fetchPlaylistError] = useFetching(async () => {
     const fetchedPlaylist = await PlaylistService.getPlaylistById(playlistId);
-    setPlaylist(fetchedPlaylist)
-  })
-  const [fetchSongs, isSongsLoading, fetchSongsError] = useFetching(async () => {
-    setSongs([])
-    for (const songId of playlist.songs) {
-      const fetchedSong = await SongService.getSongById(songId)
-      setSongs(prev => [...prev, fetchedSong])
-    }
+    setPlaylist(fetchedPlaylist)    
+    setSongs(fetchedPlaylist.songs)
   })
   
   const setPlayer = () => {
-    if (!isSongsLoading) {
-      if (currentPlaylistId !== playlistId) {
+    if (songs.length) {
+      if (currentPlaylistId !== playlistId) {    
         dispatch(playerSlice.actions.setSongs(songs))
         dispatch(playerSlice.actions.setCurrentSong(songs[0]))
         dispatch(playerSlice.actions.setCurrentPlaylistId(playlistId))
@@ -53,7 +48,7 @@ const Playlist = memo(() => {
         if (isPause)
           dispatch(playerSlice.actions.setIsPause(false))
         else
-          dispatch(playerSlice.actions.setIsPause(true))
+          dispatch(playerSlice.actions.setIsPause(true))        
       }
     }
   }  
@@ -84,9 +79,12 @@ const Playlist = memo(() => {
   }, []);
 
   useEffect(() => {
-    if (!isPlaylistLoading)
-      fetchSongs()    
+    if (autoplay && isAuth && songs.length) setPlayer()
   }, [isPlaylistLoading]);
+
+  useEffect(() => {
+    if (isAuth && !playerSongs.length) dispatch(playerSlice.actions.setPlaylistCover(playlist.cover))
+  }, [playlist.cover]);
 
   useEffect((()=> {
     const coloring = () => {
@@ -133,15 +131,6 @@ const Playlist = memo(() => {
       main?.removeEventListener('scroll', coloring)
     }
   }, [songListIntroRef])
-
-  useEffect(() => {
-    if (isAuth && !isSongsLoading && playlistId === '') dispatch(playerSlice.actions.setSongs(songs))
-    if (autoplay && isAuth && !isPlaylistLoading) 
-      setPlayer()
-  }, [songs]);
-  useEffect(() => {
-    if (isAuth && !playerSongs.length) dispatch(playerSlice.actions.setPlaylistCover(playlist.cover))
-  }, [playlist.cover]);
 
   if (isPlaylistLoading) {
     return(
@@ -203,7 +192,7 @@ const Playlist = memo(() => {
               </button>
               :
               <LinkStd
-                to='/login'
+                to={mainRoutes.login}
                 className={cl.btn}
               >
                 <svg
@@ -250,9 +239,6 @@ const Playlist = memo(() => {
               isActive={currentPlaylistId === playlistId && currentSong?._id === song._id}
             />
           )
-        }
-        {
-          isSongsLoading ? <Loader /> : null
         }
       </div>
     </div>

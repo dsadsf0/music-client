@@ -9,6 +9,7 @@ import cl from './playlistBlock.module.css'
 import { useAppDispatch, useAppSeletor } from './../../../hooks/redux';
 import { playerSlice } from './../../../store/reducers/PlayerSlice';
 import LinkStd from './../../../components/UI/links/LinkStd';
+import mainRoutes from './../../../routes/mainRoutes';
 
 interface Props extends BaseProps {
   playlistId: string
@@ -66,7 +67,7 @@ const PlaylistBlock = memo(({ className, playlistId }: Props) => {
   return (
     <LinkStd
       className={`${cl.container} ${classNameCheck(className)}`}
-      to={`/playlist/${playlist?._id}`}
+      to={`${mainRoutes.playlist}/${playlist?._id}`}
     >
       <div className={cl.cover}
         style={{ backgroundImage: `url(${API_URL}/covers/${playlist?.cover || 'nf.png'})` }}

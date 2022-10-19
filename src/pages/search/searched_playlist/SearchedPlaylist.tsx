@@ -7,6 +7,7 @@ import { playerSlice } from '../../../store/reducers/PlayerSlice'
 import BaseProps from '../../../types/BaseProps'
 import IPlaylist from '../../../types/IPlaylist'
 import cl from './searchedPlaylist.module.scss'
+import mainRoutes from './../../../routes/mainRoutes';
 
 interface Props extends BaseProps {
   playlist: IPlaylist
@@ -35,7 +36,7 @@ const SearchedPlaylist = memo(({ className, playlist }: Props) => {
   return (
     <LinkStd
       className={`${cl.container} ${classNameCheck(className)}`}
-      to={`/playlist/${playlist?._id}`}
+      to={`${mainRoutes.playlist}/${playlist?._id}`}
     >
       <div className={cl.cover}
         style={{ backgroundImage: `url(${API_URL}/covers/${playlist?.cover || 'nf.png'})` }}

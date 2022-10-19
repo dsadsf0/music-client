@@ -7,7 +7,8 @@ import AuthCreators from '../../../../store/actionCreators/AuthCreators';
 import classNameCheck from '../../../../scrtipts/classNameCheck';
 import BaseProps from './../../../../types/BaseProps';
 import LinkButton from './../../../UI/links/LinkButton';
-import MainRoutes from '../../../../routes/MainRoutes';
+import mainRoutes from './../../../../routes/mainRoutes';
+import uploadRoutes from '../../../../routes/uploadRoutes';
 
 const UserMenu = memo(({ className }:BaseProps) => {
   const { user } = useAppSeletor(state => state.auth)
@@ -47,7 +48,7 @@ const UserMenu = memo(({ className }:BaseProps) => {
       >
         <LinkButton
           style='base'
-          to='/collection/playlists/liked'
+          to={mainRoutes.library}
           className={cl.userbtn}
           onClick={btnClick}
         >
@@ -55,7 +56,7 @@ const UserMenu = memo(({ className }:BaseProps) => {
         </LinkButton>
         <LinkButton
           style='base'
-          to={MainRoutes.createPlaylist}
+          to={`${mainRoutes.upload}/${uploadRoutes.playlist}`}
           className={cl.userbtn}
           onClick={btnClick}
         >
@@ -63,7 +64,7 @@ const UserMenu = memo(({ className }:BaseProps) => {
         </LinkButton>
         <LinkButton
           style='base'
-          to='/collection/songs/liked'
+          to={mainRoutes.likedSongs}
           className={cl.userbtn}
           onClick={btnClick}
         >

@@ -5,6 +5,7 @@ import ButtonSTD from '../../components/UI/buttons/ButtonSTD';
 import AuthCreators from '../../store/actionCreators/AuthCreators';
 import { useAppDispatch, useAppSeletor } from './../../hooks/redux';
 import { Navigate } from 'react-router-dom';
+import mainRoutes from './../../routes/mainRoutes';
 
 const SignUp = memo(() => {
 
@@ -20,7 +21,7 @@ const SignUp = memo(() => {
     dispatch(AuthCreators.clearErrors())
   }, [])
   
-  if (isAuth) return <Navigate to={'/'} replace={true}/>
+  if (isAuth) return <Navigate to={mainRoutes.home} replace={true}/>
 
   return (
     <div className={cl.container}>

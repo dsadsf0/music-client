@@ -6,7 +6,8 @@ import SideBarPopupButton from '../side_bar_PopupButton/SideBarPopupButton';
 import BaseProps from './../../../../types/BaseProps';
 import cl from './sideBarUserMusicNav.module.css'
 import AuthLayout from './../../auth_layout/AuthLayout';
-import MainRoutes from '../../../../routes/MainRoutes';
+import mainRoutes from '../../../../routes/mainRoutes';
+import uploadRoutes from '../../../../routes/uploadRoutes';
 
 interface Props extends BaseProps {
 
@@ -59,8 +60,8 @@ const SideBarUserMusicNav = memo(({ className, }: Props) => {
           authed={
             <li>
               <LinkPage
-                to={MainRoutes.createPlaylist}
-                isActive={curPath === MainRoutes.createPlaylist}
+                to={`${mainRoutes.upload}/${uploadRoutes.playlist}`}
+                isActive={curPath.split('/').includes(mainRoutes.upload.slice(1))}
                 className={`${cl.link}`}
               >
                 {CreatePlaylist}
@@ -87,8 +88,8 @@ const SideBarUserMusicNav = memo(({ className, }: Props) => {
           authed={
             <li>
               <LinkPage
-                to='/collection/songs/liked'
-                isActive={curPath === '/collection/songs/liked'}
+                to={mainRoutes.likedSongs}
+                isActive={curPath === mainRoutes.likedSongs}
                 className={`${cl.link}`}
               >
                 {LikedSongs}

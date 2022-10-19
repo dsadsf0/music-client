@@ -5,6 +5,7 @@ import Dialog from '../../../UI/dialog/Dialog';
 import LinkButton from '../../../UI/links/LinkButton';
 import cl from './sideBarDialog.module.css'
 import ButtonSTD from './../../../UI/buttons/ButtonSTD';
+import mainRoutes from './../../../../routes/mainRoutes';
 
 
 interface Props extends BaseProps {
@@ -51,7 +52,7 @@ const SideBarDialog = memo(({ className, isActive, setActive, rootRef, title, te
             Not Now
           </ButtonSTD>
           <LinkButton 
-            to='/login' 
+            to={mainRoutes.login} 
             className={cl.link} 
             style='white'
             onClick={() => {

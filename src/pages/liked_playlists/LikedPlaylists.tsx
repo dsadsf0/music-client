@@ -3,17 +3,17 @@ import { Navigate } from 'react-router-dom'
 import cl from './likedPlaylists.module.scss'
 import { useAppSeletor } from '../../hooks/redux';
 import PlaylistBlock from './../home/playlistBlock/playlistBlock';
+import mainRoutes from './../../routes/mainRoutes';
 
 const LikedPlaylists = memo(() => {
 
   const { isAuth, user } = useAppSeletor(state => state.auth)  
 
   if (!isAuth)
-    return <Navigate to={'/login'} replace={true} />
+    return <Navigate to={mainRoutes.login} replace={true} />
     
   return (
     <div className={cl.container}>
-      <h2 className={cl.title}>Liked Playlists</h2>
       <div className={cl.content}>
         {
           user.likedPlaylists.map((playlist) =>

@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import classNameCheck from '../../../scrtipts/classNameCheck';
 import BaseProps from '../../../types/BaseProps';
 import cl from './searchInput.module.scss'
+import mainRoutes from './../../../routes/mainRoutes';
 
 
 interface Props extends BaseProps {
@@ -21,7 +22,7 @@ const SearchInput = memo(({ className, value, onChange, placeholder, type, setVa
   const clearQuery = (e:React.MouseEvent) => {
     e.preventDefault()
     setValue('')
-    navigate(`/search`, { replace: true })
+    navigate(mainRoutes.search, { replace: true })
   }
   useEffect(() => {
     setValue(query)

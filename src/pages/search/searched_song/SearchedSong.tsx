@@ -9,6 +9,7 @@ import { authSlice } from '../../../store/reducers/AuthSlice'
 import BaseProps from '../../../types/BaseProps'
 import ISong from '../../../types/ISong'
 import cl from './searchedSong.module.scss'
+import mainRoutes from './../../../routes/mainRoutes';
 
 interface Props extends BaseProps {
   song: ISong,
@@ -33,7 +34,7 @@ const SearchedSong = memo(({ song, className, playTrack, isActive }: Props) => {
 
   if (!isAuth) return (
     <LinkStd
-      to='/login'
+      to={mainRoutes.login}
       className={`${cl.container} ${classNameCheck(className)}`}
     >
       <div className={cl.info}>

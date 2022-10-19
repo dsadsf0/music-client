@@ -9,6 +9,7 @@ import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import AuthLayout from './../auth_layout/AuthLayout';
 import UserMenu from './user_menu/UserMenu';
 import SearchInput from './../../UI/inputs/SearchInput';
+import mainRoutes from './../../../routes/mainRoutes';
 
 let timerId: NodeJS.Timeout;
 
@@ -27,7 +28,7 @@ const HeaderBar = memo(({ className }: BaseProps) => {
     setSearchQuery(e.currentTarget.value)
     const query = e.currentTarget.value
     timerId = setTimeout(() => {
-      navigate(`/search/${query}`, { replace: true })
+      navigate(`${mainRoutes.search}/${query}`, { replace: true })
     }, 500)
   }
 
@@ -54,7 +55,7 @@ const HeaderBar = memo(({ className }: BaseProps) => {
           <ArrowForward className={cl.arrow}/>
           <Routes>
             <Route
-              path='/search'
+              path={mainRoutes.search}
               element={
                 <form
                   role={'serach'}
@@ -69,34 +70,21 @@ const HeaderBar = memo(({ className }: BaseProps) => {
                   />
                 </form>
               }
-            />
-            <Route 
-              path='/search/:query' 
-              element={
-                <form 
-                  role={'serach'}
-                  className={cl.form}
-                  onSubmit={e => { e.preventDefault() }}
-                >
-                  <SearchInput
-                    value={searchQuery}
-                    setValue={setSearchQuery}
-                    onChange={search}
-                    placeholder='Artists, songs or podcasts'
-                  />
-                </form>
-              }
-            />
+            >
+              <Route
+                path=':id'
+              />
+            </Route>
           </Routes>
         </div>
         <AuthLayout
           authed={ <UserMenu/> }
           notAuthed={
             <div className={cl.auth}>
-              <LinkButton to='signup' style='transparent' className={cl.btn}>
+              <LinkButton to={mainRoutes.signup} style='transparent' className={cl.btn}>
                 Sign up
               </LinkButton>
-              <LinkButton to='login' style='white' className={cl.btn}>
+              <LinkButton to={mainRoutes.login} style='white' className={cl.btn}>
                 Log in
               </LinkButton>
             </div>

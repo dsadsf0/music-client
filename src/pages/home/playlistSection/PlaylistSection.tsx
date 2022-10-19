@@ -5,6 +5,7 @@ import ISection from '../../../types/ISection';
 import PlaylistBlock from '../playlistBlock/playlistBlock';
 import cl from './playlistSection.module.css'
 import LinkStd from './../../../components/UI/links/LinkStd';
+import mainRoutes from './../../../routes/mainRoutes';
 
 interface Props extends BaseProps {
   section: ISection,
@@ -28,13 +29,13 @@ const PlaylistSection = memo(({ className, section, playlistsId }: Props) => {
       <div className={cl.header}>
         <LinkStd
           className={cl.title}
-          to={`section/${section._id}`}
+          to={`${mainRoutes.section}/${section._id}`}
         >
           <h2>{section.title}</h2>
         </LinkStd>
         <LinkStd
           className={cl.link}
-          to={`section/${section._id}`}
+          to={`${mainRoutes.section}/${section._id}`}
         >
           See All
         </LinkStd>
