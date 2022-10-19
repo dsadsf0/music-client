@@ -16,7 +16,7 @@ const Section = memo(() => {
   })
 
   useEffect(() => {
-    fetchSection()
+    fetchSection()    
   }, []);
 
   if (isSectionLoading) 
@@ -27,7 +27,7 @@ const Section = memo(() => {
   return (
     <div className={cl.container}>
       {
-        section.playlists.map( id => 
+        section.playlists?.map( id => 
           <PlaylistBlock
             key={id}
             className={cl.playlist}

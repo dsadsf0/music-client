@@ -14,23 +14,24 @@ import Search from './../../../pages/search/Search';
 import LikedSongs from '../../../pages/liked_songs/LikedSongs'
 import LikedPlaylists from './../../../pages/liked_playlists/LikedPlaylists';
 import CreatePlaylist from '../../../pages/create_song_playlist/CreatePlaylist'
+import MainRoutes from '../../../routes/MainRoutes'
 
 const Main = ({ className }: BaseProps) => {
   
   return (
     <main className={`${cl.main} ${classNameCheck(className)}`}>
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/home' element={<Navigate to='/' replace={true} />} />
-        <Route path='/login' element={<LogIn />} />
-        <Route path='/signup' element={<SignUp />} />
-        <Route path='/search' element={<Genres />} />
-        <Route path='/search/:query' element={<Search />} />
-        <Route path='/section/:id' element={<Section/>} />
-        <Route path='/playlist/:id' element={<Playlist />} />
-        <Route path='/playlists' element={<LikedPlaylists />} />
-        <Route path='/playlists/create' element={<CreatePlaylist />} />
-        <Route path='/songs' element={<LikedSongs/> } />
+        <Route path={MainRoutes.home} element={<Home />} />
+        <Route path='home' element={<Navigate to={MainRoutes.home} replace={true} />} />
+        <Route path={MainRoutes.login} element={<LogIn />} />
+        <Route path={MainRoutes.signup} element={<SignUp />} />
+        <Route path={MainRoutes.search} element={<Genres />} />
+        <Route path={MainRoutes.searchQuery} element={<Search />} />
+        <Route path={MainRoutes.sectionId} element={<Section/>} />
+        <Route path={MainRoutes.playlistId} element={<Playlist />} />
+        <Route path='collection/playlists/liked' element={<LikedPlaylists />} />
+        <Route path={MainRoutes.createPlaylist} element={<CreatePlaylist />} />
+        <Route path='collection/songs/liked' element={<LikedSongs/> } />
         <Route path='*' element={<NotFound />} />
       </Routes>   
     </main>

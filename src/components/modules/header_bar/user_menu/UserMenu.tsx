@@ -7,6 +7,7 @@ import AuthCreators from '../../../../store/actionCreators/AuthCreators';
 import classNameCheck from '../../../../scrtipts/classNameCheck';
 import BaseProps from './../../../../types/BaseProps';
 import LinkButton from './../../../UI/links/LinkButton';
+import MainRoutes from '../../../../routes/MainRoutes';
 
 const UserMenu = memo(({ className }:BaseProps) => {
   const { user } = useAppSeletor(state => state.auth)
@@ -46,7 +47,7 @@ const UserMenu = memo(({ className }:BaseProps) => {
       >
         <LinkButton
           style='base'
-          to='/playlists'
+          to='/collection/playlists/liked'
           className={cl.userbtn}
           onClick={btnClick}
         >
@@ -54,7 +55,7 @@ const UserMenu = memo(({ className }:BaseProps) => {
         </LinkButton>
         <LinkButton
           style='base'
-          to='/playlists/create'
+          to={MainRoutes.createPlaylist}
           className={cl.userbtn}
           onClick={btnClick}
         >
@@ -62,7 +63,7 @@ const UserMenu = memo(({ className }:BaseProps) => {
         </LinkButton>
         <LinkButton
           style='base'
-          to='/songs'
+          to='/collection/songs/liked'
           className={cl.userbtn}
           onClick={btnClick}
         >
