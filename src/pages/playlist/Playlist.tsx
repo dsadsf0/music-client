@@ -82,10 +82,6 @@ const Playlist = memo(() => {
     if (autoplay && isAuth && songs.length) setPlayer()
   }, [isPlaylistLoading]);
 
-  useEffect(() => {
-    if (isAuth && !playerSongs.length) dispatch(playerSlice.actions.setPlaylistCover(playlist.cover))
-  }, [playlist.cover]);
-
   useEffect((()=> {
     const coloring = () => {
       if (main?.scrollTop && main?.scrollTop >= 310) {
