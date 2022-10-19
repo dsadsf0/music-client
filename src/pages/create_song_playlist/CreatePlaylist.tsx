@@ -13,6 +13,9 @@ const CreatePlaylist = memo(() => {
 
   const { isAuth } = useAppSeletor(state => state.auth)
   const dispatch = useAppDispatch()
+  const imageFormats = 'image/jpeg,image/webp,image/png' 
+  const audioFormats = 'audio/mpeg,audio/wav'
+  
 
   const [coverImage, setCoverImage] = useState<File>()
   const [coverErrors, setCoverErrors] = useState<string>('')
@@ -32,7 +35,7 @@ const CreatePlaylist = memo(() => {
     await handleUploadSong()
   })
 
-  const validateInputFile = (fileTypes: string[], file: File, setFile: (f: File | undefined) => void, setError: (s: string) => void ) => {        
+  const validateInputFile = (fileTypes: string[], file: File, setFile: (f: File | undefined) => void, setError: (s: string) => void ) => {           
     if (fileTypes.includes(file.type)) {
       setFile(file)
       setError('')
@@ -45,7 +48,7 @@ const CreatePlaylist = memo(() => {
   const coverImageInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
     if (files && files[0]) {
-      validateInputFile(['image/jpeg', 'image/webp', 'image/png'], files[0], setCoverImage, setCoverErrors)
+      validateInputFile(imageFormats.split(','), files[0], setCoverImage, setCoverErrors)
     }         
   }
 
@@ -57,7 +60,7 @@ const CreatePlaylist = memo(() => {
   const songInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
     if (files && files[0]) {
-      validateInputFile(['audio/mpeg', 'audio/wav'], files[0], setSongFile, setSongFileErrors)
+      validateInputFile(audioFormats.split(','), files[0], setSongFile, setSongFileErrors)
     }
   }
 
@@ -121,7 +124,7 @@ const CreatePlaylist = memo(() => {
                 <FileInput
                   className={cl.input}
                   ref={coverInputRef}
-                  accept='image/jpeg, image/webp, image/png'
+                  accept={imageFormats}
                   onChange={coverImageInput}
                 />
               </div>
@@ -135,7 +138,7 @@ const CreatePlaylist = memo(() => {
                 <FileInput
                   className={cl.input}
                   ref={songInputRef}
-                  accept='audio/mpeg, audio/wav'
+                  accept={audioFormats}
                   onChange={songInput}
                 />
               </div>
