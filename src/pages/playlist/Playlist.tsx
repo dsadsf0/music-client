@@ -6,7 +6,6 @@ import IPlaylist from '../../types/IPlaylist';
 import cl from './playlist.module.scss'
 import Loader from './../../components/UI/loader/Loader';
 import ISong from './../../types/ISong';
-import SongService from './../../API/SongService';
 import { useAppDispatch, useAppSeletor } from './../../hooks/redux';
 import { playerSlice } from './../../store/reducers/PlayerSlice';
 import { API_URL } from '../../API';
