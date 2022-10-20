@@ -43,7 +43,7 @@ const PlaylistBlock = memo(({ className, playlistId }: Props) => {
     fetchPlaylist();
   }, []);
 
-  if (isPlaylistLoading) {
+  if (isPlaylistLoading || !playlist) {
     return (
       <div className={`${cl.container} ${classNameCheck(className)}`}>
         <div className={cl.cover}>
@@ -55,9 +55,7 @@ const PlaylistBlock = memo(({ className, playlistId }: Props) => {
   if (fetchPlaylistError) {
     return (
       <div className={`${cl.container} ${classNameCheck(className)}`}>
-        <div className={cl.cover}
-          style={{ backgroundImage: `url(${API_URL}/covers/${'nf.png'})` }}
-        >
+        <div className={cl.cover}>
         </div>
         <div className={cl.title}>Loading Error</div>
       </div>

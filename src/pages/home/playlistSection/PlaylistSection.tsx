@@ -17,12 +17,11 @@ const PlaylistSection = memo(({ className, section, playlistsId }: Props) => {
   const [playlistsCount, setPlaylistsCount] = useState<number>(1)
 
   useEffect(() => {
-    let count = 1;
-    if (sectionRef.current) {
-      count = Math.floor((sectionRef.current.clientWidth + 25) / 265)
+    if (sectionRef.current) {      
+      const count = Math.floor((sectionRef.current.clientWidth + 25) / 261)
       setPlaylistsCount(count)
     }    
-  }, [])
+  }, [sectionRef])
 
   return (
     <div className={`${cl.section} ${classNameCheck(className)}`} ref={sectionRef}>
