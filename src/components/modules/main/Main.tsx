@@ -17,7 +17,6 @@ import mainRoutes from '../../../routes/mainRoutes'
 import uploadRoutes from './../../../routes/uploadRoutes';
 import Library from '../../../pages/library/Library'
 import libraryRoutes from '../../../routes/libraryRoutes'
-import LikedPlaylists from '../../../pages/liked_playlists/LikedPlaylists'
 
 const Main = ({ className }: BaseProps) => {
   
@@ -33,9 +32,9 @@ const Main = ({ className }: BaseProps) => {
         <Route path={`${mainRoutes.section}/:id`} element={<Section/>} />
         <Route path={`${mainRoutes.playlist}/:id`} element={<Playlist />} />
         <Route path={mainRoutes.library} element={<Library />} >
-          <Route path={libraryRoutes.likedPlaylists}  />
+          <Route path={libraryRoutes.likedPlaylists} />
           <Route path={libraryRoutes.createdPlaylists} />
-          <Route path={libraryRoutes.uploadedSongs}  />
+          <Route path={libraryRoutes.uploadedSongs} />
         </Route>
 
         {

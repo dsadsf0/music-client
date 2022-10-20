@@ -88,8 +88,8 @@ const CreatePlaylist = memo(() => {
         let data = new FormData()
         data.append('name', songName)
         data.append('author', songAuthor)
-        data.append('songFile', new Blob([songFile], { type: songFile.type }), 'songFile')
-        data.append('coverFile', new Blob([coverImage], { type: coverImage.type }), 'coverImage')
+        data.append('songFile', new Blob([songFile], { type: songFile.type }), songFile.name)
+        data.append('coverFile', new Blob([coverImage], { type: coverImage.type }), coverImage.name)
         try {
           const res = await SongService.uploadSong(data)
           dispatch(authSlice.actions.setUser(res))

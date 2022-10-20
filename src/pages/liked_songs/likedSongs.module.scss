@@ -10,3 +10,10 @@
     &:last-child {margin: 0;}
   }
 }
+
+.notFound {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

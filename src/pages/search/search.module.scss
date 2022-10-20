@@ -9,3 +9,19 @@
   justify-content: center;
   align-items: center;
 }
+
+.playlistSection {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px 30px;
+  align-items: center;
+  width: 100%;
+}
+
+.songSection {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px 30px;
+  align-items: center;
+  justify-content: space-evenly;
+}

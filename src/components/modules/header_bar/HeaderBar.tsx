@@ -10,6 +10,7 @@ import AuthLayout from './../auth_layout/AuthLayout';
 import UserMenu from './user_menu/UserMenu';
 import SearchInput from './../../UI/inputs/SearchInput';
 import mainRoutes from './../../../routes/mainRoutes';
+import mobileChek from './../../../scrtipts/mobileCheck';
 
 let timerId: NodeJS.Timeout;
 
@@ -32,17 +33,17 @@ const HeaderBar = memo(({ className }: BaseProps) => {
     }, 500)
   }
 
-  const clearQuery = () => {
-    setSearchQuery('')
-  }
 
   useEffect(() => {
-    if ((location.split('/')[location.split('/').length - 1] === 'search')) clearQuery()
+    const path = location.split('/')
+    const query = path.pop() || ''
+    if (path.includes(mainRoutes.search.slice(1)))
+      setSearchQuery(query)
   }, [location])
 
   useEffect(() => {
     const main = document.querySelector('main')
-    if (main) observer.observe(main, { childList: true })
+    if (main && !mobileChek(navigator, window)) observer.observe(main, { childList: true })
 
     return () => observer.disconnect()
   }, [])

@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react'
+import React, { createRef, memo, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import PlaylistService from '../../API/PlaylistService'
 import { useFetching } from '../../hooks/fetching'
@@ -20,6 +20,7 @@ const Search = memo(() => {
   const dispatch = useAppDispatch();
   const { currentSong, isPause, currentPlaylistId } = useAppSeletor(state => state.player)
   const [currentSongsPlaylist, setCurrentSongsPlaylist] = useState('')
+  const playlistSectionRef = createRef<HTMLDivElement>()
 
   const [fetchPlaylists, isPlaylistsLoading, fetchPlaylistsError] = useFetching(async () => {
     setPlaylists([])
@@ -66,6 +67,24 @@ const Search = memo(() => {
     fetchSongs()
   }, [query])
 
+  useEffect(() => {
+    if (playlistSectionRef.current) {
+      const sectionWidth = playlistSectionRef.current.clientWidth
+      const a = playlistSectionRef.current.childNodes[0] as HTMLElement
+      const count = Math.floor((sectionWidth + 30) / (a.clientWidth + 30))
+
+      if (count < playlists.length) {
+        playlistSectionRef.current.childNodes.forEach(item => {
+          const link = item as HTMLElement
+          const additionalWidth = Math.floor((sectionWidth - ((a.clientWidth + 30) * count) + 30) / count)
+          link.style.height = Math.ceil(a.clientHeight) + additionalWidth + 'px'
+          link.style.width = Math.ceil(a.clientWidth) + additionalWidth + 'px'
+        })
+      }
+      
+    }
+  }, [playlistSectionRef])
+
   if (isPlaylistsLoading || isSongsLoading) 
     return (<Loader />)
 
@@ -78,29 +97,33 @@ const Search = memo(() => {
         title='Playlists'
         isFound={!!playlists.length}
       >
-        {
-          playlists.map(item =>
-            <SearchedPlaylist
-              key={item._id}
-              playlist={item}
-            />
-          )
-        }
+        <div className={cl.playlistSection} ref={playlistSectionRef}>
+          {
+            playlists.map(item =>
+              <SearchedPlaylist
+                key={item._id}
+                playlist={item}
+              />
+            )
+          }
+        </div>
       </SearchedSection>
       <SearchedSection
         title='Songs'
         isFound={!!songs.length}
       >
-        {
-          songs.map(item =>
-            <SearchedSong 
-              key={item._id}
-              song={item}
-              playTrack={setSong}
-              isActive={currentPlaylistId === currentSongsPlaylist && currentSong?._id === item._id}
-            />
-          )
-        }
+        <div className={cl.songSection}>
+          {
+            songs.map(item =>
+              <SearchedSong
+                key={item._id}
+                song={item}
+                playTrack={setSong}
+                isActive={currentPlaylistId === currentSongsPlaylist && currentSong?._id === item._id}
+              />
+            )
+          }
+        </div>
       </SearchedSection>
     </div>
   )
