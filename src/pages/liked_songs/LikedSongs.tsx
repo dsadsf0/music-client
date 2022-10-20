@@ -67,6 +67,10 @@ const LikedSongs = memo(() => {
   if (isSongsLoading) 
     return <Loader />
 
+  if (fetchSongsError) return (
+    <h2 className={cl.notFound}>Loading error</h2>
+  )
+
   if (!songs.length) return (
     <h2 className={cl.notFound}>You haven't liked any song yet</h2>
   )
