@@ -1,16 +1,44 @@
 .container {
-  padding: 30px;
+
+  .wrapper {
+    display: flex;
+    margin-bottom: 20px;
+
+    .formElements {
+      margin-right: 30px;
+    }
+    .image {
+      &:not([src]){display: none;}
+      & {
+          flex: 1 1 auto;
+          overflow: hidden;
+          outline: 0;
+          border: 0;
+          max-height: 200px;
+          object-fit: contain;
+          object-position: center;
+      }
+    }
+
+    @media (max-width: 767px) {
+      flex-direction: column-reverse;
+
+      .formElements {margin-right: 0;}
+
+      .image {margin-bottom: 25px;}
+    }
+  }
+
+  .title {
+    font-size: 26px;
+    margin-bottom: 30px;
+  }
 
   .form {
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.2);
     padding: 20px;
-    padding-bottom: 30px;
     border-radius: 15px;
-
-    .title {
-      font-size: 26px;
-      margin-bottom: 30px;
-    }
+    min-height: min-content;
 
     .files {
       display: flex;
@@ -60,18 +88,16 @@
     }
 
     .songInfo {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 15px 40px;
-      margin-bottom: 30px;
         
       .input {
+        display: block;
         width: 300px;
         font-size: 14px;
         height: 34px;
         color: fff;
         border: 1px solid #fff;
+        margin-bottom: 15px;
+        border-radius: 13px;
 
         &._error {
           &::placeholder{

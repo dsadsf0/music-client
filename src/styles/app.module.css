@@ -17,9 +17,27 @@
   grid-area: nav-bar;
   background-color: #000;
   min-width: 170px;
-  width: auto;
+  width: 250px;
   max-width: 250px;
   z-index: 3;
+}
+
+@media (max-width: 1450px) {
+  .aside {
+    width: 230px;
+  }
+}
+
+@media (max-width: 1150px) {
+  .aside {
+    width: 210px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .aside {
+    width: auto;
+  }
 }
 
 .header {

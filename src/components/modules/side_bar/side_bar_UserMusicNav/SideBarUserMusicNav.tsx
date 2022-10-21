@@ -60,7 +60,7 @@ const SideBarUserMusicNav = memo(({ className, }: Props) => {
           authed={
             <li>
               <LinkPage
-                to={`${mainRoutes.upload}/${uploadRoutes.playlist}`}
+                to={`${mainRoutes.upload}`}
                 isActive={curPath.split('/').includes(mainRoutes.upload.slice(1))}
                 className={`${cl.link}`}
               >

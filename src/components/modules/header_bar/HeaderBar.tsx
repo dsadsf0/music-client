@@ -20,7 +20,9 @@ const HeaderBar = memo(({ className }: BaseProps) => {
   const navigate = useNavigate()
   const [marginRight, setMarginRight] = useState('0px')
   let observer = new MutationObserver(mutationRecords => {
-    const main = mutationRecords[mutationRecords.length - 1].target as HTMLElement
+    const target = mutationRecords[mutationRecords.length - 1].target as HTMLElement
+    const main = target.closest('main') as HTMLElement
+    
     setMarginRight(main.scrollHeight > main.clientHeight? '13px' : '0px')    
   });
 
@@ -43,7 +45,7 @@ const HeaderBar = memo(({ className }: BaseProps) => {
 
   useEffect(() => {
     const main = document.querySelector('main')
-    if (main && !mobileChek(navigator, window)) observer.observe(main, { childList: true })
+    if (main && !mobileChek(navigator, window)) observer.observe(main, { childList: true, subtree: true})
 
     return () => observer.disconnect()
   }, [])

@@ -56,7 +56,7 @@ const UserMenu = memo(({ className }:BaseProps) => {
         </LinkButton>
         <LinkButton
           style='base'
-          to={`${mainRoutes.upload}/${uploadRoutes.playlist}`}
+          to={`${mainRoutes.upload}`}
           className={cl.userbtn}
           onClick={btnClick}
         >
