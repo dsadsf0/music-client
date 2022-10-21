@@ -1,4 +1,5 @@
 const uploadRoutes = {
+  intro: '',
   playlist: 'playlist',
   song: 'song',
 }

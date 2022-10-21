@@ -1,16 +1,18 @@
-import React, { createRef, memo, useState } from 'react'
-import FileInput from '../../components/UI/inputs/FileInput'
-import cl from './createPlaylist.module.scss'
-import Input from './../../components/UI/inputs/Input';
-import { useAppDispatch, useAppSeletor } from '../../hooks/redux';
-import SongService from '../../API/SongService';
-import { authSlice } from '../../store/reducers/AuthSlice';
+import React, { createRef, memo, useEffect, useState } from 'react'
+import FileInput from '../../../components/UI/inputs/FileInput'
+import cl from './uploadSong.module.scss'
+import Input from '../../../components/UI/inputs/Input';
+import { useAppDispatch, useAppSeletor } from '../../../hooks/redux';
+import SongService from '../../../API/SongService';
+import { authSlice } from '../../../store/reducers/AuthSlice';
 import { Navigate } from 'react-router-dom';
-import { useFetching } from '../../hooks/fetching';
-import Loader from '../../components/UI/loader/Loader';
-import mainRoutes from './../../routes/mainRoutes';
+import { useFetching } from '../../../hooks/fetching';
+import Loader from '../../../components/UI/loader/Loader';
+import mainRoutes from '../../../routes/mainRoutes';
 
-const CreatePlaylist = memo(() => {
+const reader = new FileReader()
+
+const UploadSong = memo(() => {
 
   const { isAuth } = useAppSeletor(state => state.auth)
   const dispatch = useAppDispatch()
@@ -21,6 +23,8 @@ const CreatePlaylist = memo(() => {
   const [coverImage, setCoverImage] = useState<File>()
   const [coverErrors, setCoverErrors] = useState<string>('')
   const coverInputRef = createRef<HTMLInputElement>()
+  const imageRef = createRef<HTMLImageElement>()
+
 
   const [songFile, setSongFile] = useState<File>()
   const [songFileErrors, setSongFileErrors] = useState<string>('')
@@ -36,10 +40,22 @@ const CreatePlaylist = memo(() => {
     await handleUploadSong()
   })
 
+  useEffect(()=> {
+    reader.onload = function (e) {      
+      if (imageRef.current) {
+        imageRef.current.src = e.target?.result as string
+      }
+    }
+
+  }, [imageRef])
+
   const validateInputFile = (fileTypes: string[], file: File, setFile: (f: File | undefined) => void, setError: (s: string) => void ) => {           
     if (fileTypes.includes(file.type)) {
       setFile(file)
       setError('')
+      
+      reader.readAsDataURL(file)
+
     } else {
       setError('Wrong file')
       setFile(undefined)
@@ -107,13 +123,13 @@ const CreatePlaylist = memo(() => {
   if (!isAuth)
     return <Navigate to={mainRoutes.login} replace={true} /> 
 
+  if (isUploadingSong) return <Loader />
+
   return (
     <div className={cl.container}>
-      {
-        isUploadingSong ? <Loader/>
-        :
-          <form className={cl.form} method='post' onSubmit={e => e.preventDefault()}>
-            <h2 className={cl.title}>Upload Song</h2>
+      <form className={cl.form} method='post' onSubmit={e => e.preventDefault()}>
+        <div className={cl.wrapper}>
+          <div className={cl.formElements}>
             <div className={cl.files}>
               <div className={cl.fileInput}>
                 <button
@@ -158,16 +174,19 @@ const CreatePlaylist = memo(() => {
                 placeholder={songAuthorErrors || 'Enter song author 2-60 characters long'}
               />
             </div>
-            <button
-              className={cl.upBtn}
-              onClick={uploadSong}
-            >
-              Upload
-            </button>
-          </form>
-      }
+          </div>
+          <img className={cl.image} ref={imageRef} />
+        </div>
+        <button
+          className={cl.upBtn}
+          onClick={uploadSong}
+        >
+          Upload
+        </button>
+      </form>
+      
     </div>
   )
 })
 
-export default CreatePlaylist
+export default UploadSong

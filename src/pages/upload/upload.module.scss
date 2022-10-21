@@ -34,12 +34,15 @@
       &:first-child {
         border-radius: 25px 0px 0px 25px;
       }
+
       &:last-child {
         border-radius: 0px 25px 25px 0px;
       }
+
       &:hover {
         background-color: rgba(255, 255, 255, 0.1);
       }
+
       &._active {
         background-color: rgba(255, 255, 255, 0.2);
       }

@@ -1,11 +1,11 @@
 import React, { createRef, memo, useEffect } from 'react'
 import { Navigate } from 'react-router-dom'
 import cl from './likedPlaylists.module.scss'
-import { useAppSeletor } from '../../hooks/redux';
-import PlaylistBlock from './../home/playlistBlock/playlistBlock';
-import mainRoutes from './../../routes/mainRoutes';
-import BaseProps from './../../types/BaseProps';
-import classNameCheck from './../../scrtipts/classNameCheck';
+import { useAppSeletor } from '../../../hooks/redux';
+import PlaylistBlock from '../../home/playlistBlock/playlistBlock';
+import mainRoutes from '../../../routes/mainRoutes';
+import BaseProps from '../../../types/BaseProps';
+import classNameCheck from '../../../scrtipts/classNameCheck';
 
 const LikedPlaylists = memo(({className}: BaseProps) => {
 

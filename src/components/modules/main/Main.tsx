@@ -12,11 +12,11 @@ import LogIn from './../../../pages/logIn/LogIn';
 import SignUp from './../../../pages/signUp/SignUp';
 import Search from './../../../pages/search/Search';
 import LikedSongs from '../../../pages/liked_songs/LikedSongs'
-import CreatePlaylist from '../../../pages/create_song_playlist/CreatePlaylist'
 import mainRoutes from '../../../routes/mainRoutes'
 import uploadRoutes from './../../../routes/uploadRoutes';
 import Library from '../../../pages/library/Library'
 import libraryRoutes from '../../../routes/libraryRoutes'
+import Upload from '../../../pages/upload/Upload'
 
 const Main = ({ className }: BaseProps) => {
   
@@ -43,7 +43,11 @@ const Main = ({ className }: BaseProps) => {
           // Playlist or Song
           // all users will be able to listen to it
         }
-        <Route path={`${mainRoutes.upload}/${uploadRoutes.playlist}`} element={<CreatePlaylist />} />
+        <Route path={mainRoutes.upload} element={<Upload/>}>
+          <Route path={uploadRoutes.intro} />
+          <Route path={uploadRoutes.playlist} />
+          <Route path={uploadRoutes.song} />
+        </Route>
 
         <Route path={mainRoutes.likedSongs} element={<LikedSongs/> } />
         <Route path='*' element={<NotFound />} />
