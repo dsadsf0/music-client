@@ -1,0 +1,15 @@
+.notFound {
+  display: block;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.container {
+
+  .songBlock {
+    margin: 0;
+    margin-bottom: 15px;
+
+    &:last-child{margin: 0;}
+  }
+}
