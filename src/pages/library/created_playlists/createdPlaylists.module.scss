@@ -1,5 +1,11 @@
+.notFound {
+  display: block;
+  text-align: center;
+  margin-top: 50px;
+}
+
 .container {
-  
+
   .title {
     margin-bottom: 30px;
   }
@@ -9,10 +15,4 @@
     flex-wrap: wrap;
     gap: 20px 30px;
   }
-}
-
-.notFound {
-  display: block;
-  text-align: center;
-  margin-top: 50px;
 }

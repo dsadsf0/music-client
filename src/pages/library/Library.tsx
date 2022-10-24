@@ -6,6 +6,8 @@ import LikedPlaylists from './liked_playlists/LikedPlaylists';
 import cl from './library.module.scss'
 import mainRoutes from './../../routes/mainRoutes';
 import LinkStd from './../../components/UI/links/LinkStd';
+import UploadedSongs from './uploaded_songs/UploadedSongs';
+import CreatedPlaylists from './created_playlists/CreatedPlaylists';
 
 const Library = memo(() => {
 
@@ -47,9 +49,9 @@ const Library = memo(() => {
       </nav>
       <div className={cl.content}>
         <Routes>
-          <Route path={libraryRoutes.likedPlaylists} element={<LikedPlaylists  />} />
-          <Route path={libraryRoutes.createdPlaylists} element={<h2>created playlists</h2>} />
-          <Route path={libraryRoutes.uploadedSongs} element={<h2>uploaded songs</h2>} />
+          <Route path={libraryRoutes.likedPlaylists} element={<LikedPlaylists />} />
+          <Route path={libraryRoutes.createdPlaylists} element={<CreatedPlaylists/>} />
+          <Route path={libraryRoutes.uploadedSongs} element={<UploadedSongs />} />
         </Routes>
       </div>
     </div>

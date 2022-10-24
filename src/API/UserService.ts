@@ -44,5 +44,16 @@ export default class UserService {
       throw error
     }
   }
+
+  static async getUploadedSongs() {
+    try {
+      const res = await api.get<ISong[]>(`${API_URL}/api/user/uploaded/songs`)
+      return res.data
+    }
+    catch (error) {
+      throw error
+    }
+  }
+  
   
 }
