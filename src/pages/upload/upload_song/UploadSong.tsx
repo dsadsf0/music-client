@@ -53,19 +53,20 @@ const UploadSong = memo(() => {
     if (fileTypes.includes(file.type)) {
       setFile(file)
       setError('')
-      
-      reader.readAsDataURL(file)
-
+      return true
     } else {
       setError('Wrong file')
       setFile(undefined)
+      return false
     } 
   }
 
   const coverImageInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
     if (files && files[0]) {
-      validateInputFile(imageFormats.split(','), files[0], setCoverImage, setCoverErrors)
+      if (validateInputFile(imageFormats.split(','), files[0], setCoverImage, setCoverErrors)) 
+        reader.readAsDataURL(files[0])
+      else if (imageRef.current) imageRef.current.src = ''
     }         
   }
 
@@ -184,7 +185,6 @@ const UploadSong = memo(() => {
           Upload
         </button>
       </form>
-      
     </div>
   )
 })
