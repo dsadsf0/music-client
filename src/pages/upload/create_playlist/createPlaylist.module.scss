@@ -7,6 +7,7 @@
     .formElements {
       margin-right: 30px;
     }
+
     .image {
       flex: 1 1 auto;
       overflow: hidden;
@@ -16,16 +17,25 @@
       object-fit: contain;
       object-position: center;
 
-      &:not([src]){display: none;}
-      &[src=""] {display: none;}
+      &:not([src]) {
+        display: none;
+      }
+
+      &[src=""] {
+        display: none;
+      }
     }
 
     @media (max-width: 767px) {
       flex-direction: column-reverse;
 
-      .formElements {margin-right: 0;}
+      .formElements {
+        margin-right: 0;
+      }
 
-      .image {margin-bottom: 25px;}
+      .image {
+        margin-bottom: 25px;
+      }
     }
   }
 
@@ -71,24 +81,25 @@
           color: #fff;
           border: 1px solid #fff;
         }
-    
+
         &._error {
           color: #d33838;
           border: 1px solid #d33838;
         }
+
         &._good {
           color: #1bbe57;
           border: 1px solid #1bbe57;
         }
       }
-    
+
       .input {
         display: none;
       }
     }
 
     .songInfo {
-        
+
       .input {
         display: block;
         width: 300px;
@@ -100,9 +111,10 @@
         border-radius: 13px;
 
         &._error {
-          &::placeholder{
+          &::placeholder {
             color: #d33838;
           }
+
           border: 1px solid #d33838;
         }
       }
@@ -124,7 +136,7 @@
       transition: transform .2s;
 
       &:hover {
-      transform: scale(1.1);
+        transform: scale(1.1);
       }
     }
   }
