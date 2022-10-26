@@ -87,7 +87,6 @@ const CreatePlaylist = memo(() => {
         data.append('coverFile', new Blob([coverImage], { type: coverImage.type }), coverImage.name)
         try {
           const res = await PlaylistService.createPlaylist(data)
-          console.log(res);          
           dispatch(authSlice.actions.setUser(res))
           setCoverImage(undefined)
           setPlaylistTitle('')
