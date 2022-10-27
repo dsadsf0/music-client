@@ -22,9 +22,9 @@ const PlaylistMenu = memo(({ className, playlistId }: Props) => {
   const wrapperRef = createRef<HTMLDivElement>();
 
   const deletePlaylist = async () => {
-    // const res = await PlaylistService.deletePlaylist(playlistId)
-    // dispatch(authSlice.actions.setUser(res))
-    // navigate(mainRoutes.home, { replace: true })
+    const res = await PlaylistService.deletePlaylist(playlistId)
+    dispatch(authSlice.actions.setUser(res))
+    navigate(mainRoutes.home, { replace: true })
   }
 
   useEffect(() => {
