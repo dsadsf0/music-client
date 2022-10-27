@@ -1,0 +1,24 @@
+$dmr: 6px;
+$dw: 15px;
+
+.btn {
+  box-sizing: content-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: $dw;
+  width: calc($dw * 3 + $dmr * 2);
+  background-color: transparent;
+  outline: 0;
+  border: 0;
+  padding: 10px;
+  
+  div {
+    flex: 1 1 auto;
+    height: 100%;
+    background-color: #bdbdbd;
+    border-radius: 50%;
+    margin-right: $dmr;
+    &:last-child {margin-right: 0;}
+  }
+}

@@ -70,6 +70,7 @@ const HeaderBar = memo(({ className }: BaseProps) => {
                     setValue={setSearchQuery}
                     onChange={search}
                     placeholder='Artists, songs or podcasts'
+                    autoFocus={true}
                   />
                 </form>
               }

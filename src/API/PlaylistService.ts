@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from "axios";
 import api, { API_URL } from ".";
 import IUser from "../types/IUser";
 import IPlaylist from './../types/IPlaylist';
+import Playlist from './../pages/playlist/Playlist';
 
 export default class PlaylistService {
   
@@ -56,6 +57,16 @@ export default class PlaylistService {
           "Content-type": "multipart/form-data",
         },
       });
+      return response.data;
+    }
+    catch (error) {
+      throw error
+    }
+  }
+
+  static async deletePlaylist(playlistId: string) {
+    try {
+      const response = await api.delete<IUser>(`${API_URL}/api/user/uploaded/playlists/${playlistId}`);
       return response.data;
     }
     catch (error) {

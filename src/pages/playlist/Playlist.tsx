@@ -16,16 +16,20 @@ import LikeButton from '../../components/UI/buttons/LikeButton';
 import { authSlice } from '../../store/reducers/AuthSlice';
 import UserService from '../../API/UserService';
 import mainRoutes from './../../routes/mainRoutes';
+import MeatBallsButton from './../../components/UI/buttons/MeatBallsButton';
+import PlaylistMenu from './playlist_menu/PlaylistMenu';
 
 const Playlist = memo(() => {
   
   const playlistId = useParams().id || ''
+  
   const songListIntroRef = createRef<HTMLDivElement>()
   const [avgColor, setAvgColor] = useState({r: 31, g:31, b: 31})
+
   const dispatch = useAppDispatch()
   const { isAuth, user } = useAppSeletor(state => state.auth)
-  const playerSongs = useAppSeletor(state => state.player.songs)
   const { autoplay, isPause, currentSong, currentPlaylistId } = useAppSeletor(state => state.player)
+
   const [playlist, setPlaylist] = useState<IPlaylist>({} as IPlaylist)
   const [songs, setSongs] = useState<ISong[]>([])
   const [fetchPlaylist, isPlaylistLoading, fetchPlaylistError] = useFetching(async () => {
@@ -207,6 +211,13 @@ const Playlist = memo(() => {
                   like={likePlaylist}
                 /> 
               : null
+          }
+          {
+            isAuth
+              ? <PlaylistMenu
+                playlistId={playlistId}
+              />
+              : null 
           }
         </div>
       </div>
