@@ -12,9 +12,10 @@ interface Props extends BaseProps {
   placeholder?: string;
   type?: 'text' | 'email' | 'password';
   setValue: (query: string) => void
+  autoFocus?: boolean
 }
 
-const SearchInput = memo(({ className, value, onChange, placeholder, type, setValue }:Props) => {
+const SearchInput = memo(({ className, value, onChange, placeholder, type, setValue, autoFocus }:Props) => {
 
   const query = useParams().query || ''
   const navigate = useNavigate()
@@ -36,7 +37,7 @@ const SearchInput = memo(({ className, value, onChange, placeholder, type, setVa
         onChange={e => onChange(e)}
         placeholder={placeholder}
         type={type? type : 'text'}
-        autoFocus={true}
+        autoFocus={autoFocus}
       />
       <div className={cl.btn}
         onClick={e => clearQuery(e)}

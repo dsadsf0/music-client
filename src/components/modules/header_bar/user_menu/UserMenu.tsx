@@ -8,7 +8,6 @@ import classNameCheck from '../../../../scrtipts/classNameCheck';
 import BaseProps from './../../../../types/BaseProps';
 import LinkButton from './../../../UI/links/LinkButton';
 import mainRoutes from './../../../../routes/mainRoutes';
-import uploadRoutes from '../../../../routes/uploadRoutes';
 
 const UserMenu = memo(({ className }:BaseProps) => {
   const { user } = useAppSeletor(state => state.auth)

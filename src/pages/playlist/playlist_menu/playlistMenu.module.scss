@@ -1,0 +1,52 @@
+.wrapper {
+  position: relative;
+
+  .MeatBallbtn {
+    cursor: pointer;
+    transition-duration: .2s;
+
+    &:hover {
+      filter: brightness(120%);
+    }
+  }
+
+  .menu {
+    position: absolute;
+    z-index: 5;
+    left: 100%;
+    top: 100%;
+    min-width: 200px;
+    max-width: 300px;
+    padding: 20px 20px 20px 20px;
+    border-radius: 8px;
+    background-color: #2c2c2c;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition-duration: .2s;
+
+    &._active {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .btn {
+      cursor: pointer;
+      border-radius: 5px;
+      text-align: center;
+      padding: 10px 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition-duration: .2s;
+      margin-bottom: 10px;
+      
+      &:last-child {margin-bottom: 0;}
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+    }
+  }
+}
