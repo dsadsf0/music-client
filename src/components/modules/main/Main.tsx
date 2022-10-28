@@ -36,13 +36,6 @@ const Main = ({ className }: BaseProps) => {
           <Route path={libraryRoutes.createdPlaylists} />
           <Route path={libraryRoutes.uploadedSongs} />
         </Route>
-
-        {
-          // to upload page
-          // upload your own
-          // Playlist or Song
-          // all users will be able to listen to it
-        }
         <Route path={mainRoutes.upload} element={<Upload/>}>
           <Route path={uploadRoutes.intro} />
           <Route path={uploadRoutes.playlist} />

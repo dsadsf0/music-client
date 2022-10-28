@@ -15,8 +15,8 @@ const LinkButton = memo(({ className, children, style, to, onClick}: Props) => {
 
   const sync = useSyncLinkToArrowNav();
 
-  const click = () => {
-    onClick && onClick()
+  const click = (e: React.MouseEvent) => {
+    onClick && onClick(e)
     sync()
   }
   

@@ -53,9 +53,9 @@ const CreatedPlaylists = memo(() => {
         {
           user.createdPlaylists.map((playlist) =>
             <PlaylistBlock
-              key={playlist}
+              key={playlist._id}
               className={cl.playlistBlock}
-              playlistId={playlist}
+              playlistId={playlist._id}
             />
           )
         }

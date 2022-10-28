@@ -32,10 +32,11 @@ const Player = memo(({ className }: BaseProps) => {
 
   const like = async (e: React.MouseEvent) => {
     if (currentSong) {
-      if (!user.likedSongs.includes(currentSong._id)) {
-        dispatch(authSlice.actions.addLikedSong(currentSong._id))
+      
+      if (!user.likedSongs.some(item => item._id === currentSong._id)) {
+        dispatch(authSlice.actions.addLikedSong(currentSong))
       } else {
-        dispatch(authSlice.actions.removeLikedSong(currentSong._id))
+        dispatch(authSlice.actions.removeLikedSong(currentSong))
       }
       UserService.likeSong(currentSong._id)
     }
@@ -254,7 +255,7 @@ const Player = memo(({ className }: BaseProps) => {
         <div className={cl.side}>
           <LikeButton
             className={cl.likeBtn}
-            isActive={currentSong ? user.likedSongs.includes(currentSong._id) : false}
+            isActive={currentSong ? user.likedSongs.some(item => item._id === currentSong._id) : false}
             like={like}
           />
           <div className={cl.volume} style={{ display: mobileChek(navigator,window) ? 'none' : 'flex' }}>

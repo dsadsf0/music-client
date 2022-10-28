@@ -16,7 +16,6 @@ import LikeButton from '../../components/UI/buttons/LikeButton';
 import { authSlice } from '../../store/reducers/AuthSlice';
 import UserService from '../../API/UserService';
 import mainRoutes from './../../routes/mainRoutes';
-import MeatBallsButton from './../../components/UI/buttons/MeatBallsButton';
 import PlaylistMenu from './playlist_menu/PlaylistMenu';
 
 const Playlist = memo(() => {
@@ -36,7 +35,7 @@ const Playlist = memo(() => {
     const fetchedPlaylist = await PlaylistService.getPlaylistById(playlistId);
     setPlaylist(fetchedPlaylist)    
     setSongs(fetchedPlaylist.songs)
-  })
+  })  
   
   const setPlayer = () => {
     if (songs.length) {
@@ -68,10 +67,10 @@ const Playlist = memo(() => {
 
   const likePlaylist = async (e: React.MouseEvent) => {
     if (playlistId) {
-      if (!user.likedPlaylists.includes(playlistId)) {
-        dispatch(authSlice.actions.addLikedPlaylist(playlistId))
+      if (!user.likedPlaylists.some(item => item._id === playlistId)) {
+        dispatch(authSlice.actions.addLikedPlaylist(playlist))
       } else {
-        dispatch(authSlice.actions.removeLikedlaylist(playlistId))
+        dispatch(authSlice.actions.removeLikedlaylist(playlist))
       }
       UserService.likePlaylist(playlistId)
     }
@@ -207,7 +206,7 @@ const Playlist = memo(() => {
               ? 
                 <LikeButton
                   className={cl.likeBtn}
-                  isActive={user.likedPlaylists.includes(playlistId)}
+                  isActive={user.likedPlaylists.some(item => item._id === playlistId)}
                   like={likePlaylist}
                 /> 
               : null
@@ -240,7 +239,7 @@ const Playlist = memo(() => {
               key={song._id}
               song={song}
               index={i+1}
-              playlistCover={playlist.cover}
+              playlist={playlist}
               playTrack={setSong}
               isActive={currentPlaylistId === playlistId && currentSong?._id === song._id}
             />

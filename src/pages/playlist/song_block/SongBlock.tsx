@@ -10,26 +10,28 @@ import UserService from './../../../API/UserService';
 import { authSlice } from '../../../store/reducers/AuthSlice';
 import LikeButton from '../../../components/UI/buttons/LikeButton';
 import mainRoutes from './../../../routes/mainRoutes';
+import SongMenu from './song_menu/SongMenu';
+import IPlaylist from './../../../types/IPlaylist';
 
 interface Props extends BaseProps {
   song: ISong,
   index?: number,
-  playlistCover: string,
+  playlist?: IPlaylist,
   playTrack: (song: ISong) => void
   isActive: boolean
 }
 
-const SongBlock = memo(({ className, index, song, playlistCover, playTrack, isActive }: Props) => {
+const SongBlock = memo(({ className, index, song, playlist, playTrack, isActive }: Props) => {
 
   const { isAuth, user } = useAppSeletor(state => state.auth)
   const dispatch = useAppDispatch()
 
   const like = async (e: React.MouseEvent) => {
     e.stopPropagation()
-    if (!user.likedSongs.includes(song._id)) {
-      dispatch(authSlice.actions.addLikedSong(song._id))
+    if (!user.likedSongs.some(item => item._id === song._id)) {
+      dispatch(authSlice.actions.addLikedSong(song))
     } else {
-      dispatch(authSlice.actions.removeLikedSong(song._id))
+      dispatch(authSlice.actions.removeLikedSong(song))
     }
     UserService.likeSong(song._id)
   }
@@ -43,7 +45,7 @@ const SongBlock = memo(({ className, index, song, playlistCover, playTrack, isAc
       <div className={cl.info}>
         <div
           className={cl.info__cover}
-          style={{ backgroundImage: `url(${API_URL}/covers/${song?.cover || playlistCover})` }}
+          style={{ backgroundImage: `url(${API_URL}/covers/${song?.cover || playlist?.cover})` }}
         >
         </div>
         <div className={cl.info__text}>
@@ -55,15 +57,18 @@ const SongBlock = memo(({ className, index, song, playlistCover, playTrack, isAc
   )
 
   return (
-    <div 
+    <div
       className={`${cl.container} ${classNameCheck(className)} ${isActive ? cl._active : ''}`}
-      onClick={() => playTrack(song)}
+      onClick={(e: React.MouseEvent) => {
+        const target = e.target as HTMLElement
+        if (!target.closest('button')) playTrack(song)
+      }}
     >
       <div className={cl.index}>{index}</div>
       <div className={cl.info}>
         <div 
           className={cl.info__cover}
-          style={{ backgroundImage: `url(${API_URL}/covers/${song?.cover || playlistCover})` }}
+          style={{ backgroundImage: `url(${API_URL}/covers/${song?.cover || playlist?.cover})` }}
         >
         </div>
         <div className={cl.info__text}>
@@ -71,10 +76,15 @@ const SongBlock = memo(({ className, index, song, playlistCover, playTrack, isAc
           <div className={cl.info__author}>{song.author}</div>
         </div>
       </div>
+      <SongMenu
+        className={cl.songMenu}
+        song={song}
+        playlist={playlist}
+      />
       <div>
         <LikeButton
           className={cl.likeBtn}
-          isActive={user.likedSongs.includes(song._id)}
+          isActive={user.likedSongs.some(item => item._id === song._id)}
           like={like}
         />
       </div>

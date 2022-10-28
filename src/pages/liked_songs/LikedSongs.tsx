@@ -86,7 +86,6 @@ const LikedSongs = memo(() => {
             song={song}
             isActive={currentPlaylistId === playlistId && currentSong?._id === song._id}
             playTrack={setSong}
-            playlistCover={playlistCover}
             index={i+1}
           />
         )
