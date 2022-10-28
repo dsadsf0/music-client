@@ -1,6 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import IAuthError from "../../types/IAuthError";
 import IUser from "../../types/IUser";
+import ISong from './../../types/ISong';
+import IPlaylist from './../../types/IPlaylist';
 
 interface AuthState {
   isAuth: boolean;
@@ -32,23 +34,23 @@ export const authSlice = createSlice({
     setError(state, action: PayloadAction<IAuthError>) {
       state.Error = action.payload
     },
-    setLikedSongs(state, action: PayloadAction<string[]>) {
+    setLikedSongs(state, action: PayloadAction<ISong[]>) {
       state.user.likedSongs = action.payload
     }, 
-    addLikedSong(state, action: PayloadAction<string>) {
+    addLikedSong(state, action: PayloadAction<ISong>) {
       state.user.likedSongs = [...state.user.likedSongs, action.payload]
     },
-    removeLikedSong(state, action: PayloadAction<string>) {
-      state.user.likedSongs = state.user.likedSongs.filter(song => song !== action.payload)
+    removeLikedSong(state, action: PayloadAction<ISong>) {
+      state.user.likedSongs = state.user.likedSongs.filter(song => song._id !== action.payload._id)
     },
-    setLikedPlaylists(state, action: PayloadAction<string[]>) {
+    setLikedPlaylists(state, action: PayloadAction<IPlaylist[]>) {
       state.user.likedPlaylists = action.payload
     },
-    addLikedPlaylist(state, action: PayloadAction<string>) {
+    addLikedPlaylist(state, action: PayloadAction<IPlaylist>) {
       state.user.likedPlaylists = [...state.user.likedPlaylists, action.payload]
     },
-    removeLikedlaylist(state, action: PayloadAction<string>) {
-      state.user.likedPlaylists = state.user.likedPlaylists.filter(playlist => playlist !== action.payload)
+    removeLikedlaylist(state, action: PayloadAction<IPlaylist>) {
+      state.user.likedPlaylists = state.user.likedPlaylists.filter(playlist => playlist._id !== action.payload._id)
     },
   }
 })

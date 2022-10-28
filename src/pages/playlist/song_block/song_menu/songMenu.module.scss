@@ -1,0 +1,137 @@
+.wrapper {
+  position: relative;
+
+  .MeatBallbtn {
+    cursor: default;
+    transition-duration: .2s;
+    height: 5px;
+    width: 21px;
+    padding: 15px;
+    
+    div {
+      margin-right: 3px;
+      &:last-child {margin-right: 0;}
+    }
+
+    &:hover {
+      filter: brightness(120%);
+    }
+  }
+
+  .menu {
+    cursor: default;
+    position: absolute;
+    z-index: 5;
+    right: 100%;
+    bottom: 50%;
+    min-width: 200px;
+    max-width: 300px;
+    padding: 20px 20px 20px 20px;
+    border-radius: 8px;
+    background-color: #363636;
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition-duration: .2s;
+
+    &._active {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: all;
+
+      .btn {
+        pointer-events: all;
+      }
+    }
+
+    .btn {
+      cursor: pointer;
+      border-radius: 5px;
+      text-align: center;
+      padding: 10px 5px;
+      transition-duration: .2s;
+      margin-bottom: 10px;
+      span {
+        display: block;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+    }
+
+    .popupBtn {
+      position: relative;
+
+      .listWrapper {
+        cursor: default;
+        position: absolute;
+        min-height: 100px;
+        min-width: 100px;
+        max-width: 250px;
+        right: 100%;
+        bottom: -100%;
+        padding-right: 21px;
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+
+        @media (max-width: 600px) {
+          right: 0%;
+          bottom: 100%;          
+        }
+
+        .playlistsList {
+          padding: 20px 10px;
+          background-color: #363636;
+          border-radius: 5px;
+
+          .link {
+            display: block;
+            color: #fff;
+            text-decoration: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            &:hover {
+              background-color: rgba(255, 255, 255, 0.1);
+            }
+          }
+
+          li {
+            display: block;
+            color: #fff;
+            margin-bottom: 15px;
+            padding: 5px 10px;
+            border-radius: 3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            &:last-child{margin-bottom: 0;}
+            &:hover {
+              background-color: rgba(255, 255, 255, 0.1);
+            }
+          }
+        }
+      }
+
+      &:hover {
+
+        .listWrapper {
+          opacity: 1;
+          visibility: visible;
+          pointer-events: all;
+        }
+      }
+    }
+  }
+}

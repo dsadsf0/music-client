@@ -59,9 +59,9 @@ const LikedPlaylists = memo(({className}: BaseProps) => {
         {
           user.likedPlaylists.map((playlist) =>
             <PlaylistBlock
-              key={playlist}
+              key={playlist._id}
               className={cl.playlistBlock}
-              playlistId={playlist}
+              playlistId={playlist._id}
             />
           )
         }

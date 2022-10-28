@@ -74,4 +74,25 @@ export default class PlaylistService {
     }
   }
 
+  static async addSongToPlaylist(playlistId: string, songId: string) {    
+    try {
+      const response = await api.put<IUser>(`${API_URL}/api/playlist/addSong/${playlistId}`, {songId});
+      return response.data;
+    }
+    catch (error) {
+      throw error
+    }    
+  }
+
+  static async removeSongFromPlaylist(playlistId: string, songId: string) {
+    try {
+      const response = await api.put<IUser>(`${API_URL}/api/playlist/removeSong/${playlistId}`, {songId});
+      return response.data;
+    }
+    catch (error) {
+      throw error
+    }
+  }
+
+
 }

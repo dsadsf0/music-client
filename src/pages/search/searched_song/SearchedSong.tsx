@@ -24,10 +24,10 @@ const SearchedSong = memo(({ song, className, playTrack, isActive }: Props) => {
 
   const like = async (e: React.MouseEvent) => {
     e.stopPropagation()
-    if (!user.likedSongs.includes(song._id)) {
-      dispatch(authSlice.actions.addLikedSong(song._id))
+    if (!user.likedSongs.some(item => item._id === song._id)) {
+      dispatch(authSlice.actions.addLikedSong(song))
     } else {
-      dispatch(authSlice.actions.removeLikedSong(song._id))
+      dispatch(authSlice.actions.removeLikedSong(song))
     }
     UserService.likeSong(song._id)
   }
@@ -69,7 +69,7 @@ const SearchedSong = memo(({ song, className, playTrack, isActive }: Props) => {
       </div>
       <LikeButton
         className={cl.likeBtn}
-        isActive={user.likedSongs.includes(song._id)}
+        isActive={user.likedSongs.some(item => item._id === song._id)}
         like={like}
       />
     </div>

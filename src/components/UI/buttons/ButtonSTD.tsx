@@ -12,7 +12,7 @@ const ButtonSTD = memo( ({onClick, className, children, style}: Props) => {
 
   function Click(e: React.MouseEvent) {
     e.preventDefault();
-    onClick && onClick();
+    onClick && onClick(e);
   }
 
   return (

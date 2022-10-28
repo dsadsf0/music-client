@@ -50,7 +50,7 @@ const PlaylistMenu = memo(({ className, playlistId }: Props) => {
       />
       <div className={`${cl.menu} ${isActive ? cl._active : ''}`}>
         {
-          user.createdPlaylists.includes(playlistId) 
+          user.createdPlaylists.some(item => item._id === playlistId)
           ? <div 
               className={cl.btn}
               onClick={deletePlaylist}

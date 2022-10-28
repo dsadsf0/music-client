@@ -9,7 +9,7 @@ interface Props extends BaseProps {
 const MeatBallsButton = memo(({ onClick, className }: Props) => {
   function click(e: React.MouseEvent) {
     e.preventDefault();
-    onClick && onClick();
+    onClick && onClick(e);
   }
 
   return (

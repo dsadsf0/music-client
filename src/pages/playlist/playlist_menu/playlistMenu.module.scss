@@ -15,7 +15,7 @@
     z-index: 5;
     left: 100%;
     top: 100%;
-    min-width: 200px;
+    min-width: 100px;
     max-width: 300px;
     padding: 20px 20px 20px 20px;
     border-radius: 8px;
@@ -24,6 +24,10 @@
     opacity: 0;
     pointer-events: none;
     transition-duration: .2s;
+
+    @media (max-width: 600px) {
+      left: 0;      
+    }
 
     &._active {
       visibility: visible;
@@ -35,7 +39,7 @@
       cursor: pointer;
       border-radius: 5px;
       text-align: center;
-      padding: 10px 0;
+      padding: 10px 5px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
