@@ -17,11 +17,13 @@ interface Props extends BaseProps {
   song: ISong,
   index?: number,
   playlist?: IPlaylist,
-  playTrack: (song: ISong) => void
-  isActive: boolean
+  playTrack: (song: ISong) => void,
+  isActive: boolean,
+  addToPlaylist?: (plId: string, song: ISong) => Promise<void>,
+  removeFromPlaylist?: (songId: string) => Promise<void>,
 }
 
-const SongBlock = memo(({ className, index, song, playlist, playTrack, isActive }: Props) => {
+const SongBlock = memo(({ className, index, song, playlist, playTrack, isActive, addToPlaylist, removeFromPlaylist }: Props) => {
 
   const { isAuth, user } = useAppSeletor(state => state.auth)
   const dispatch = useAppDispatch()
@@ -80,6 +82,8 @@ const SongBlock = memo(({ className, index, song, playlist, playTrack, isActive 
         className={cl.songMenu}
         song={song}
         playlist={playlist}
+        addToPlaylist={addToPlaylist}
+        removeFromPlaylist={removeFromPlaylist}
       />
       <div>
         <LikeButton
