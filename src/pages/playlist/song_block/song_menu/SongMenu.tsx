@@ -12,28 +12,27 @@ import ISong from './../../../../types/ISong';
 import IPlaylist from './../../../../types/IPlaylist';
 
 interface Props extends BaseProps {
-  song: ISong;
-  playlist?: IPlaylist
+  song: ISong,
+  playlist?: IPlaylist,
+  addToPlaylist?: (plId: string, song: ISong) => Promise<void>,
+  removeFromPlaylist?: (songId: string) => Promise<void>,
 }
 
 
-const SongMenu = memo(({ className, song, playlist }: Props) => {
+const SongMenu = memo(({ className, song, playlist, removeFromPlaylist, addToPlaylist }: Props) => {
 
   const [isActive, setIsActive] = useState(false)
   const { user } = useAppSeletor(state => state.auth)
   const wrapperRef = createRef<HTMLDivElement>();
 
-  // вынести эти функции в playlist.tsx оттуда сюда передовать и изменять текущий плейлист принудительно вместе со списком песен
-
-  const addToPlaylist = async (playlistId: string) => {
-    const res = await PlaylistService.addSongToPlaylist(playlistId, song._id)
+  const handleAddToPlaylist = async (playlistId: string) => {
     setIsActive(false)
+    addToPlaylist && await addToPlaylist(playlistId, song)
   }
 
-  const removeFromPlaylist = async (playlistId: string) => {
-    const res = await PlaylistService.removeSongFromPlaylist(playlistId, song._id)
+  const handleRemoveFromPlaylist = async () => {
     setIsActive(false)
-
+    removeFromPlaylist && await removeFromPlaylist(song._id)
   }
 
   useEffect(() => {
@@ -87,7 +86,7 @@ const SongMenu = memo(({ className, song, playlist }: Props) => {
                           {user.createdPlaylists.map(item =>
                             <li
                               key={item._id}
-                              onClick={() => addToPlaylist(item._id)}
+                              onClick={() => handleAddToPlaylist(item._id)}
                             >{item.title}</li>
                           )}
                         </>
@@ -96,7 +95,7 @@ const SongMenu = memo(({ className, song, playlist }: Props) => {
                 </div>
                 </>
             : <span
-                onClick={() => removeFromPlaylist(playlist._id)}
+                onClick={handleRemoveFromPlaylist}
               >
                 Delete from playlist
               </span>

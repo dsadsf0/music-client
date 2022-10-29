@@ -27,8 +27,9 @@ const Playlist = memo(() => {
 
   const dispatch = useAppDispatch()
   const { isAuth, user } = useAppSeletor(state => state.auth)
-  const { autoplay, isPause, currentSong, currentPlaylistId } = useAppSeletor(state => state.player)
-
+  const { autoplay, isPause, currentSong, } = useAppSeletor(state => state.player)
+  const currentPlayingPlaylistId = useAppSeletor(state => state.player.currentPlaylistId)
+  const currentPlayingSongs = useAppSeletor(state => state.player.songs)
   const [playlist, setPlaylist] = useState<IPlaylist>({} as IPlaylist)
   const [songs, setSongs] = useState<ISong[]>([])
   const [fetchPlaylist, isPlaylistLoading, fetchPlaylistError] = useFetching(async () => {
@@ -39,7 +40,7 @@ const Playlist = memo(() => {
   
   const setPlayer = () => {
     if (songs.length) {
-      if (currentPlaylistId !== playlistId) {    
+      if (currentPlayingPlaylistId !== playlistId) {    
         dispatch(playerSlice.actions.setSongs(songs))
         dispatch(playerSlice.actions.setCurrentSong(songs[0]))
         dispatch(playerSlice.actions.setCurrentPlaylistId(playlistId))
@@ -56,7 +57,7 @@ const Playlist = memo(() => {
   }  
 
   const setSong = (song: ISong) => {
-    if (currentPlaylistId === playlistId) {
+    if (currentPlayingPlaylistId === playlistId) {
       dispatch(playerSlice.actions.setCurrentSong(song))
       dispatch(playerSlice.actions.setIsPause(false))
     } else {
@@ -74,6 +75,36 @@ const Playlist = memo(() => {
       }
       UserService.likePlaylist(playlistId)
     }
+  }
+
+  const addToPlaylist = async (plId: string, song: ISong) => {
+    await PlaylistService.addSongToPlaylist(plId, song._id)
+    if (currentPlayingPlaylistId === plId) {
+      const newSongs = [...currentPlayingSongs, song]
+      const curSong = currentSong
+      dispatch(playerSlice.actions.setSongs(newSongs))
+      if (curSong) {
+        dispatch(playerSlice.actions.setCurrentSong(curSong))
+      }
+    }
+  }
+
+  const removeFromPlaylist = async (songId: string) => {
+    await PlaylistService.removeSongFromPlaylist(playlistId, songId)
+    const newSongs = songs.filter(item => item._id !== songId)
+    setPlaylist({ ...playlist, songs: newSongs})
+    if (currentPlayingPlaylistId === playlistId) {
+      const curSong = currentSong
+      dispatch(playerSlice.actions.setSongs(newSongs))
+      if (curSong) {
+        if (curSong._id === songId) {
+          dispatch(playerSlice.actions.setCurrentSong(newSongs[0]))
+        } else {
+          dispatch(playerSlice.actions.setCurrentSong(curSong))
+        } 
+      }
+    }
+    setSongs(newSongs)
   }
 
   useEffect(() => {
@@ -169,7 +200,7 @@ const Playlist = memo(() => {
                 onClick={setPlayer}
               >
                 {
-                  isPause || currentPlaylistId !== playlistId
+                  isPause || currentPlayingPlaylistId !== playlistId
                     ?
                     <svg
                       className={cl.play}
@@ -241,7 +272,9 @@ const Playlist = memo(() => {
               index={i+1}
               playlist={playlist}
               playTrack={setSong}
-              isActive={currentPlaylistId === playlistId && currentSong?._id === song._id}
+              isActive={currentPlayingPlaylistId === playlistId && currentSong?._id === song._id}
+              removeFromPlaylist={removeFromPlaylist}
+              addToPlaylist={addToPlaylist}
             />
           )
         }
