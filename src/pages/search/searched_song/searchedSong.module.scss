@@ -23,6 +23,7 @@
     flex: 1 1 auto;
     display: flex;
     align-items: center;
+    margin-right: 20px;
 
     &__cover {
       height: 50px;
@@ -46,9 +47,13 @@
       color: #c0c0c0;
     }
   }
+
+  .songMenu {
+    margin-right: 2px;
+  }
+
+  .likeBtn {
+    margin-right: -8px;
+  }
 }
 
-.likeBtn {
-  margin-left: 25px;
-  margin-right: -8px;
-}
