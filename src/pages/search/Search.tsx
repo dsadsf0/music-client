@@ -19,6 +19,7 @@ const Search = memo(() => {
   const [songs, setSongs] = useState<ISong[]>([])
   const dispatch = useAppDispatch();
   const { currentSong, isPause, currentPlaylistId } = useAppSeletor(state => state.player)
+  const currentPlayingSongs = useAppSeletor(state => state.player.songs)
   const [currentSongsPlaylist, setCurrentSongsPlaylist] = useState('')
   const playlistSectionRef = createRef<HTMLDivElement>()
 
@@ -59,6 +60,18 @@ const Search = memo(() => {
     } else {
       setPlayer()
       dispatch(playerSlice.actions.setCurrentSong(song))
+    }
+  }
+
+  const addToPlaylist = async (plId: string, song: ISong) => {
+    await PlaylistService.addSongToPlaylist(plId, song._id)
+    if (currentPlaylistId === plId) {
+      const newSongs = [...currentPlayingSongs, song]
+      const curSong = currentSong
+      dispatch(playerSlice.actions.setSongs(newSongs))
+      if (curSong) {
+        dispatch(playerSlice.actions.setCurrentSong(curSong))
+      }
     }
   }
 
@@ -120,6 +133,7 @@ const Search = memo(() => {
                 song={item}
                 playTrack={setSong}
                 isActive={currentPlaylistId === currentSongsPlaylist && currentSong?._id === item._id}
+                addToPlaylist={addToPlaylist}
               />
             )
           }

@@ -46,7 +46,6 @@ const SongMenu = memo(({ className, song, playlist, removeFromPlaylist, addToPla
     document.body.addEventListener('click', listener);
     return function cleanup() { 
       document.body.removeEventListener('click', listener)
-
     };
   }, [wrapperRef]);
 

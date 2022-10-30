@@ -10,14 +10,16 @@ import BaseProps from '../../../types/BaseProps'
 import ISong from '../../../types/ISong'
 import cl from './searchedSong.module.scss'
 import mainRoutes from './../../../routes/mainRoutes';
+import SongMenu from '../../playlist/song_block/song_menu/SongMenu'
 
 interface Props extends BaseProps {
   song: ISong,
   playTrack: (song: ISong) => void,
   isActive: boolean,
+  addToPlaylist?: (plId: string, song: ISong) => Promise<void>,
 }
 
-const SearchedSong = memo(({ song, className, playTrack, isActive }: Props) => {
+const SearchedSong = memo(({ song, className, playTrack, isActive, addToPlaylist }: Props) => {
 
   const { isAuth, user } = useAppSeletor(state => state.auth)
   const dispatch = useAppDispatch()
@@ -54,7 +56,10 @@ const SearchedSong = memo(({ song, className, playTrack, isActive }: Props) => {
   return (
     <div
       className={`${cl.container} ${classNameCheck(className)} ${isActive ? cl._active : ''}`}
-      onClick={() => playTrack(song)}
+      onClick={(e: React.MouseEvent) => {
+        const target = e.target as HTMLElement
+        if (!target.closest('button')) playTrack(song)
+      }}
     >
       <div className={cl.info}>
         <div
@@ -67,6 +72,11 @@ const SearchedSong = memo(({ song, className, playTrack, isActive }: Props) => {
           <div className={cl.info__author}>{song.author}</div>
         </div>
       </div>
+      <SongMenu
+        className={cl.songMenu}
+        song={song}
+        addToPlaylist={addToPlaylist}
+      />
       <LikeButton
         className={cl.likeBtn}
         isActive={user.likedSongs.some(item => item._id === song._id)}

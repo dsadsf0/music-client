@@ -10,12 +10,14 @@ import { playerSlice } from '../../store/reducers/PlayerSlice';
 import Loader from '../../components/UI/loader/Loader';
 import UserService from './../../API/UserService';
 import mainRoutes from './../../routes/mainRoutes';
+import PlaylistService from '../../API/PlaylistService';
 
 const LikedSongs = memo(() => {
 
   const dispatch = useAppDispatch()
   const { isAuth, user} = useAppSeletor(state => state.auth)
   const { currentPlaylistId, playlistCover, isPause, currentSong } = useAppSeletor(state => state.player)
+  const currentPlayingSongs = useAppSeletor(state => state.player.songs)
 
   const [songs, setSongs] = useState<ISong[]>([])
   const [playlistId, setPlaylistId] = useState('')
@@ -53,6 +55,18 @@ const LikedSongs = memo(() => {
     }
   }
 
+  const addToPlaylist = async (plId: string, song: ISong) => {
+    await PlaylistService.addSongToPlaylist(plId, song._id)
+    if (currentPlaylistId === plId) {
+      const newSongs = [...currentPlayingSongs, song]
+      const curSong = currentSong
+      dispatch(playerSlice.actions.setSongs(newSongs))
+      if (curSong) {
+        dispatch(playerSlice.actions.setCurrentSong(curSong))
+      }
+    }
+  }
+
   useEffect(() => {
     fetchSongs()
   }, [])
@@ -87,6 +101,7 @@ const LikedSongs = memo(() => {
             isActive={currentPlaylistId === playlistId && currentSong?._id === song._id}
             playTrack={setSong}
             index={i+1}
+            addToPlaylist={addToPlaylist}
           />
         )
       }
