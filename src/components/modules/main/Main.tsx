@@ -41,7 +41,6 @@ const Main = ({ className }: BaseProps) => {
           <Route path={uploadRoutes.playlist} />
           <Route path={uploadRoutes.song} />
         </Route>
-
         <Route path={mainRoutes.likedSongs} element={<LikedSongs/> } />
         <Route path='*' element={<NotFound />} />
       </Routes>   
