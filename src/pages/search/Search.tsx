@@ -129,6 +129,7 @@ const Search = memo(() => {
           {
             songs.map(item =>
               <SearchedSong
+                className={cl.song}
                 key={item._id}
                 song={item}
                 playTrack={setSong}
