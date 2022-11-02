@@ -16,6 +16,16 @@ export default class PlaylistService {
     }
   }
 
+  static async getLikedPlaylists() {
+    try {
+      const response = await api.get<IPlaylist[]>(`${API_URL}/api/user/liked/playlists`);
+      return response.data;
+    }
+    catch (error) {
+      throw error
+    }
+  }
+
   static async getCountPlaylists(count: number) {
     try {
       const response = await api.get<IPlaylist[]>(`${API_URL}/api/playlist`, {

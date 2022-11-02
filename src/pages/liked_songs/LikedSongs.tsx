@@ -16,7 +16,7 @@ const LikedSongs = memo(() => {
 
   const dispatch = useAppDispatch()
   const { isAuth, user} = useAppSeletor(state => state.auth)
-  const { currentPlaylistId, playlistCover, isPause, currentSong } = useAppSeletor(state => state.player)
+  const { currentPlaylistId, isPause, currentSong } = useAppSeletor(state => state.player)
   const currentPlayingSongs = useAppSeletor(state => state.player.songs)
 
   const [songs, setSongs] = useState<ISong[]>([])
@@ -86,7 +86,7 @@ const LikedSongs = memo(() => {
   )
 
   if (!songs.length) return (
-    <h2 className={cl.notFound}>You haven't uploaded any song yet</h2>
+    <h2 className={cl.notFound}>You haven't liked any song yet</h2>
   )
 
   return (
