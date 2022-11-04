@@ -14,7 +14,7 @@ interface Props extends BaseProps {
 const RangeInput = memo(({value, onChange, min, max, step, className}: Props) => {
   return (
     <div className={`${cl.progress} ${classNameCheck(className)}`}>
-      <div className={cl.progress__bar} style={{ width: `${value * 100 / max}%`}}></div>
+      <div className={cl.progress__bar} style={{ width: `${(value - min) * 100 / (max - min)}%`}}></div>
       <input
         className={cl.progress__input}
         type="range"
