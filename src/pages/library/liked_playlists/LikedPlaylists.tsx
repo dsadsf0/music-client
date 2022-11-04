@@ -40,7 +40,6 @@ const LikedPlaylists = memo(({className}: BaseProps) => {
             const additionalWidth = Math.floor((sectionWidth - ((a.clientWidth + 30) * countInRow) + 30) / countInRow)
             link.style.height = Math.ceil(a.clientHeight) + additionalWidth + 'px'
             link.style.width = Math.ceil(a.clientWidth) + additionalWidth + 'px'
-
           })
         }
       }
