@@ -1,14 +1,15 @@
 import React, { createRef, memo, useEffect } from 'react'
 import { useAppSeletor } from '../../../hooks/redux'
-import classNameCheck from '../../../scrtipts/classNameCheck'
 import PlaylistBlock from '../../home/playlistBlock/playlistBlock'
 import cl from './createdPlaylists.module.scss'
+
+let observer: MutationObserver
 
 const CreatedPlaylists = memo(() => {
 
   const { user } = useAppSeletor(state => state.auth)
   const playlistSectionRef = createRef<HTMLDivElement>()
-  let observer = new MutationObserver(mutationRecords => {
+  observer = new MutationObserver(mutationRecords => {
     const section = mutationRecords[mutationRecords.length - 1].target as HTMLElement
 
     let isA = true;

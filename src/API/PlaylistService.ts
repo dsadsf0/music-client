@@ -2,23 +2,12 @@ import axios, { AxiosResponse } from "axios";
 import api, { API_URL } from ".";
 import IUser from "../types/IUser";
 import IPlaylist from './../types/IPlaylist';
-import Playlist from './../pages/playlist/Playlist';
 
 export default class PlaylistService {
   
   static async getAllPlaylists() {
     try {
       const response = await api.get<IPlaylist[]>(`${API_URL}/api/playlist`);
-      return response.data;
-    }
-    catch (error) {
-      throw error
-    }
-  }
-
-  static async getLikedPlaylists() {
-    try {
-      const response = await api.get<IPlaylist[]>(`${API_URL}/api/user/liked/playlists`);
       return response.data;
     }
     catch (error) {

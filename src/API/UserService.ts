@@ -45,6 +45,16 @@ export default class UserService {
     }
   }
 
+  static async getCreatedPlaylists() {
+    try {
+      const response = await api.get<IPlaylist[]>(`${API_URL}/api/user/uploaded/playlists`);
+      return response.data;
+    }
+    catch (error) {
+      throw error
+    }
+  }
+
   static async getUploadedSongs() {
     try {
       const res = await api.get<ISong[]>(`${API_URL}/api/user/uploaded/songs`)
