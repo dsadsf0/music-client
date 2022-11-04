@@ -59,9 +59,6 @@ const Genres = memo(() => {
     }
   }, [isPlaylistsLoading])
 
-  if (!isAuth)
-    return <Navigate to={mainRoutes.login} replace={true} />
-
   if (isPlaylistsLoading)
     return <Loader/>
   
