@@ -98,24 +98,11 @@
             color: #fff;
             text-decoration: none;
             padding: 5px 10px;
-            border-radius: 3px;
+            border-radius: 5px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            &:hover {
-              background-color: rgba(255, 255, 255, 0.1);
-            }
-          }
-
-          li {
-            display: block;
-            color: #fff;
-            margin-bottom: 15px;
-            padding: 5px 10px;
-            border-radius: 3px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            margin-bottom: 10px;
             &:last-child{margin-bottom: 0;}
             &:hover {
               background-color: rgba(255, 255, 255, 0.1);

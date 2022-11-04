@@ -1,13 +1,12 @@
 import React, { createRef, memo, useEffect, useState } from 'react'
 import MeatBallsButton from '../../../../components/UI/buttons/MeatBallsButton'
 import LinkStd from '../../../../components/UI/links/LinkStd'
-import { useAppDispatch, useAppSeletor } from '../../../../hooks/redux'
+import { useAppSeletor } from '../../../../hooks/redux'
 import classNameCheck from '../../../../scrtipts/classNameCheck'
 import BaseProps from '../../../../types/BaseProps'
 import cl from './songMenu.module.scss'
 import mainRoutes from './../../../../routes/mainRoutes';
 import uploadRoutes from '../../../../routes/uploadRoutes'
-import PlaylistService from '../../../../API/PlaylistService'
 import ISong from './../../../../types/ISong';
 import IPlaylist from './../../../../types/IPlaylist';
 
@@ -84,6 +83,7 @@ const SongMenu = memo(({ className, song, playlist, removeFromPlaylist, addToPla
                         <>
                           {user.createdPlaylists.map(item =>
                             <li
+                              className={cl.link}
                               key={item._id}
                               onClick={() => handleAddToPlaylist(item._id)}
                             >{item.title}</li>
