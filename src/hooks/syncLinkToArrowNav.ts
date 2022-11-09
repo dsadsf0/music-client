@@ -10,5 +10,8 @@ export const useSyncLinkToArrowNav = () => {
   return () => {
     dispatch(pushPrev(location));
     dispatch(clearNext());
+    
+    const main = document.querySelector('main')
+    if (main) main.scrollTo(0, 0)
   }
 }
