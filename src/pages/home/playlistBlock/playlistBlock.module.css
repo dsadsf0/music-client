@@ -18,6 +18,10 @@
   overflow: hidden;
 }
 
+.container:hover {
+  background-color: #252525;
+}
+
 .cover {
   position: relative;
   margin-bottom: 15px;

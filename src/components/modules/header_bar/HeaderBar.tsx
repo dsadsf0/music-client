@@ -41,6 +41,8 @@ const HeaderBar = memo(({ className }: BaseProps) => {
     const query = path.pop() || ''
     if (path.includes(mainRoutes.search.slice(1)))
       setSearchQuery(query)
+    else 
+      setSearchQuery('')
   }, [location])
 
   useEffect(() => {

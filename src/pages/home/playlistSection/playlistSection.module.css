@@ -57,7 +57,3 @@
 .block:last-child {
   margin-right: 0;
 }
-
-.block:hover {
-  background-color: #252525;
-}
