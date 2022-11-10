@@ -46,29 +46,22 @@ const UserMenu = memo(({ className }:BaseProps) => {
         className={`${cl.userPopup} ${classNameCheck(cl[isUserDialogActive ? '_active' : ''])}`}
         isActive={isUserDialogActive}
       >
-        {
-          mobileChek(navigator, window) 
-          ?
-            <>
-                <LinkButton
-                  style='base'
-                  to={mainRoutes.home}
-                  className={cl.userbtn}
-                  onClick={btnClick}
-                >
-                  Home
-                </LinkButton>
-                <LinkButton
-                  style='base'
-                  to={mainRoutes.search}
-                  className={cl.userbtn}
-                  onClick={btnClick}
-                >
-                  Search
-                </LinkButton>
-            </>
-          : null
-        }
+        <LinkButton
+          style='base'
+          to={mainRoutes.home}
+          className={cl.userbtn}
+          onClick={btnClick}
+        >
+          Home
+        </LinkButton>
+        <LinkButton
+          style='base'
+          to={mainRoutes.search}
+          className={cl.userbtn}
+          onClick={btnClick}
+        >
+          Search
+        </LinkButton>
         <LinkButton
           style='base'
           to={mainRoutes.library}
