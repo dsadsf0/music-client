@@ -8,6 +8,7 @@ import classNameCheck from '../../../../scrtipts/classNameCheck';
 import BaseProps from './../../../../types/BaseProps';
 import LinkButton from './../../../UI/links/LinkButton';
 import mainRoutes from './../../../../routes/mainRoutes';
+import mobileChek from '../../../../scrtipts/mobileCheck';
 
 const UserMenu = memo(({ className }:BaseProps) => {
   const { user } = useAppSeletor(state => state.auth)
@@ -45,6 +46,29 @@ const UserMenu = memo(({ className }:BaseProps) => {
         className={`${cl.userPopup} ${classNameCheck(cl[isUserDialogActive ? '_active' : ''])}`}
         isActive={isUserDialogActive}
       >
+        {
+          mobileChek(navigator, window) 
+          ?
+            <>
+                <LinkButton
+                  style='base'
+                  to={mainRoutes.home}
+                  className={cl.userbtn}
+                  onClick={btnClick}
+                >
+                  Home
+                </LinkButton>
+                <LinkButton
+                  style='base'
+                  to={mainRoutes.search}
+                  className={cl.userbtn}
+                  onClick={btnClick}
+                >
+                  Search
+                </LinkButton>
+            </>
+          : null
+        }
         <LinkButton
           style='base'
           to={mainRoutes.library}

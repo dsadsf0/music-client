@@ -20,6 +20,7 @@
   margin-right: 25px;
   min-width: 100px;
 }
+
 .upperText {
   display: block;
   font-family: 'GothamNarrow';
@@ -44,4 +45,30 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  min-width: 60px;
+}
+
+@media (max-width: 570px) {
+  .link {
+    font-size: 12px;
+    padding: 14px;
+  }
+
+  .mainText {
+    font-size: 14px;
+  }
+
+  .container {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 500px) {
+  .link {
+    font-size: 10px;
+  }
+
+  .mainText {
+    font-size: 10px;
+  }
 }
