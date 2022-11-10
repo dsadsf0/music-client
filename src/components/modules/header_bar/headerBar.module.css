@@ -24,6 +24,7 @@
   display: flex;
   align-items: center;
   margin-right: 20px;
+  flex: 1 1 auto;
 }
 
 .arrow {
@@ -38,25 +39,8 @@
 }
 
 .form {
-  width: 300px;
-}
-
-@media (max-width: 850px) {
-  .form {
-    width: 200px;
-  }
-}
-
-@media (max-width: 750px) {
-  .form {
-    width: 150px;
-  }
-}
-
-@media (max-width: 660px) {
-  .form {
-    width: 120px;
-  }
+  flex: 1 1 300px;
+  max-width: 300px;
 }
 
 .user {}
@@ -73,5 +57,11 @@
 @media (max-width: 735px) {
   .btn {
     margin-right: 10px;
+  }
+}
+
+@media (max-width: 349px) {
+  .btn:first-child {
+    display: none;
   }
 }

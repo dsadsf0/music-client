@@ -17,6 +17,7 @@ import { authSlice } from '../../store/reducers/AuthSlice';
 import UserService from '../../API/UserService';
 import mainRoutes from './../../routes/mainRoutes';
 import PlaylistMenu from './playlist_menu/PlaylistMenu';
+import mobileChek from '../../scrtipts/mobileCheck';
 
 const Playlist = memo(() => {
   
@@ -146,18 +147,21 @@ const Playlist = memo(() => {
   }), [playlist.cover, avgColor.r, avgColor.g, avgColor.b])
   
   useEffect(() => {
-    const coloring = () => {
-      if (songListIntroRef.current?.getBoundingClientRect().top === 75) {
-        songListIntroRef.current.style.backgroundColor = '#202020'
-      } else if (songListIntroRef.current) 
-        songListIntroRef.current.style.backgroundColor = 'transparent'
-    }
 
-    const main = document.querySelector('main')
-    main?.addEventListener('scroll', coloring)
+    if (!mobileChek(navigator, window)) {
+      const coloring = () => {
+        if (songListIntroRef.current?.getBoundingClientRect().top === 75) {
+          songListIntroRef.current.style.backgroundColor = '#202020'
+        } else if (songListIntroRef.current)
+          songListIntroRef.current.style.backgroundColor = 'transparent'
+      }
 
-    return () => {
-      main?.removeEventListener('scroll', coloring)
+      const main = document.querySelector('main')
+      main?.addEventListener('scroll', coloring)
+
+      return () => {
+        main?.removeEventListener('scroll', coloring)
+      }
     }
   }, [songListIntroRef])
 
@@ -206,7 +210,7 @@ const Playlist = memo(() => {
                       className={cl.play}
                       x="0px" y="0px" viewBox="0 0 494.148 494.148"
                     >
-                      <path d="M405.284,201.188L130.804,13.28C118.128,4.596,105.356,0,94.74,0C74.216,0,61.52,16.472,61.52,44.044v406.124c0,27.54,12.68,43.98,33.156,43.98c10.632,0,23.2-4.6,35.904-13.308l274.608-187.904c17.66-12.104,27.44-28.392,27.44-45.884C432.632,229.572,422.964,213.288,405.284,201.188z" />
+                      <path d="M405.284,201.188L130.804,13.28C118.128,4.596,105.356,0,94.74,0C74.216,0,61.52,16.472,61.52,44.044v406.124c0,27.54,12.68,43.98,33.156,43.98c10.632,0,23.2-4.6,35.904-13.308l274.608-187.904c17.66-12.104,27.44-28.392,27.44-45.884C432.632,229.572,422.964,213.288,405.284,201.188z" fill="currentColor" />
                     </svg>
                     :
                     <div>

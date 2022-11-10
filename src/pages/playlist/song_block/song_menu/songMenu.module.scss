@@ -73,7 +73,8 @@
       .listWrapper {
         cursor: default;
         position: absolute;
-        min-height: 100px;
+        max-height: 200px;
+        overflow-y: auto;
         min-width: 100px;
         max-width: 250px;
         right: 100%;
@@ -82,17 +83,18 @@
         opacity: 0;
         visibility: hidden;
         pointer-events: none;
+        border-radius: 5px;
 
         @media (max-width: 600px) {
           right: 0%;
-          bottom: 100%;          
+          bottom: 100%;
+          padding-right: 0px;       
         }
 
         .playlistsList {
           padding: 20px 10px;
           background-color: #363636;
           border-radius: 5px;
-
           .link {
             display: block;
             color: #fff;

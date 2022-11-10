@@ -40,6 +40,8 @@
 }
 
 .userbtn {
+  display: block;
+  text-align: left;
   padding: 2px 4px;
   transition-duration: .2s;
   margin-bottom: 5px;

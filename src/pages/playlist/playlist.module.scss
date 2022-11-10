@@ -1,5 +1,5 @@
 .playlist {
-  margin-top: -75px;
+  margin-top: calc(-1 * var(--header-height));
   min-height: calc(100%);
 
   &__header {
@@ -95,7 +95,7 @@
       justify-content: start;
       color: #c0c0c0;
       margin-bottom: 10px;
-      background-color: transparent;
+      background-color: #202020;
     }
 
     .songBlock {
@@ -150,6 +150,7 @@
         max-width: 25px;
         max-height: 25px;
         transform: translate(-50%, -50%);
+        color: #000;
       }
   
       .play {

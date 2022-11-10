@@ -9,6 +9,7 @@
   grid-template-rows: 1fr auto;
   height: 100%;
   min-height: 100%;
+  max-height: 100%;
   position: relative;
   width: 100%;
 }
@@ -21,7 +22,11 @@
   max-width: 250px;
   z-index: 3;
 }
-
+@media only screen and (hover: none) and (pointer: coarse) {
+  .aside {
+    display: none;
+  }
+}
 @media (max-width: 1450px) {
   .aside {
     width: 230px;
@@ -49,7 +54,7 @@
 
 .main {
   grid-area: main-view;
-  min-width: 400px;
+  min-width: 320px;
   background-color: #0e0e0e;
   background: linear-gradient(#1f1f1f 0%, #0e0e0e 100%); 
   background-attachment: fixed;
@@ -62,7 +67,5 @@
   background-color: #292929;
   border-top: 1px solid #292929;
   height: 84px;
-  /* max-height: 72px;
-  min-height: 72px; */
   z-index: 4;
 }
