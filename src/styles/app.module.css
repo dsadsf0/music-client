@@ -69,3 +69,29 @@
   height: 84px;
   z-index: 4;
 }
+
+.addToPlaylistPopUp {
+  position: absolute;
+  height: 100vh;
+  padding: 30px;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 100;
+  transition-duration: .2s;
+  background-color: rgba(0, 0, 0, .7);
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.addToPlaylistPopUp[data-add_to_playlist_active='true'] {
+  pointer-events: all;
+  opacity: 1;
+  visibility: visible;
+}
