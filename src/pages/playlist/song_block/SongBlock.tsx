@@ -10,8 +10,9 @@ import UserService from './../../../API/UserService';
 import { authSlice } from '../../../store/reducers/AuthSlice';
 import LikeButton from '../../../components/UI/buttons/LikeButton';
 import mainRoutes from './../../../routes/mainRoutes';
-import SongMenu from './song_menu/SongMenu';
 import IPlaylist from './../../../types/IPlaylist';
+import PlusButton from '../../../components/UI/buttons/PlusButton';
+import MinusButton from '../../../components/UI/buttons/MinusButton';
 
 interface Props extends BaseProps {
   song: ISong,
@@ -78,20 +79,22 @@ const SongBlock = memo(({ className, index, song, playlist, playTrack, isActive,
           <div className={cl.info__author}>{song.author}</div>
         </div>
       </div>
-      <SongMenu
-        className={cl.songMenu}
-        song={song}
-        playlist={playlist}
-        addToPlaylist={addToPlaylist}
-        removeFromPlaylist={removeFromPlaylist}
+      {
+        user.createdPlaylists.some(item => item._id === playlist?._id) 
+        ? <MinusButton 
+            className={cl.songBtn}
+            onClick={() => {removeFromPlaylist && removeFromPlaylist(song._id)}}
+          />
+        : <PlusButton 
+            className={cl.songBtn}
+            onClick={() => {}}
+          />
+      }
+      <LikeButton
+        className={cl.likeBtn}
+        isActive={user.likedSongs.some(item => item._id === song._id)}
+        like={like}
       />
-      <div>
-        <LikeButton
-          className={cl.likeBtn}
-          isActive={user.likedSongs.some(item => item._id === song._id)}
-          like={like}
-        />
-      </div>
     </div>
   )
 })

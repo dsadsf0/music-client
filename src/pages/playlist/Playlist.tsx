@@ -1,5 +1,5 @@
 import React, { createRef, memo, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import PlaylistService from '../../API/PlaylistService';
 import { useFetching } from '../../hooks/fetching';
 import IPlaylist from '../../types/IPlaylist';
@@ -16,8 +16,8 @@ import LikeButton from '../../components/UI/buttons/LikeButton';
 import { authSlice } from '../../store/reducers/AuthSlice';
 import UserService from '../../API/UserService';
 import mainRoutes from './../../routes/mainRoutes';
-import PlaylistMenu from './playlist_menu/PlaylistMenu';
 import mobileChek from '../../scrtipts/mobileCheck';
+import MinusButton from '../../components/UI/buttons/MinusButton';
 
 const Playlist = memo(() => {
   
@@ -26,6 +26,7 @@ const Playlist = memo(() => {
   const songListIntroRef = createRef<HTMLDivElement>()
   const [avgColor, setAvgColor] = useState({r: 31, g:31, b: 31})
 
+  const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const { isAuth, user } = useAppSeletor(state => state.auth)
   const { autoplay, isPause, currentSong, } = useAppSeletor(state => state.player)
@@ -76,6 +77,12 @@ const Playlist = memo(() => {
       }
       UserService.likePlaylist(playlistId)
     }
+  }
+
+  const deletePlaylist = async () => {
+    const res = await PlaylistService.deletePlaylist(playlistId)
+    dispatch(authSlice.actions.setUser(res))
+    navigate(mainRoutes.home, { replace: true })
   }
 
   const addToPlaylist = async (plId: string, song: ISong) => {
@@ -247,10 +254,10 @@ const Playlist = memo(() => {
               : null
           }
           {
-            isAuth
-              ? <PlaylistMenu
-                playlistId={playlistId}
-              />
+            isAuth && user.createdPlaylists.some(item => item._id === playlistId)
+              ? <MinusButton
+                onClick={deletePlaylist}
+                />
               : null 
           }
         </div>
