@@ -1,3 +1,29 @@
+.modal {
+  position: absolute;
+  height: 100vh;
+  padding: 30px;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 100;
+  transition-duration: .2s;
+  background-color: rgba(0, 0, 0, .7);
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+  &[data-is_active='true'] {
+    pointer-events: all;
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
 .container {
   padding: 40px;
   padding-bottom: 20px;
@@ -18,8 +44,6 @@
   }
 }
 
-
-
 .title {
   text-align: center;
   margin-bottom: 20px;
@@ -32,6 +56,9 @@
 }
 
 .block {
+  cursor: pointer;
+  color: #fff;
+  text-decoration: none;
   padding: 5px 0;
   margin-bottom: 5px;
   border-radius: 5px;

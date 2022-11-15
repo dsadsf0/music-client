@@ -1,6 +1,8 @@
 import React, { memo, useEffect, useState } from 'react'
+import PlaylistService from '../../../API/PlaylistService'
 import UserService from '../../../API/UserService'
 import Loader from '../../../components/UI/loader/Loader'
+import AddToPlaylistModal from '../../../components/UI/modals/AddToPlaylistModal'
 import { useFetching } from '../../../hooks/fetching'
 import { useAppDispatch, useAppSeletor } from '../../../hooks/redux'
 import { playerSlice } from '../../../store/reducers/PlayerSlice'
@@ -12,6 +14,7 @@ const UploadedSongs = memo(() => {
 
   const dispatch = useAppDispatch()
   const { currentPlaylistId, playlistCover, isPause, currentSong } = useAppSeletor(state => state.player)
+  const currentPlayingSongs = useAppSeletor(state => state.player.songs)
 
   const [songs, setSongs] = useState<ISong[]>([])
   const [playlistId, setPlaylistId] = useState('')
@@ -49,6 +52,35 @@ const UploadedSongs = memo(() => {
     }
   }
 
+  const [songIdToAdd, setSongIdToAdd] = useState<ISong>({} as ISong)
+  const addToPlaylist = async (plId: string, song: ISong) => {
+    await PlaylistService.addSongToPlaylist(plId, song._id)
+    if (currentPlaylistId === plId) {
+      const newSongs = [...currentPlayingSongs, song]
+      const curSong = currentSong
+      dispatch(playerSlice.actions.setSongs(newSongs))
+      if (curSong) {
+        dispatch(playerSlice.actions.setCurrentSong(curSong))
+      }
+    }
+  }
+
+  const openAddToPlaylistModal = (song: ISong) => {
+    setSongIdToAdd(song)
+    const modal = document.body.querySelector(`div[data-type="add_to_playlist_modal"]`)
+    if (modal) {
+      modal.setAttribute('data-is_active', 'true')
+    }
+  }
+
+  const closeAddToPlaylistModal = () => {
+    const modal = document.body.querySelector(`div[data-type="add_to_playlist_modal"]`)
+    if (modal) {
+      modal.setAttribute('data-is_active', 'false')
+      setSongIdToAdd({} as ISong)
+    }
+  }
+
   useEffect(() => {
     fetchSongs()
   }, [])
@@ -79,9 +111,16 @@ const UploadedSongs = memo(() => {
             isActive={currentPlaylistId === playlistId && currentSong?._id === song._id}
             playTrack={setSong}
             index={i + 1}
+            addToPlaylist={openAddToPlaylistModal}
           />
         )
       }
+      <AddToPlaylistModal
+        closeModal={closeAddToPlaylistModal}
+        dataType={'add_to_playlist_modal'}
+        addToPlaylist={addToPlaylist}
+        song={songIdToAdd}
+      />
     </section>
   )
 })

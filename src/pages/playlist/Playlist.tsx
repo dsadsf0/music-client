@@ -18,6 +18,7 @@ import UserService from '../../API/UserService';
 import mainRoutes from './../../routes/mainRoutes';
 import mobileChek from '../../scrtipts/mobileCheck';
 import MinusButton from '../../components/UI/buttons/MinusButton';
+import AddToPlaylistModal from './../../components/UI/modals/AddToPlaylistModal';
 
 const Playlist = memo(() => {
   
@@ -29,9 +30,11 @@ const Playlist = memo(() => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const { isAuth, user } = useAppSeletor(state => state.auth)
+
   const { autoplay, isPause, currentSong, } = useAppSeletor(state => state.player)
   const currentPlayingPlaylistId = useAppSeletor(state => state.player.currentPlaylistId)
   const currentPlayingSongs = useAppSeletor(state => state.player.songs)
+  
   const [playlist, setPlaylist] = useState<IPlaylist>({} as IPlaylist)
   const [songs, setSongs] = useState<ISong[]>([])
   const [fetchPlaylist, isPlaylistLoading, fetchPlaylistError] = useFetching(async () => {
@@ -85,18 +88,6 @@ const Playlist = memo(() => {
     navigate(mainRoutes.home, { replace: true })
   }
 
-  const addToPlaylist = async (plId: string, song: ISong) => {
-    await PlaylistService.addSongToPlaylist(plId, song._id)
-    if (currentPlayingPlaylistId === plId) {
-      const newSongs = [...currentPlayingSongs, song]
-      const curSong = currentSong
-      dispatch(playerSlice.actions.setSongs(newSongs))
-      if (curSong) {
-        dispatch(playerSlice.actions.setCurrentSong(curSong))
-      }
-    }
-  }
-
   const removeFromPlaylist = async (songId: string) => {
     await PlaylistService.removeSongFromPlaylist(playlistId, songId)
     const newSongs = songs.filter(item => item._id !== songId)
@@ -113,6 +104,37 @@ const Playlist = memo(() => {
       }
     }
     setSongs(newSongs)
+  }
+
+
+  const [songIdToAdd, setSongIdToAdd] = useState<ISong>({} as ISong)
+  const addToPlaylist = async (plId: string, song: ISong) => {
+    await PlaylistService.addSongToPlaylist(plId, song._id)
+    setSongIdToAdd({} as ISong)
+    if (currentPlayingPlaylistId === plId) {
+      const newSongs = [...currentPlayingSongs, song]
+      const curSong = currentSong
+      dispatch(playerSlice.actions.setSongs(newSongs))
+      if (curSong) {
+        dispatch(playerSlice.actions.setCurrentSong(curSong))
+      }
+    }
+  }
+
+  const openAddToPlaylistModal = (song: ISong) => {
+    setSongIdToAdd(song)
+    const modal = document.body.querySelector(`div[data-type="add_to_playlist_modal"]`)
+    if (modal) {
+      modal.setAttribute('data-is_active', 'true')
+    }
+  }
+
+  const closeAddToPlaylistModal = () => {
+    const modal = document.body.querySelector(`div[data-type="add_to_playlist_modal"]`)
+    if (modal) {
+      modal.setAttribute('data-is_active', 'false')
+      setSongIdToAdd({} as ISong)
+    }
   }
 
   useEffect(() => {
@@ -285,11 +307,17 @@ const Playlist = memo(() => {
               playTrack={setSong}
               isActive={currentPlayingPlaylistId === playlistId && currentSong?._id === song._id}
               removeFromPlaylist={removeFromPlaylist}
-              addToPlaylist={addToPlaylist}
+              addToPlaylist={openAddToPlaylistModal}
             />
           )
         }
       </div>
+      <AddToPlaylistModal
+        closeModal={closeAddToPlaylistModal}
+        dataType={'add_to_playlist_modal'}
+        addToPlaylist={addToPlaylist}
+        song={songIdToAdd}
+      />
     </div>
   )
 })

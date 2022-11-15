@@ -10,14 +10,13 @@ import BaseProps from '../../../types/BaseProps'
 import ISong from '../../../types/ISong'
 import cl from './searchedSong.module.scss'
 import mainRoutes from './../../../routes/mainRoutes';
-import MinusButton from '../../../components/UI/buttons/MinusButton'
 import PlusButton from '../../../components/UI/buttons/PlusButton'
 
 interface Props extends BaseProps {
   song: ISong,
   playTrack: (song: ISong) => void,
   isActive: boolean,
-  addToPlaylist?: (plId: string, song: ISong) => Promise<void>,
+  addToPlaylist?: (song: ISong) => void
 }
 
 const SearchedSong = memo(({ song, className, playTrack, isActive, addToPlaylist }: Props) => {
@@ -73,7 +72,10 @@ const SearchedSong = memo(({ song, className, playTrack, isActive, addToPlaylist
           <div className={cl.info__author}>{song.author}</div>
         </div>
       </div>
-      <PlusButton className={cl.songBtn} />
+      <PlusButton
+        className={cl.songBtn}
+        onClick={() => { addToPlaylist && addToPlaylist(song) }}
+      />
       <LikeButton
         className={cl.likeBtn}
         isActive={user.likedSongs.some(item => item._id === song._id)}

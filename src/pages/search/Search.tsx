@@ -12,6 +12,8 @@ import SearchedPlaylist from './searched_playlist/SearchedPlaylist';
 import SearchedSong from './searched_song/SearchedSong'
 import { useAppDispatch, useAppSeletor } from '../../hooks/redux'
 import { playerSlice } from '../../store/reducers/PlayerSlice'
+import SongBlock from './../playlist/song_block/SongBlock';
+import AddToPlaylistModal from '../../components/UI/modals/AddToPlaylistModal'
 
 const Search = memo(() => {
   const query = useParams().query || ''
@@ -63,6 +65,7 @@ const Search = memo(() => {
     }
   }
 
+  const [songIdToAdd, setSongIdToAdd] = useState<ISong>({} as ISong)
   const addToPlaylist = async (plId: string, song: ISong) => {
     await PlaylistService.addSongToPlaylist(plId, song._id)
     if (currentPlaylistId === plId) {
@@ -72,6 +75,22 @@ const Search = memo(() => {
       if (curSong) {
         dispatch(playerSlice.actions.setCurrentSong(curSong))
       }
+    }
+  }
+
+  const openAddToPlaylistModal = (song: ISong) => {
+    setSongIdToAdd(song)
+    const modal = document.body.querySelector(`div[data-type="add_to_playlist_modal"]`)
+    if (modal) {
+      modal.setAttribute('data-is_active', 'true')
+    }
+  }
+
+  const closeAddToPlaylistModal = () => {
+    const modal = document.body.querySelector(`div[data-type="add_to_playlist_modal"]`)
+    if (modal) {
+      modal.setAttribute('data-is_active', 'false')
+      setSongIdToAdd({} as ISong)
     }
   }
 
@@ -125,21 +144,25 @@ const Search = memo(() => {
         title='Songs'
         isFound={!!songs.length}
       >
-        <div className={cl.songSection}>
-          {
-            songs.map(item =>
-              <SearchedSong
-                className={cl.song}
-                key={item._id}
-                song={item}
-                playTrack={setSong}
-                isActive={currentPlaylistId === currentSongsPlaylist && currentSong?._id === item._id}
-                addToPlaylist={addToPlaylist}
-              />
-            )
-          }
-        </div>
+        {
+          songs.map(item =>
+            <SearchedSong
+              className={cl.song}
+              key={item._id}
+              song={item}
+              playTrack={setSong}
+              isActive={currentPlaylistId === currentSongsPlaylist && currentSong?._id === item._id}
+              addToPlaylist={openAddToPlaylistModal}
+            />
+          )
+        }
       </SearchedSection>
+      <AddToPlaylistModal
+        closeModal={closeAddToPlaylistModal}
+        dataType={'add_to_playlist_modal'}
+        addToPlaylist={addToPlaylist}
+        song={songIdToAdd}
+      />
     </div>
   )
 })
