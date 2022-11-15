@@ -11,6 +11,7 @@ import Loader from '../../components/UI/loader/Loader';
 import UserService from './../../API/UserService';
 import mainRoutes from './../../routes/mainRoutes';
 import PlaylistService from '../../API/PlaylistService';
+import AddToPlaylistModal from '../../components/UI/modals/AddToPlaylistModal';
 
 const LikedSongs = memo(() => {
 
@@ -55,6 +56,7 @@ const LikedSongs = memo(() => {
     }
   }
 
+  const [songIdToAdd, setSongIdToAdd] = useState<ISong>({} as ISong)
   const addToPlaylist = async (plId: string, song: ISong) => {
     await PlaylistService.addSongToPlaylist(plId, song._id)
     if (currentPlaylistId === plId) {
@@ -64,6 +66,22 @@ const LikedSongs = memo(() => {
       if (curSong) {
         dispatch(playerSlice.actions.setCurrentSong(curSong))
       }
+    }
+  }
+
+  const openAddToPlaylistModal = (song: ISong) => {
+    setSongIdToAdd(song)
+    const modal = document.body.querySelector(`div[data-type="add_to_playlist_modal"]`)
+    if (modal) {
+      modal.setAttribute('data-is_active', 'true')
+    }
+  }
+
+  const closeAddToPlaylistModal = () => {
+    const modal = document.body.querySelector(`div[data-type="add_to_playlist_modal"]`)
+    if (modal) {
+      modal.setAttribute('data-is_active', 'false')
+      setSongIdToAdd({} as ISong)
     }
   }
 
@@ -101,10 +119,16 @@ const LikedSongs = memo(() => {
             isActive={currentPlaylistId === playlistId && currentSong?._id === song._id}
             playTrack={setSong}
             index={i+1}
-            addToPlaylist={addToPlaylist}
+            addToPlaylist={openAddToPlaylistModal}
           />
         )
       }
+      <AddToPlaylistModal
+        closeModal={closeAddToPlaylistModal}
+        dataType={'add_to_playlist_modal'}
+        addToPlaylist={addToPlaylist}
+        song={songIdToAdd}
+      />
     </div>
   )
 })

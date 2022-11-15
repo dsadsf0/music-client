@@ -16,12 +16,12 @@ import MinusButton from '../../../components/UI/buttons/MinusButton';
 
 interface Props extends BaseProps {
   song: ISong,
-  index?: number,
+  index: number,
   playlist?: IPlaylist,
   playTrack: (song: ISong) => void,
   isActive: boolean,
-  addToPlaylist?: (plId: string, song: ISong) => Promise<void>,
   removeFromPlaylist?: (songId: string) => Promise<void>,
+  addToPlaylist?: (song: ISong) => void
 }
 
 const SongBlock = memo(({ className, index, song, playlist, playTrack, isActive, addToPlaylist, removeFromPlaylist }: Props) => {
@@ -83,11 +83,11 @@ const SongBlock = memo(({ className, index, song, playlist, playTrack, isActive,
         user.createdPlaylists.some(item => item._id === playlist?._id) 
         ? <MinusButton 
             className={cl.songBtn}
-            onClick={() => {removeFromPlaylist && removeFromPlaylist(song._id)}}
+            onClick={() => { removeFromPlaylist && removeFromPlaylist(song._id) }}
           />
         : <PlusButton 
             className={cl.songBtn}
-            onClick={() => {}}
+            onClick={() => { addToPlaylist && addToPlaylist(song) }}
           />
       }
       <LikeButton
