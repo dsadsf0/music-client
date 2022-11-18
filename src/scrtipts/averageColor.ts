@@ -37,10 +37,9 @@ const getAverageRGB = (imgEl: HTMLImageElement) => {
     rgb.b += data.data[i + 2];
   }
 
-  // ~~ used to floor values
-  rgb.r = ~~(rgb.r / count);
-  rgb.g = ~~(rgb.g / count);
-  rgb.b = ~~(rgb.b / count);
+  rgb.r = Math.floor(rgb.r / count);
+  rgb.g = Math.floor(rgb.g / count);
+  rgb.b = Math.floor(rgb.b / count);
 
   if (rgb.r === 255 && rgb.g === 255 && rgb.b === 255) return defaultRGB
 
