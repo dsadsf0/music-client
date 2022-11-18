@@ -16,7 +16,6 @@ function App() {
   const { isLoading } = useAppSeletor(state => state.auth)
   const dispatch = useAppDispatch()
   const checkAuth = AuthCreators.checkAuth;
-  
 
   useEffect( () => {
     dispatch(checkAuth());

@@ -38,6 +38,7 @@ const AddToPlaylistModal = memo(({className, closeModal, dataType, addToPlaylist
   }, [])
 
   if (!isAuth) return null
+  
   return ReactDOM.createPortal(
     <div className={`${cl.modal} ${classNameCheck(className)}`} data-is_active='false' data-type={dataType}>
       <div className={cl.container} onClick={e => e.stopPropagation()}>
