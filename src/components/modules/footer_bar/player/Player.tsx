@@ -273,7 +273,6 @@ const Player = memo(({ className }: BaseProps) => {
             />
           </div>
         </div>
-
       </div>
     </footer>
   )
