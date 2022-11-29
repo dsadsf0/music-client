@@ -55,19 +55,21 @@
   }
 }
 
-.container:hover .btn {
-  opacity: 1;
-  bottom: 10px;
-}
+@media only screen and (hover: hover) and (pointer: fine) {
+  .container:hover .btn {
+    opacity: 1;
+    bottom: 10px;
+  }
 
-.container:hover .btn .pause {
-  margin-left: -2px;
-  opacity: 1;
-  bottom: 10px;
-}
+  .container:hover .btn .pause {
+    margin-left: -2px;
+    opacity: 1;
+    bottom: 10px;
+  }
 
-.btn:hover {
-  transform: scale(1.07);
+  .btn:hover {
+    transform: scale(1.07);
+  }
 }
 
 .title {
