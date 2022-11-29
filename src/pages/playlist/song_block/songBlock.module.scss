@@ -79,8 +79,10 @@
       height: 18px;
     }
     
-    &:hover {
-      color: #fff;
+    @media only screen and (hover: hover) and (pointer: fine) {
+      &:hover {
+        color: #fff;
+      }
     }
   }
 
