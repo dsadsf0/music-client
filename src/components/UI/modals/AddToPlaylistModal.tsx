@@ -49,6 +49,7 @@ const AddToPlaylistModal = memo(({className, closeModal, dataType, addToPlaylist
               ? <LinkStd 
                   to={`${mainRoutes.upload}/${uploadRoutes.playlist}`} 
                   className={cl.block}
+                  onClick = {closeModal}
                 >
                   Create Playlist
                 </LinkStd>
