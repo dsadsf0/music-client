@@ -15,7 +15,7 @@ import mobileChek from './../../../scrtipts/mobileCheck';
 let timerId: NodeJS.Timeout;
 
 const HeaderBar = memo(({ className }: BaseProps) => {
-  const location = useLocation().pathname;
+  const location = decodeURIComponent(useLocation().pathname);
   const [searchQuery, setSearchQuery] = useState('');
   const navigate = useNavigate()
   const [marginRight, setMarginRight] = useState('0px')
