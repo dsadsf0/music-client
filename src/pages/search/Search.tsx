@@ -12,7 +12,6 @@ import SearchedPlaylist from './searched_playlist/SearchedPlaylist';
 import SearchedSong from './searched_song/SearchedSong'
 import { useAppDispatch, useAppSeletor } from '../../hooks/redux'
 import { playerSlice } from '../../store/reducers/PlayerSlice'
-import SongBlock from './../playlist/song_block/SongBlock';
 import AddToPlaylistModal from '../../components/UI/modals/AddToPlaylistModal'
 
 const Search = memo(() => {
