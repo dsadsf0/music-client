@@ -31,16 +31,15 @@ const HeaderBar = memo(({ className }: BaseProps) => {
     setSearchQuery(e.currentTarget.value)
     const query = e.currentTarget.value
     timerId = setTimeout(() => {
-      navigate(`${mainRoutes.search}/${query}`, { replace: true })
+      navigate(`${mainRoutes.search}/${encodeURIComponent(query)}`, { replace: true })
     }, 500)
   }
 
-
   useEffect(() => {
-    const path = location.split('/')
-    const query = path.pop() || ''
-    if (path.includes(mainRoutes.search.slice(1)))
+    if (location.includes(mainRoutes.search) && location !== mainRoutes.search) {
+      const query = location.replace(`${mainRoutes.search}/`, '')
       setSearchQuery(query)
+    }
     else 
       setSearchQuery('')
   }, [location])
