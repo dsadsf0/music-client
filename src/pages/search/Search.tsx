@@ -27,12 +27,12 @@ const Search = memo(() => {
 
   const [fetchPlaylists, isPlaylistsLoading, fetchPlaylistsError] = useFetching(async () => {
     setPlaylists([])
-    const fetchedPlaylist = await PlaylistService.getPlaylistsByQuery(query);
+    const fetchedPlaylist = await PlaylistService.getPlaylistsByQuery(encodeURIComponent(query));
     setPlaylists(fetchedPlaylist)
   })
   const [fetchSongs, isSongsLoading, fetchSongsError] = useFetching(async () => {
     setSongs([])
-    const fetchedSongs = await SongService.getSongsByQuery(query);
+    const fetchedSongs = await SongService.getSongsByQuery(encodeURIComponent(query));
     setSongs(fetchedSongs)
     setCurrentSongsPlaylist(JSON.stringify(fetchedSongs))
   })

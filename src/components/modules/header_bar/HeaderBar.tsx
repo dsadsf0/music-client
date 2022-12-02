@@ -10,7 +10,7 @@ import AuthLayout from './../auth_layout/AuthLayout';
 import UserMenu from './user_menu/UserMenu';
 import SearchInput from './../../UI/inputs/SearchInput';
 import mainRoutes from './../../../routes/mainRoutes';
-import mobileChek from './../../../scrtipts/mobileCheck';
+import mobileCheck from './../../../scrtipts/mobileCheck';
 
 let timerId: NodeJS.Timeout;
 
@@ -46,7 +46,7 @@ const HeaderBar = memo(({ className }: BaseProps) => {
 
   useEffect(() => {
     const main = document.querySelector('main')
-    if (main && !mobileChek(navigator, window)) observer.observe(main, { childList: true, subtree: true})
+    if (main && !mobileCheck(navigator, window)) observer.observe(main, { childList: true, subtree: true})
 
     return () => observer.disconnect()
   }, [])
@@ -57,29 +57,46 @@ const HeaderBar = memo(({ className }: BaseProps) => {
         <div className={cl.nav}>
           <ArrowBack className={cl.arrow} />
           <ArrowForward className={cl.arrow}/>
-          <Routes>
-            <Route
-              path={mainRoutes.search}
-              element={
-                <form
-                  role={'serach'}
-                  className={cl.form}
-                  onSubmit={e => {e.preventDefault()}}
+          {
+            mobileCheck(navigator, window) 
+            ?
+              <form
+                role={'serach'}
+                className={cl.form}
+                onSubmit={e => { e.preventDefault() }}
+              >
+                <SearchInput
+                  value={searchQuery}
+                  setValue={setSearchQuery}
+                  onChange={search}
+                  placeholder='Artists, songs or podcasts'
+                />
+              </form>
+            :
+              <Routes>
+                <Route
+                  path={mainRoutes.search}
+                  element={
+                    <form
+                      role={'serach'}
+                      className={cl.form}
+                      onSubmit={e => { e.preventDefault() }}
+                    >
+                      <SearchInput
+                        value={searchQuery}
+                        setValue={setSearchQuery}
+                        onChange={search}
+                        placeholder='Artists, songs or podcasts'
+                      />
+                    </form>
+                  }
                 >
-                  <SearchInput
-                    value={searchQuery}
-                    setValue={setSearchQuery}
-                    onChange={search}
-                    placeholder='Artists, songs or podcasts'
+                  <Route
+                    path=':id'
                   />
-                </form>
-              }
-            >
-              <Route
-                path=':id'
-              />
-            </Route>
-          </Routes>
+                </Route>
+              </Routes>
+          }
         </div>
         <AuthLayout
           authed={ <UserMenu/> }
