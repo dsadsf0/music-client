@@ -1,10 +1,8 @@
 import React, { createRef, memo, useEffect, useState } from 'react'
-import { Navigate } from 'react-router-dom'
 import PlaylistService from '../../API/PlaylistService'
 import Loader from '../../components/UI/loader/Loader'
 import { useFetching } from '../../hooks/fetching'
 import { useAppSeletor } from '../../hooks/redux'
-import mainRoutes from '../../routes/mainRoutes'
 import IPlaylist from '../../types/IPlaylist'
 import PlaylistBlock from '../home/playlistBlock/playlistBlock'
 import cl from './genres.module.scss'
@@ -12,8 +10,6 @@ import cl from './genres.module.scss'
 let observer: MutationObserver
 
 const Genres = memo(() => {
-  
-  const { isAuth } = useAppSeletor(state => state.auth)
   const [playlists, setPlaylists] = useState<IPlaylist[]>([])
   const playlistSectionRef = createRef<HTMLDivElement>()
 

@@ -1,10 +1,9 @@
-import React, { createRef, memo, useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
 import SectionService from '../../API/SectionService';
 import Loader from '../../components/UI/loader/Loader';
 import { useFetching } from '../../hooks/fetching';
-import { useAppSeletor } from '../../hooks/redux';
 import ISection from '../../types/ISection';
-import cl from './home.module.css'
+import cl from './home.module.css';
 import PlaylistSection from './playlistSection/PlaylistSection';
 
 const Home = memo(() => {

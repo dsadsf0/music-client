@@ -7,7 +7,6 @@ import BaseProps from './../../../../types/BaseProps';
 import cl from './sideBarUserMusicNav.module.css'
 import AuthLayout from './../../auth_layout/AuthLayout';
 import mainRoutes from '../../../../routes/mainRoutes';
-import uploadRoutes from '../../../../routes/uploadRoutes';
 
 interface Props extends BaseProps {
 
