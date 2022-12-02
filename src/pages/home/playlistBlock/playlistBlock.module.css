@@ -48,6 +48,7 @@
   transform: scale(1);
   border: 0;
   outline: 0;
+  pointer-events: none;
 }
 
 .btn div {
@@ -67,6 +68,7 @@
   }
 
   .container:hover .btn {
+    pointer-events: all;
     opacity: 1;
     bottom: 10px;
   }
