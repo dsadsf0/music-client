@@ -69,7 +69,7 @@ const HeaderBar = memo(({ className }: BaseProps) => {
                   value={searchQuery}
                   setValue={setSearchQuery}
                   onChange={search}
-                  placeholder='Artists, songs or podcasts'
+                  placeholder='Artists, songs or playlists'
                 />
               </form>
             :
@@ -86,7 +86,7 @@ const HeaderBar = memo(({ className }: BaseProps) => {
                         value={searchQuery}
                         setValue={setSearchQuery}
                         onChange={search}
-                        placeholder='Artists, songs or podcasts'
+                        placeholder='Artists, songs or playlists'
                       />
                     </form>
                   }
