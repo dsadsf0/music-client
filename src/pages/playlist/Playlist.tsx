@@ -179,7 +179,7 @@ const Playlist = memo(() => {
 
     if (!mobileChek(navigator, window)) {
       const coloring = () => {
-        if (songListIntroRef.current?.getBoundingClientRect().top === 75) {
+        if (songListIntroRef.current?.getBoundingClientRect().top === 74) {
           songListIntroRef.current.style.backgroundColor = '#202020'
         } else if (songListIntroRef.current)
           songListIntroRef.current.style.backgroundColor = 'transparent'
