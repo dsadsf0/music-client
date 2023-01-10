@@ -102,7 +102,7 @@
 
       .input {
         display: block;
-        width: 300px;
+        width: min(300px, 100%);
         font-size: 14px;
         height: 34px;
         color: fff;
