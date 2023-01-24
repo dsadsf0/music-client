@@ -6,6 +6,7 @@
 
     .formElements {
       margin-right: 30px;
+      flex: 0 1 300px;
     }
 
     .image {
@@ -102,7 +103,7 @@
 
       .input {
         display: block;
-        width: min(300px, 100%);
+        width: 100%;
         font-size: 14px;
         height: 34px;
         color: fff;
