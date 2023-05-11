@@ -6,11 +6,9 @@ export const API_URL = 'http://46.147.246.212:3001'
 const api = axios.create({
   withCredentials: true,
   baseURL: API_URL,
-  baseURL: API_URL,
 })
 
 api.interceptors.request.use( config => {
-  config && config.headers && (config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`) 
   config && config.headers && (config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`) 
   return config
 })
