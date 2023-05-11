@@ -1,7 +1,7 @@
 
 const getAverageRGB = (imgEl: HTMLImageElement) => {
 
-  let blockSize = 5, // only visit every 5 pixels
+  let blockSize = 10, // only visit every N pixels
     defaultRGB = { r: 31, g: 31, b: 31 },
     canvas = document.createElement('canvas'),
     context = canvas.getContext && canvas.getContext('2d'),
